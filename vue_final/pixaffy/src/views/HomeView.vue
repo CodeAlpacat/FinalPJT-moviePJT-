@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div >
+      hello world
+    </div>
     <upcoming-movies></upcoming-movies>
   </div>
 </template>
