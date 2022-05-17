@@ -7,4 +7,3 @@ from django.conf import settings
 class User(AbstractUser):
     followings = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='followers')
     genre_likes = models.JSONField(default='{}')
-
