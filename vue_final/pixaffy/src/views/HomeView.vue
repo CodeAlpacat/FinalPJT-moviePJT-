@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1 v-for="(movie, idx) in movies" :key="idx">{{ movie.title }}</h1>
     <upcoming-movies></upcoming-movies>
   </div>
 </template>
