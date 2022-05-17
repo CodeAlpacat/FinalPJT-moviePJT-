@@ -67,7 +67,82 @@
 * 사용자가 가입할 때 관심있는 선호하는 장르를 여러 개 선택할 수 있음.
 * 영화들 중에 사용자가 선호하는 장르 종류가 많이 해당되면 우선 순위가 높아져 가장 앞에 출력
 
+
+
+### 영화 추천 알고리즘
+
+
+
+```python
+user_likes_genre = [28, 37, 80] # 유저가 좋아하는 장르 id 값
+
+    total_range = 0 # range 변수
+
+    for movie in serializer.data:
+        genres = movie['genres'] # 영화가 보유한 장르 리스트
+
+        count = 1 # 확률 가중치
+
+        for genre in genres: # 영화 보유 장르에 대해
+            if genre in user_likes_genre: # 유저가 좋아하는 장르 id 값이 일치할때마다 4배 적용
+                count = count << 4 # 0개 일치: 1 1개 일치: 16 2개 일치: 256 3개 일치: 4096
+
+        lottery_list.append((total_range, total_range + count - 1, movie)) # total range 값, movie 튜플로 append
+        total_range += count # total_range값 증가
+```
+
+* 영화가 보유한 장르 리스트와 유저가 좋아하는 장르리스트를 비교하여, 일치하는 갯수를 파악한다.
+* 일치하는 갯수에 따라, 가중치를 적용하여 범위를 설정후 append를 한다.
+  * 각 범위는 movie가 가지는 범위가 된다.
+* totoal_range는 가중치가 누적되어 형성된 전체 범위가 된다.
+
+
+
+```python
+for _ in range(20): # 숫자 추첨 20번
+        number_list.append(randint(0, total_range - 1))
+    
+    lot_len = len(lottery_list) # 추첨 항목 크기
+    
+    
+    for number in number_list: # 추첨 번호 소속 범위 탐색
+        middle = (lot_len - 1) // 2 # 이진 탐색 middle 값
+        left = 0 # 좌
+        right = lot_len - 1 # 우
+        while True: 
+            if lottery_list[middle][0] > number: # 최소값보다 작으면, right, middle값 갱신
+                right = middle - 1
+                middle = (right + left) // 2
+                continue
+            elif lottery_list[middle][1] < number: # 최대값보다 크면, left, middle값 갱신
+                left = middle + 1
+                middle = (right + left) // 2
+                continue
+            else: # 범위 만족시 while문 탈출
+                break
+        # 중복 체크
+        if not lottery_list[middle][2]['id'] in recommend_check:
+            recommend_list.append(lottery_list[middle][2]) # 찾은 movie append
+            recommend_check.append(lottery_list[middle][2]['id'])
+```
+
+* 0부터 total_range 까지의 범위의 숫자를 20번 뽑아, number_list에 append한다.
+* 이진 탐색을  통해 숫자가 가리키는 movie 범위를 찾는다.
+* 이후, 중복 체크를 하여 이미 들어있는 movie id값이 recommend_check 안에 없을 경우, recommend_list에 movie를, recommend_check에 movie id값을 append한다.
+
+ ```python
+     if len(recommend_list) > 10:
+         return Response(recommend_list[:10])
+     return Response(recommend_list)
+ ```
+
+* 추천 리스트 길이가 10개 초과일 경우, 슬라이싱하여 10개로, 이하일 경우, 리스트를 그대로 반환한다.
+
+
+
+
+
 ### # 향후 과제
 
-* Vue 생성후, 프로젝트 폴더 구성 그래프 작성하기
+* account 관련 serializer 작성하기, 각 serializer 정상 작동 여부 확인하기
 

@@ -77,6 +77,7 @@ def nowplaying_movie_list(request):
 def recommend_movie_list(request):
     movies = get_list_or_404(Movie)
     serializer = MovieListSerializer(movies, many=True)
+
     recommend_list = [] # 추천 리스트
     recommend_check = [] # 중복 확인 리스트
     lottery_list = [] # 로또 리스트
@@ -123,9 +124,7 @@ def recommend_movie_list(request):
         if not lottery_list[middle][2]['id'] in recommend_check:
             recommend_list.append(lottery_list[middle][2]) # 찾은 movie append
             recommend_check.append(lottery_list[middle][2]['id'])
-    
-    # recommend_list = list(set(recommend_list)) # 중복 제거
-    print(recommend_list[0])
+
     if len(recommend_list) > 10:
         return Response(recommend_list[:10])
     return Response(recommend_list)
