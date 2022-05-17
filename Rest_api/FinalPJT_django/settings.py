@@ -32,6 +32,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'accounts',
+    'community',
     'movies',
 
     'corsheaders',
@@ -157,6 +158,6 @@ REST_FRAMEWORK = {
 
 # ] 일단 모든 접근에 대해 허용
 
-CORS_ALLOW_ALL_ORIGINS: True
+CORS_ALLOW_ALL_ORIGINS = True
 
 AUTH_USER_MODEL = 'accounts.User'
