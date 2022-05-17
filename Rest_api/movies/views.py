@@ -36,7 +36,9 @@ def upcoming_movie_list(request):
         if movie['release_date'][0:7] == '2022-06' or movie['release_date'][0:9] == '2022-05-2' :
             upcoming_movies.append(movie)
     
-    return Response(serializers.data)
+    if len(upcoming_movies) > 10:
+        return Response(upcoming_movies[:10])
+    return Response(upcoming_movies)
 
 
 #출시한지 2주 내의 영화를 가져오기
@@ -63,4 +65,13 @@ def nowplaying_movie_list(request):
                         now_playing_list.append(movie)   
     # serializers_2 = MovieListSerializer(now_playing_list, many=True)
 
+    if len(now_playing_list) > 10:
+        return Response(now_playing_list[:10])
     return Response(now_playing_list)
+
+@api_view(['GET'])
+def recommend_movie_list(request):
+    movies = get_list_or_404(Movie)
+    serializer = MovieListSerializer(movies, many=True)
+    recommend_list = []
+    
