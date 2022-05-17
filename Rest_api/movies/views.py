@@ -7,6 +7,8 @@ from django.shortcuts import get_list_or_404, get_object_or_404
 from .serializers.movie import MovieListSerializer, MovieSerializer
 from .models import Movie
 
+from random import randint
+
 #날짜정보
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
@@ -69,9 +71,62 @@ def nowplaying_movie_list(request):
         return Response(now_playing_list[:10])
     return Response(now_playing_list)
 
+
+
 @api_view(['GET'])
 def recommend_movie_list(request):
     movies = get_list_or_404(Movie)
     serializer = MovieListSerializer(movies, many=True)
-    recommend_list = []
+    recommend_list = [] # 추천 리스트
+    recommend_check = [] # 중복 확인 리스트
+    lottery_list = [] # 로또 리스트
+    number_list = [] # 추첨번호 리스트
+    
+    user_likes_genre = [28, 37, 80] # 유저가 좋아하는 장르 id 값
+
+    total_range = 0 # range 변수
+
+    for movie in serializer.data:
+        genres = movie['genres'] # 영화가 보유한 장르 리스트
+
+        count = 1 # 확률 가중치
+
+        for genre in genres: # 영화 보유 장르에 대해
+            if genre in user_likes_genre: # 유저가 좋아하는 장르 id 값이 일치할때마다 4배 적용
+                count = count << 4 # 0개 일치: 1 1개 일치: 16 2개 일치: 256 3개 일치: 4096
+
+        lottery_list.append((total_range, total_range + count - 1, movie)) # total range 값, movie 튜플로 append
+        total_range += count # total_range값 증가
+    
+    for _ in range(20): # 숫자 추첨 20번
+        number_list.append(randint(0, total_range - 1))
+    
+    lot_len = len(lottery_list) # 추첨 항목 크기
+    
+    
+    for number in number_list: # 추첨 번호 소속 범위 탐색
+        middle = (lot_len - 1) // 2 # 이진 탐색 middle 값
+        left = 0 # 좌
+        right = lot_len - 1 # 우
+        while True: 
+            if lottery_list[middle][0] > number: # 최소값보다 작으면, right, middle값 갱신
+                right = middle - 1
+                middle = (right + left) // 2
+                continue
+            elif lottery_list[middle][1] < number: # 최대값보다 크면, left, middle값 갱신
+                left = middle + 1
+                middle = (right + left) // 2
+                continue
+            else: # 범위 만족시 while문 탈출
+                break
+        # 중복 체크
+        if not lottery_list[middle][2]['id'] in recommend_check:
+            recommend_list.append(lottery_list[middle][2]) # 찾은 movie append
+            recommend_check.append(lottery_list[middle][2]['id'])
+    
+    # recommend_list = list(set(recommend_list)) # 중복 제거
+    print(recommend_list[0])
+    if len(recommend_list) > 10:
+        return Response(recommend_list[:10])
+    return Response(recommend_list)
     
