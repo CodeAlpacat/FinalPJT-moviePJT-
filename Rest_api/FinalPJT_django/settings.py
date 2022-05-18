@@ -30,11 +30,19 @@ ALLOWED_HOSTS = []
 
 # Application definition
 
+#커스텀 회원가입 폼 설정
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'accounts.serializers.CustomSignupSerializer',
+}
+ACCOUNT_ADAPTER = 'accounts.adapter.CustomAccountAdapter'
+
+
 INSTALLED_APPS = [
     'accounts',
     'community',
     'movies',
     'django_seed',
+    'imagekit',
 
     'corsheaders',
     'django_extensions',
