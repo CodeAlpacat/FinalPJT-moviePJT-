@@ -35,7 +35,9 @@
 * ModelSerializer 이슈
 * 요청을 보낼때 사용자 검증에 Headers에 Token을 첨부해야 가능
 
+### 실수 및 어려웠던 점
 
+- `serializers.Modelserializer` 을 받아와야하나 그냥 `serializer`을 import 해서 문제가 되었었음.
 
 ### # 향후 과제
 
