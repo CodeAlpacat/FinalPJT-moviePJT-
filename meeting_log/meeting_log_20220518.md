@@ -28,7 +28,9 @@
 
 
 
+### 실수 및 어려웠던 점
 
+- `serializers.Modelserializer` 을 받아와야하나 그냥 `serializer`을 import 해서 문제가 되었었음.
 
 ### # 향후 과제
 
