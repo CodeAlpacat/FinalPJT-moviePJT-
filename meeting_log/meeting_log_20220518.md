@@ -24,9 +24,16 @@
 
 #### 장르 3개까지 선택 가능 하게 하기
 
-> 참고한 자료: https://m.blog.naver.com/pjh445/221327662930
+> 참고한 자료: https://vuetifyjs.com/en/components/checkboxes/#inline-text-field (vuetify 공식 문서)
 
 
+
+## # Community 관련 Serializer 요청 구현하기
+
+
+
+* ModelSerializer 이슈
+* 요청을 보낼때 사용자 검증에 Headers에 Token을 첨부해야 가능
 
 
 
