@@ -19,166 +19,166 @@
       </div>
       <div>
         <v-container fluid>
-          <p>{{ credentials.genres }}</p>
+          <p>{{ genres_list }}</p>
           <v-row>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="모험"
                 value='12'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('12')"
+                :disabled="countSelectedGenres&&!genres_list.includes('12')"
               ></v-checkbox>
             </v-col>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="판타지"
                 value='14'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('14')"
+                :disabled="countSelectedGenres&&!genres_list.includes('14')"
               ></v-checkbox>
             </v-col>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="애니메이션"
                 value='16'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('16')"
+                :disabled="countSelectedGenres&&!genres_list.includes('16')"
               ></v-checkbox>
             </v-col>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="드라마"
                 value='18'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('18')"
+                :disabled="countSelectedGenres&&!genres_list.includes('18')"
               ></v-checkbox>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="공포"
                 value='27'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('27')"
+                :disabled="countSelectedGenres&&!genres_list.includes('27')"
               ></v-checkbox>
             </v-col>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="액션"
                 value='28'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('28')"
+                :disabled="countSelectedGenres&&!genres_list.includes('28')"
               ></v-checkbox>
             </v-col>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="코미디"
                 value='35'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('35')"
+                :disabled="countSelectedGenres&&!genres_list.includes('35')"
               ></v-checkbox>
             </v-col>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="역사"
                 value='36'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('36')"
+                :disabled="countSelectedGenres&&!genres_list.includes('36')"
               ></v-checkbox>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="서부"
                 value='37'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('37')"
+                :disabled="countSelectedGenres&&!genres_list.includes('37')"
               ></v-checkbox>
             </v-col>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="스릴러"
                 value='53'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('53')"
+                :disabled="countSelectedGenres&&!genres_list.includes('53')"
               ></v-checkbox>
             </v-col>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="범죄"
                 value='80'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('80')"
+                :disabled="countSelectedGenres&&!genres_list.includes('80')"
               ></v-checkbox>
             </v-col>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="다큐멘터리"
                 value='99'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('99')"
+                :disabled="countSelectedGenres&&!genres_list.includes('99')"
               ></v-checkbox>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="SF"
                 value='878'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('878')"
+                :disabled="countSelectedGenres&&!genres_list.includes('878')"
               ></v-checkbox>
             </v-col>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="미스터리"
                 value='9648'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('9648')"
+                :disabled="countSelectedGenres&&!genres_list.includes('9648')"
               ></v-checkbox>
             </v-col>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="음악"
                 value='10402'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('10402')"
+                :disabled="countSelectedGenres&&!genres_list.includes('10402')"
               ></v-checkbox>
             </v-col>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="로맨스"
                 value='10749'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('10749')"
+                :disabled="countSelectedGenres&&!genres_list.includes('10749')"
               ></v-checkbox>
             </v-col>
           </v-row>
           <v-row>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="가족"
                 value='10751'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('10751')"
+                :disabled="countSelectedGenres&&!genres_list.includes('10751')"
               ></v-checkbox>
             </v-col>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="전쟁"
                 value='10752'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('10752')"
+                :disabled="countSelectedGenres&&!genres_list.includes('10752')"
               ></v-checkbox>
             </v-col>
             <v-col cols="3">
               <v-checkbox
-                v-model="credentials.genres"
+                v-model="genres_list"
                 label="TV 영화"
                 value='10770'
-                :disabled="countSelectedGenres&&!credentials.genres.includes('10770')"
+                :disabled="countSelectedGenres&&!genres_list.includes('10770')"
               ></v-checkbox>
             </v-col>
           </v-row>
@@ -186,6 +186,11 @@
       </div>
       <div>
         <button>Signup</button>
+      </div>
+      <div>
+        <p>
+          {{ credentials.genres }}
+        </p>
       </div>
     </form>
   </div>
@@ -207,19 +212,25 @@
           password1: '',
           password2: '',
           //  장르 추가
-          genres: [],
+          genres: null,
         },
+        genres_list: []
       }
     },
-    computed: {
+    computed: { 
       ...mapGetters(['authError']),
       countSelectedGenres() {
-        return !(this.credentials.genres.length < 3)
+        return !(this.genres_list.length < 3)
       }
     },
     methods: {
-      ...mapActions(['signup'])
+      ...mapActions(['signup']),
     },
+    watch: {
+      genres_list: function (val) {
+        this.credentials.genres = JSON.stringify(val)
+      }
+    }
   }
 </script>
 

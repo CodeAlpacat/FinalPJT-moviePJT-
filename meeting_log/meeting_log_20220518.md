@@ -22,9 +22,24 @@
 
 
 
+
+
 #### 장르 3개까지 선택 가능 하게 하기
 
 > 참고한 자료: https://vuetifyjs.com/en/components/checkboxes/#inline-text-field (vuetify 공식 문서)
+
+* 3개가 선택되면, 나머지 항목들은 체크박스 비활성화, 선택된 항목들은 활성화 상태 유지를 위해
+
+  `:disabled` 속성에 genre 3개이상이고 선택되어 있지 않으면 true가 되도록 설정하였다.
+
+
+
+#### 회원 가입과 연동
+
+* rest_api에서 JSONfield로 genre를 받도록 하였기에, vue에서 입력받은 genre를 json화 하여 넘겨주어야 한다.
+* 이에 따라, credentials의 genre 항목은, genre_list의 배열을 `JSON.stringify()`메서드로 JSON화 하여 삽입하였다.
+
+
 
 
 
@@ -39,7 +54,9 @@
 
 - `serializers.Modelserializer` 을 받아와야하나 그냥 `serializer`을 import 해서 문제가 되었었음.
 
+
+
 ### # 향후 과제
 
-
+* user model 및 serializer에 profileImage 추가
 
