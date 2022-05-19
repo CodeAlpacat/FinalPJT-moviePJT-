@@ -1,21 +1,21 @@
 <template>
   <div>
     <div >
-      <card-algorithm></card-algorithm>
+      <genre-based-recommendation></genre-based-recommendation>
+      <card-view></card-view>
     </div>
-    <upcoming-movies></upcoming-movies>
   </div>
 </template>
 
 <script>
-import UpcomingMovies from '@/components/UpcomingMovies.vue';
-import CardAlgorithm from '@/components/CardAlgorithm.vue';
+import GenreBasedRecommendation from '@/components/GenreBasedRecommendation.vue';
+import CardView from '@/components/CardView.vue';
 export default {
   name: "HomeView",
 
   components: {
-    UpcomingMovies,
-    CardAlgorithm
+    CardView,
+    GenreBasedRecommendation
   },
 
   data() {

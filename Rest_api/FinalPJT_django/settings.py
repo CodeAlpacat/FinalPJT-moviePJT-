@@ -42,7 +42,7 @@ INSTALLED_APPS = [
     'community',
     'movies',
     'django_seed',
-    'imagekit',
+    # 'imagekit',
 
     'corsheaders',
     'django_extensions',
