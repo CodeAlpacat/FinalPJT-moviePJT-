@@ -59,7 +59,7 @@ export default {
   async created() {
     const response = await fetch("http://127.0.0.1:8000/movies/nowplaying");
     this.movies = await response.json();
-    
+    this.$store.dispatch('movieSelect',this.movies[0])
   },
 
 
