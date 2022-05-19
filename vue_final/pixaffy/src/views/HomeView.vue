@@ -17,7 +17,7 @@
       </template>
       <upcoming-movies></upcoming-movies>
       <v-card>
-        <detail-dialog :movie="movie"></detail-dialog>
+        <detail-dialog></detail-dialog>
       </v-card>
     </v-dialog>
     <div >
