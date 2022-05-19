@@ -1,35 +1,45 @@
 <template>
   <v-app>
-      <v-app-bar app color="secondary" dark prominent shrink-on-scroll>
-        <div class="d-flex">
-          <v-app-bar-nav-icon> </v-app-bar-nav-icon>
-          <v-toolbar-title>Title</v-toolbar-title>
-        </div>
-        <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
-        <v-menu left bottom>
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn icon v-bind="attrs" v-on="on">
-              <v-icon>mdi-dots-vertical</v-icon>
-            </v-btn>
-            <v-btn icon v-bind="attrs" v-on="on">
-              <router-link to="/">시작</router-link>
-            </v-btn>
-            <v-btn icon v-bind="attrs" v-on="on">
-              <router-link to="/home">HOME</router-link>
-            </v-btn>
-            <v-btn icon v-bind="attrs" v-on="on">
-              <router-link to="/movie">MOVIE</router-link>
-            </v-btn>
-          </template>
-        </v-menu>
-      </v-app-bar>
-      <v-sheet>
-        <v-container style="height: 130px"></v-container>
-      </v-sheet>
-    <router-view />
+    <v-app-bar app color="secondary" height="50px" dark shrink-on-scroll>
+      <div class="d-flex">
+        <v-app-bar-nav-icon> </v-app-bar-nav-icon>
+        <v-toolbar-title></v-toolbar-title>
+      </div>
+      <v-spacer></v-spacer>
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+      <v-menu left bottom>
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn icon v-bind="attrs" v-on="on">
+            <v-icon>mdi-dots-vertical</v-icon>
+          </v-btn>
+          <v-btn icon v-bind="attrs" v-on="on">
+            <router-link to="/">시작</router-link>
+          </v-btn>
+          <v-btn icon v-bind="attrs" v-on="on">
+            <router-link to="/home">HOME</router-link>
+          </v-btn>
+          <v-btn icon v-bind="attrs" v-on="on">
+            <router-link to="/movie">MOVIE</router-link>
+          </v-btn>
+        </template>
+      </v-menu>
+       <template v-slot:extension>
+        <v-autocomplete clearable dense rounded solo-inverted ></v-autocomplete>
+      </template>
+    </v-app-bar>
+    <v-sheet>
+      <v-container style="height: 130px"> </v-container>
+    </v-sheet>
+    
+    <transition
+      mode="out-in"
+      enter-active-class="animate__animated animate__fadeIn animate__faster"
+      leave-active-class="animate__animated animate__fadeOut animate__faster"
+    >
+      <router-view />
+    </transition>
   </v-app>
 </template>
 
@@ -40,7 +50,6 @@ export default {
   data: () => ({
     collapseOnScroll: true,
   }),
-
 };
 </script>
 <style lang="scss">
@@ -63,5 +72,8 @@ nav {
 }
 .app__bar {
   position: sticky;
+}
+#app-bar {
+  max-height: 200px;
 }
 </style>
