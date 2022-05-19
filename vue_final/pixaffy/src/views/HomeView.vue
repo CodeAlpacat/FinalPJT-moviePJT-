@@ -15,9 +15,6 @@
           Detail
         </v-btn>
       </template>
-      <div>
-        <card-algorithm></card-algorithm>
-      </div>
       <upcoming-movies></upcoming-movies>
       <v-card>
         <detail-dialog :pk="1"></detail-dialog>
@@ -31,8 +28,6 @@
 </template>
 
 <script>
-import UpcomingMovies from '@/components/UpcomingMovies.vue';
-import CardAlgorithm from '@/components/CardAlgorithm.vue';
 import DetailDialog from '@/components/DetailDialog.vue';
 import { mapGetters, mapActions } from 'vuex';
 
@@ -42,14 +37,13 @@ export default {
   name: "HomeView",
 
   components: {
-    UpcomingMovies,
-    CardAlgorithm,
-    DetailDialog
-  },
-  computed: {
-    ...mapGetters(['dialogDetail']),
+    DetailDialog,
     CardView,
     GenreBasedRecommendation
+  },
+  computed: {
+    ...mapGetters(['dialogDetail'])
+    
   },
 
   data() {
