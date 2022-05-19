@@ -6,8 +6,10 @@ from rest_framework.decorators import api_view
 from django.shortcuts import get_list_or_404, get_object_or_404
 from .serializers.movie import MovieListSerializer, MovieSerializer
 from .models import Movie
+from django.contrib.auth import get_user_model
 
 from random import randint
+import json
 
 #날짜정보
 from datetime import datetime
@@ -74,17 +76,18 @@ def nowplaying_movie_list(request):
 
 
 @api_view(['GET'])
-def recommend_movie_list(request):
+def recommend_movie_list(request, user_pk):
     movies = get_list_or_404(Movie)
     serializer = MovieListSerializer(movies, many=True)
-
+    user = get_object_or_404(get_user_model(), pk=user_pk) # 현재 접속한 유저
     recommend_list = [] # 추천 리스트
     recommend_check = [] # 중복 확인 리스트
     lottery_list = [] # 로또 리스트
     number_list = [] # 추첨번호 리스트
     
-    user_likes_genre = [28, 37, 80] # 유저가 좋아하는 장르 id 값
-
+    user_likes_genre = json.loads(user.genre_likes).get("genre_likes") or []  # 유저가 좋아하는 장르 id 값
+    print(user_likes_genre)
+    print(type(user_likes_genre))
     total_range = 0 # range 변수
 
     for movie in serializer.data:
@@ -93,9 +96,8 @@ def recommend_movie_list(request):
         count = 1 # 확률 가중치
 
         for genre in genres: # 영화 보유 장르에 대해
-            if genre in user_likes_genre: # 유저가 좋아하는 장르 id 값이 일치할때마다 4배 적용
+            if str(genre) in user_likes_genre: # 유저가 좋아하는 장르 id 값이 일치할때마다 4배 적용
                 count = count << 4 # 0개 일치: 1 1개 일치: 16 2개 일치: 256 3개 일치: 4096
-
         lottery_list.append((total_range, total_range + count - 1, movie)) # total range 값, movie 튜플로 append
         total_range += count # total_range값 증가
     
