@@ -4,6 +4,7 @@ import store from './store'
 import router from './router'
 import vuetify from './plugins/vuetify'
 import '@fortawesome/fontawesome-free/js/all.js'
+import 'animate.css';
 
 Vue.config.productionTip = false
 
