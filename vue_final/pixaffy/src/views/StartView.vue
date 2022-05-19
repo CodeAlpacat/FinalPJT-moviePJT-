@@ -21,6 +21,9 @@ export default {
       helloWorld: "DORAITHON",
     };
   },
+    created() {
+    setTimeout(() => this.$router.push({ path: "/home" }), 3000);
+  },
   mounted() {
     this.$anime({
       targets: ".text",

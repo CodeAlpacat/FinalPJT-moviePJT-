@@ -40,9 +40,7 @@ export default {
   data: () => ({
     collapseOnScroll: true,
   }),
-  created() {
-    setTimeout(() => this.$router.push({ path: "/home" }), 3000);
-  }
+
 };
 </script>
 <style lang="scss">
