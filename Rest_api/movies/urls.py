@@ -9,4 +9,5 @@ urlpatterns = [
     path('upcoming/',views.upcoming_movie_list),
     path('nowplaying/', views.nowplaying_movie_list),
     path('recommend/<int:user_pk>/', views.recommend_movie_list),
+    path('genres/', views.genres_list),
 ]

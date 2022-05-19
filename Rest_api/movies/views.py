@@ -5,7 +5,8 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import get_list_or_404, get_object_or_404
 from .serializers.movie import MovieListSerializer, MovieSerializer
-from .models import Movie
+from .serializers.genre import GenreListSerializer
+from .models import Genre, Movie
 from django.contrib.auth import get_user_model
 
 from random import randint
@@ -130,4 +131,9 @@ def recommend_movie_list(request, user_pk):
     if len(recommend_list) > 10:
         return Response(recommend_list[:10])
     return Response(recommend_list)
-    
+
+@api_view(['GET'])
+def genres_list(request):
+    genres = get_list_or_404(Genre)
+    serializers = GenreListSerializer(genres, many=True)
+    return Response(serializers.data)
