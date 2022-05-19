@@ -1,7 +1,7 @@
 <template>
   <div>
     <div >
-      hello world
+      <card-algorithm></card-algorithm>
     </div>
     <upcoming-movies></upcoming-movies>
   </div>
@@ -9,11 +9,13 @@
 
 <script>
 import UpcomingMovies from '@/components/UpcomingMovies.vue';
+import CardAlgorithm from '@/components/CardAlgorithm.vue';
 export default {
   name: "HomeView",
 
   components: {
     UpcomingMovies,
+    CardAlgorithm
   },
 
   data() {
