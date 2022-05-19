@@ -12,6 +12,7 @@ export default {
     currentUser: {},
     profile: {},
     authError: null,
+    dialogDetail: false,
   },
   // 모든 state는 getters 를 통해서 접근하겠다.
   getters: {
@@ -19,14 +20,16 @@ export default {
     currentUser: state => state.currentUser,
     profile: state => state.profile,
     authError: state => state.authError,
-    authHeader: state => ({ Authorization: `Token ${state.token}`})
+    authHeader: state => ({ Authorization: `Token ${state.token}`}),
+    dialogDetail: state => state.dialogDetail
   },
 
   mutations: {
     SET_TOKEN: (state, token) => state.token = token,
     SET_CURRENT_USER: (state, user) => state.currentUser = user,
     SET_PROFILE: (state, profile) => state.profile = profile,
-    SET_AUTH_ERROR: (state, error) => state.authError = error
+    SET_AUTH_ERROR: (state, error) => state.authError = error,
+    SET_DIALOG_DETAIL: (state) => state.dialogDetail = !state.dialogDetail
   },
 
   actions: {
@@ -171,5 +174,9 @@ export default {
           commit('SET_PROFILE', res.data)
         })
     },
+
+    toggleDialogDetail({ commit }){
+      commit('SET_DIALOG_DETAIL')
+    }
   },
 }

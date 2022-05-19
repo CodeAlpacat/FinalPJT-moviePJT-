@@ -41,9 +41,17 @@
 
 
 
+### # V-Dialog를 이용한 Detail Modal 생성
+
+> Vuetify의 V-Dialog를 이용하여 Detail-Modal을 생성 및 하위 컴포넌트를 생성하였다.
+
+* Overview, Review, Recommendation 창의 바뀌는것은 v-show와 @click을 통해 구현하였으며, 정상적으로 토글하는 것을 확인하였다.
+* Detail Modal에서 기본적으로 존재하는 닫기버튼과 Add my movie 버튼은 생성하였으며, 닫기버튼의 경우, 누를 경우 modal이 닫히도록 하였다.
+
 
 
 ### # 향후 과제
 
-* signup page에서 표현되는 문자를 id값 대신 장르 이름을 표시하도록 수정
+* Detail Modal 구체화
+* Detail Modal과 연결
 
