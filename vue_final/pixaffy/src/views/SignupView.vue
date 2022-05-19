@@ -18,6 +18,31 @@
         <input v-model="credentials.password2" type="password" id="password2" required />
       </div>
       <div>
+        <v-file-input
+          :rules="imageRules"
+          accept="image/png, image/jpeg, image/bmp"
+          placeholder="프로필 이미지를 선택해 주세요"
+          prepend-icon="mdi-camera"
+          label="프로필 이미지"
+          v-model="credentials.profileImage"
+        ></v-file-input>
+      </div>
+      <div>
+        {{credentials.profileImage}}
+      </div>
+      <div>
+        <v-text-field
+          label="E-mail"
+          :rules="emailRules"
+          hide-details="auto"
+          prepend-icon="mdi-email"
+          v-model="credentials.email"
+        ></v-text-field>
+      </div>
+      <div>
+        {{credentials.email}}
+      </div>
+      <div>
         <v-container fluid>
           <p>{{ genres_list }}</p>
           <v-row>
@@ -213,8 +238,16 @@
           password2: '',
           //  장르 추가
           genres: null,
+          email: '',
+          profileImage: null,
         },
-        genres_list: []
+        genres_list: [],
+        imageRules: [
+          value => !value || value.size < 2000000 || '프로필 이미지 사이즈는 2Mb 보다 작아야 합니다.'
+        ],
+        emailRules: [
+          value => (/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/).test(value) || '이메일 형식을 확인하세요.'
+        ]
       }
     },
     computed: { 
