@@ -85,16 +85,18 @@ export default {
         실패하면
           에러 메시지 표시
       */
+  
       axios({
         url: drf.accounts.signup(),
         method: 'post',
-        data: credentials
+        data: credentials,
+        // headers: {'Content-Type': 'multipart/form-data'}
       })
         .then(res => {
           const token = res.data.key
           dispatch('saveToken', token)
           dispatch('fetchCurrentUser')
-          router.push({ name: 'articles' })
+          router.push({ name: 'start' })
         })
         .catch(err => {
           console.error(err.response.data)
