@@ -21,14 +21,25 @@
 **확인된 문제**
 
 * genre필드가 제대로 DB에 저장되지 않았다. JSONField 형식에 맞지 않게 들어가는 것으로 판단되어 확인중
-* 해결
-  * vue와 rest_api간의 key값이 통일되지 않아 발생하였고, JSONField 형식에 맞지 않아 data 값이 들어가지 않았다.
+
+**해결**
+
+* vue와 rest_api간의 key값이 통일되지 않아 발생하였고, JSONField 형식에 맞지 않아 data 값이 들어가지 않았다.
 
 
 
-### # 유저선호 genre를 통한 추천 알고리즘 연동
+### # 유저 선호 genre를 통한 추천 알고리즘 연동
 
 > 가상의 genre 리스트를 통해 구현한 추천 알고리즘을 실제 로그인한 유저의 genre 리스트를 통해 추천받기
+
+**주요 변경사항**
+
+* 추천 url에 user_pk값을 추가로 요청한다.
+  * `'recommend/'` => `'recommend/<int:user_pk>/'`
+  * view함수 또한 user_pk인자를 받아야한다.
+  * user_pk로부터 user를 가져와 genre_list를 참조한다. 이때, parsing을 진행하고, 비교시 str형태의 숫자로 비교한다.
+
+
 
 
 
