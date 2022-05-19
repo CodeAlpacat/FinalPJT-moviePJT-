@@ -10,7 +10,7 @@
             cols="4"
           >
             <v-img
-              :src="posterPath()"
+              :src="posterPath"
             ></v-img>
           </v-col>
           <v-col
