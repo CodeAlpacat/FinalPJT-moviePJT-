@@ -50,6 +50,9 @@ export default {
   data: () => ({
     model: null,
   }),
+  props: {
+    movie: Object
+  },
 }
 </script>
 

@@ -13,6 +13,7 @@ export default {
     profile: {},
     authError: null,
     dialogDetail: false,
+    movie: null,
   },
   // 모든 state는 getters 를 통해서 접근하겠다.
   getters: {
@@ -21,7 +22,8 @@ export default {
     profile: state => state.profile,
     authError: state => state.authError,
     authHeader: state => ({ Authorization: `Token ${state.token}`}),
-    dialogDetail: state => state.dialogDetail
+    dialogDetail: state => state.dialogDetail,
+    movie: state => state.movie,
   },
 
   mutations: {
@@ -29,7 +31,8 @@ export default {
     SET_CURRENT_USER: (state, user) => state.currentUser = user,
     SET_PROFILE: (state, profile) => state.profile = profile,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
-    SET_DIALOG_DETAIL: (state) => state.dialogDetail = !state.dialogDetail
+    SET_DIALOG_DETAIL: (state) => state.dialogDetail = !state.dialogDetail,
+    SET_MOVIE: (state, movie) => state.movie = movie
   },
 
   actions: {
@@ -177,6 +180,10 @@ export default {
 
     toggleDialogDetail({ commit }){
       commit('SET_DIALOG_DETAIL')
+    },
+
+    movieSelect({commit}, movie){
+      commit('SET_MOVIE', movie)
     }
   },
 }

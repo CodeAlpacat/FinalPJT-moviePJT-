@@ -32,7 +32,7 @@
         <review-detail></review-detail>
       </div>
       <div v-show="descriptionShow">
-        <description-detail></description-detail>
+        <description-detail :movie="movie"></description-detail>
       </div>
     </div>
   </div>
@@ -52,6 +52,12 @@ export default {
     OverviewDetail,
     ReviewDetail,
     DescriptionDetail,
+  },
+  props: {
+    movies: {
+      type: Array,
+      required: true,
+    }
   },
   data() {
     return {

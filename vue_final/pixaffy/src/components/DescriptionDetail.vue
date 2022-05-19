@@ -10,16 +10,16 @@
             cols="4"
           >
             <v-img
-              src="https://picsum.photos/id/11/500/300"
+              :src="posterPath()"
             ></v-img>
           </v-col>
           <v-col
             cols="8"
           >
-            <h3>제목</h3>
+            <h2>{{ movie.title }}</h2>
             <h4>장르</h4>
             <v-rating
-                value="4"
+                :value="movie.vote_average / 2"
                 color="amber"
                 dense
                 half-increments
@@ -27,7 +27,7 @@
                 size="20"
               >
             </v-rating>
-            <h4>개요</h4>
+            <h4>{{ movie.overview }}</h4>
           </v-col>
         </v-row>
       </v-card>
@@ -78,7 +78,18 @@
 
 <script>
 export default {
-  name:'descriptionDetail'
+  name:'descriptionDetail',
+  props: {
+    movie: {
+      type: Object,
+      required: true,
+    }
+  },
+  computed: {
+    posterPath() {
+      return "https://image.tmdb.org/t/p/w500/" + this.movie.poster_path;
+    },
+  },
 }
 </script>
 
