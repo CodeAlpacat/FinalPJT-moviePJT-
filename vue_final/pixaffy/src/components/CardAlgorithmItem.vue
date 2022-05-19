@@ -1,5 +1,12 @@
 <template>
-  <div></div>
+  <div class="mx-3">
+    <h2 class="mt-2 grey--text"></h2>
+    <v-container fluid>
+      <v-row>
+        <!-- <v-col cols="12" sm="3" v-for="movie in movies"></v-col> -->
+      </v-row>
+    </v-container>
+  </div>
 </template>
 
 <script>

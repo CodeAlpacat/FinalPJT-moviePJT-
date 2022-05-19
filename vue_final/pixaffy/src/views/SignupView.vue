@@ -32,18 +32,28 @@
           required
         />
       </div>
-      <!-- <div>
-        <v-file-input
+      <!-- <div> -->
+        <!-- <v-file-input
           :rules="imageRules"
+          @change="findImg"
+          ref="profile"
           accept="image/png, image/jpeg, image/bmp"
           placeholder="프로필 이미지를 선택해 주세요"
           prepend-icon="mdi-camera"
           label="프로필 이미지"
-        ></v-file-input>
+        ></v-file-input> -->
+        <!-- <label for="profile-image">프로필이미지</label>
+        <input
+          @change="findImg()"
+          type="file"
+          ref="profile"
+          id="profile-image"
+          accept=".png, .jpeg, .bmp"
+        />
       </div> -->
-      <!-- <div>
+      <div>
         {{ this.credentials.profile_img }}
-      </div> -->
+      </div>
       <div>
         <v-text-field
           label="E-mail"
@@ -256,6 +266,7 @@ export default {
   },
   data() {
     return {
+      // formData: {},
       credentials: {
         username: "",
         password1: "",
@@ -263,6 +274,7 @@ export default {
         //  장르 추가
         genre_likes: null,
         email: "",
+        // profile_img: null,
       },
       genres_list: [],
       // imageRules: [
@@ -287,17 +299,39 @@ export default {
   },
   methods: {
     ...mapActions(["signup"]),
+    // findImg() {
+    //   this.credentials.profile_img = this.$refs.profile.files[0];
+    // },
+    // submitData() {
+    //   const formData = new FormData();
+    //   formData.append("username", this.credentials.username);
+    //   formData.append("password1", this.credentials.password1);
+    //   formData.append("password2", this.credentials.password2);
+    //   formData.append("genre_likes", this.credentials.genre_likes);
+    //   formData.append("email", this.credentials.email);
+    //   formData.append("profile_img", this.credentials.profile_img);
+    //   for (let key in formData.entries()) {
+    //     console.log(`${key}`);
+    //   }
+    //   this.$http
+    //     .post("http://localhost:8000/api/v1/accounts/signup/", formData, {
+    //       headers: {
+    //         "Content-Type": "multipart/form-data",
+    //       },
+    //     })
+    //     .then((res) => {
+    //       console.log(res);
+    //     });
+    // },
   },
   watch: {
     genres_list: function (val) {
-      const new_val = {'genre_likes': val}
-      this.credentials.genre_likes = JSON.stringify(new_val)
+      const new_val = { genre_likes: val };
+      this.credentials.genre_likes = JSON.stringify(new_val);
       console.log(this.credentials.genre_likes);
-
     },
   },
 };
 </script>
 
-<style>
-</style>
+<style></style>

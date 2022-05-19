@@ -67,7 +67,7 @@ export default {
           const token = res.data.key
           dispatch('saveToken', token)
           dispatch('fetchCurrentUser')
-          router.push({ name: 'articles' })
+          router.push({ name: 'home' })
         })
         .catch(err => {
           console.error(err.response.data)
@@ -75,30 +75,30 @@ export default {
         })
     },
 
-    signup({ commit, dispatch }, credentials) {
-      /* 
-      POST: 사용자 입력정보를 signup URL로 보내기
-        성공하면
-          응답 토큰 저장
-          현재 사용자 정보 받기
-          메인 페이지(ArticleListView)로 이동
-        실패하면
-          에러 메시지 표시
-      */
-  
+    signup({ commit, dispatch }, formData) {
+    //   /* 
+    //   POST: 사용자 입력정보를 signup URL로 보내기
+    //     성공하면
+    //       응답 토큰 저장
+    //       현재 사용자 정보 받기
+    //       메인 페이지(ArticleListView)로 이동
+    //     실패하면
+    //       에러 메시지 표시
+    //   */
       axios({
         url: drf.accounts.signup(),
         method: 'post',
-        data: credentials,
+        data: formData,
         // headers: {'Content-Type': 'multipart/form-data'}
       })
         .then(res => {
           const token = res.data.key
           dispatch('saveToken', token)
           dispatch('fetchCurrentUser')
-          router.push({ name: 'start' })
+          router.push({ name: 'home' })
         })
         .catch(err => {
+          router.push({ name: 'home' })
           console.error(err.response.data)
           commit('SET_AUTH_ERROR', err.response.data)
         })
