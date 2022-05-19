@@ -43,7 +43,7 @@ import MovieTrailer from './MovieTrailer.vue'
 import OverviewDetail from './OverviewDetail.vue'
 import ReviewDetail from './ReviewDetail.vue'
 import DescriptionDetail from './DescriptionDetail.vue'
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 
 export default {
   name: 'detailDialog',
@@ -53,12 +53,6 @@ export default {
     ReviewDetail,
     DescriptionDetail,
   },
-  props: {
-    movies: {
-      type: Array,
-      required: true,
-    }
-  },
   data() {
     return {
       overviewShow: true,
@@ -66,6 +60,9 @@ export default {
       descriptionShow: false,
     }
 
+  },
+  computed: {
+    ...mapGetters(['movie'])
   },
   methods: {
     ...mapActions(['toggleDialogDetail']),
