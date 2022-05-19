@@ -15,7 +15,6 @@
           Detail
         </v-btn>
       </template>
-      <upcoming-movies></upcoming-movies>
       <v-card>
         <detail-dialog></detail-dialog>
       </v-card>
@@ -42,7 +41,7 @@ export default {
     GenreBasedRecommendation
   },
   computed: {
-    ...mapGetters(['dialogDetail']),
+    ...mapGetters(['dialogDetail', 'movie']),
     
   },
 
