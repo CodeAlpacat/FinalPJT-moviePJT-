@@ -23,6 +23,14 @@
       <article-view></article-view>
       <article-view></article-view>
     </div>
+    <div style="text-align:right; margin-right:10%">
+      <v-btn
+        icon
+        color="blue darken-4"
+      >
+        <v-icon>mdi-pencil</v-icon>
+      </v-btn>
+    </div>
     <div class="text-center">
       <v-pagination
         v-model="page"
