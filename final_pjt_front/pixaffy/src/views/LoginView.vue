@@ -95,6 +95,7 @@ export default {
   height: 450px;
   width: 700px;
 }
+
 .login-card__div__header {
   padding-bottom: 20px;
 }
