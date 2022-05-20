@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from ..models import Article
 from ..models import Comment
 
-class CommentSerializer(serializers.Serializer):
+class CommentSerializer(serializers.ModelSerializer):
     
     class UserSerializer(serializers.ModelSerializer):
         class Meta:

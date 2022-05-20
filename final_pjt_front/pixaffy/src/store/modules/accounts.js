@@ -42,7 +42,7 @@ export default {
       localStorage에 token 추가
       */
       commit('SET_TOKEN', token)
-      localStorage.setItem('token', token)
+      localStorage.setItem('token', token, Date.now()+1)
     },
 
     removeToken({ commit }) {
@@ -152,7 +152,10 @@ export default {
           method: 'get',
           headers: getters.authHeader,
         })
-          .then(res => commit('SET_CURRENT_USER', res.data))
+          .then(res => {
+            commit('SET_CURRENT_USER', res.data)
+            localStorage.setItem('currentUser', JSON.stringify(res.data))
+          })
           .catch(err => {
             if (err.response.status === 401) {
               dispatch('removeToken')

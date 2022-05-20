@@ -23,26 +23,33 @@
           <v-btn icon v-bind="attrs" v-on="on">
             <router-link to="/movie">MOVIE</router-link>
           </v-btn>
-           <v-btn icon v-bind="attrs" v-on="on">
-            <router-link to="/logout">Signup</router-link>
-          </v-btn>
+          |
           <v-btn icon v-bind="attrs" v-on="on">
-            <router-link to="/logout">LogIn</router-link>
+            <router-link to="/signup">Signup</router-link>
           </v-btn>
+          |
+          <v-btn icon v-bind="attrs" v-on="on">
+            <router-link to="/login">LogIn</router-link>
+          </v-btn>
+          |
           <v-btn icon v-bind="attrs" v-on="on">
             <router-link to="/logout">Logout</router-link>
           </v-btn>
-          
+          <v-btn icon v-bind="attrs" v-on="on">
+            <router-link :to="{ name: 'profile', params: { username } }">
+              {{ currentUser.username }}'s page
+            </router-link>
+          </v-btn>
         </template>
       </v-menu>
-       <template v-slot:extension>
-        <v-autocomplete clearable dense rounded solo-inverted ></v-autocomplete>
+      <template v-slot:extension>
+        <v-autocomplete clearable dense rounded solo-inverted></v-autocomplete>
       </template>
     </v-app-bar>
     <v-sheet>
       <v-container style="height: 130px"> </v-container>
     </v-sheet>
-    
+
     <transition
       mode="out-in"
       enter-active-class="animate__animated animate__fadeIn animate__faster"
@@ -54,12 +61,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex';
 export default {
   name: "App",
   components: {},
   data: () => ({
     collapseOnScroll: true,
   }),
+  computed: {
+      ...mapGetters(['isLoggedIn', 'currentUser']),
+      username() {
+        return this.currentUser.username ? this.currentUser.username : 'guest'
+      },
+    },
 };
 </script>
 <style lang="scss">
