@@ -8,6 +8,7 @@ import LoginView from '../views/LoginView.vue'
 import LogoutView from '../views/LogoutView.vue'
 import CommunityView from '../views/CommunityView.vue'
 import ProfileView from '../views/ProfileView.vue'
+import ArticleDetailView from '../views/ArticleDetailView.vue'
 
 
 Vue.use(VueRouter)
@@ -52,7 +53,13 @@ const routes = [
     path: '/profile/:username',
     name: 'profile',
     component: ProfileView
-  }
+  },
+  {
+    // path: '/article/:article_pk',
+    path: '/article/',
+    name: 'article',
+    component: ArticleDetailView
+  },
 ]
 
 const router = new VueRouter({
