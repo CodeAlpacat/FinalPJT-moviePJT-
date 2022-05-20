@@ -32,7 +32,7 @@
         <review-detail></review-detail>
       </div>
       <div v-show="descriptionShow">
-        <description-detail :movie="movie"></description-detail>
+        <description-detail></description-detail>
       </div>
     </div>
   </div>
