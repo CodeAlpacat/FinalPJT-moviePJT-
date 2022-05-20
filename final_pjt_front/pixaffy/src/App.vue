@@ -61,7 +61,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
 export default {
   name: "App",
   components: {},
@@ -74,6 +74,12 @@ export default {
         return this.currentUser.username ? this.currentUser.username : 'guest'
       },
     },
+  methods: {
+      ...mapActions(['fetchCurrentUser'])
+    },
+    created() {
+      this.fetchCurrentUser()
+    }
 };
 </script>
 <style lang="scss">

@@ -1,12 +1,13 @@
 <template>
-  <v-card class="login-card" shaped>
+  <div class="login-card">
     <account-error-list v-if="authError"></account-error-list>
     <div class="login-card__div" :class="`rounded-lg`">
       <div>
         <v-img
-          src="https://cdn.notefolio.net/img/1e/92/1e927a7b83c8d41b77e41b2c2f31c2cb9170f18f6aa2a74b57f87a65bd9f2cf6_v1.jpg"
+          class="login-card__div__img"
+          src="https://img.freepik.com/free-photo/white-brick-wall-texture-design-empty-white-brick-background-for-presentations_1962-1075.jpg?w=1800"
           height="450px"
-          width="330px"
+          width="350px"
         ></v-img>
       </div>
       <!-- div와 div로 grid를 이용해 반으로 분할 -->
@@ -19,7 +20,6 @@
             class="login-card__div__right"
             prepend-icon="fa-solid fa-user"
             v-model="credentials.username"
-            :disabled="isUpdating"
             filled
             color="blue-grey lighten-2"
             label="username"
@@ -32,7 +32,6 @@
           <v-text-field
             prepend-icon="fa-solid fa-key"
             v-model="credentials.password"
-            :disabled="isUpdating"
             filled
             color="blue-grey lighten-2"
             label="password"
@@ -45,7 +44,7 @@
         <button class="login-card__div__form__btn"><span>Login</span></button>
       </form>
     </div>
-  </v-card>
+  </div>
 </template>
 
 <script>
@@ -94,6 +93,8 @@ export default {
   min-width: 700px;
   height: 450px;
   width: 700px;
+  background-color: white;
+  border-radius: 40px;
 }
 
 .login-card__div__header {
@@ -117,7 +118,7 @@ export default {
   border-radius: 30px;
   border: none;
   color: white;
-  background-color: #2571bd;
+  background-color: #999d9e;
   text-align: center;
   opacity: 1;
   cursor: pointer;
@@ -157,5 +158,8 @@ export default {
 .login-card__div__form__input {
   width: 270px;
   height: 80px;
+}
+.login-card__div__img {
+  border-radius:10px;
 }
 </style>
