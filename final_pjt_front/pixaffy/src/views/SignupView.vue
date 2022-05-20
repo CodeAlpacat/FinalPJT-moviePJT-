@@ -82,7 +82,7 @@
             persistent-hint
           ></v-select>
           </div>
-          <button class="login-card__div__form__btn"><span>Login</span></button>
+          <button class="login-card__div__form__btn"><span>Signup</span></button>
         </form>
       </div>
     </div>
