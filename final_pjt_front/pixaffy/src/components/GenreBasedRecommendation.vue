@@ -16,9 +16,7 @@
           />
           <figcaption class="d-flex justify-space-between">
             <!-- 상세페이지로 이동 or 다이얼로그 띄움 -->
-            <v-btn text color="white">{{
-              movie.title
-            }}</v-btn>
+            <v-btn text color="white">{{ movie.title }}</v-btn>
             <v-rating
               class="mt-2"
               :value="movie.vote_average / 2"
@@ -53,11 +51,16 @@ export default {
   },
   computed: {
     ...mapGetters(["currentUser"]),
+    ...mapGetters(["isLoggedIn"]),
   },
-  async created() {
+  async mounted() {
     //추천 알고리즘의 User PK가 필요함
-    if (typeof this.currentUser.pk == "number") {
-      this.userInfo = this.currentUser.pk;
+    if (this.isLoggedIn) {
+      if (this.currentUser.pk) {
+        this.userInfo = this.currentUser.pk;
+      } else {
+        this.userInfo = JSON.parse(localStorage.getItem("currentUser")).pk;
+      }
       const response = await fetch(
         `http://127.0.0.1:8000/movies/recommend/${this.userInfo}/`
       );
