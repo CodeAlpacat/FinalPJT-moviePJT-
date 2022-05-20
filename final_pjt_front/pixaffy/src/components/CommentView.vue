@@ -1,6 +1,6 @@
 <template>
-  <div @mouseover='MouseOnComment' @mouseout='MouseOutComment'>
-    <div style="display: flex; align-items: center;">
+  <div>
+    <div style="display: flex; align-items: center;" @mouseover='MouseOnComment' @mouseleave='MouseOutComment'>
       <div style="flex-grow: 1">
         <div class="comment-body">
           <div>
@@ -9,7 +9,8 @@
           댓글 내용
         </div>
       </div>
-      <div style="flex-basis: 50px; margin-top: 15px;" v-if="isOnMouse" @mouseout='MouseOutComment' >
+      <div style="flex-basis: 50px; margin-top: 15px;" v-if="isOnMouse"  >
+      <!-- v-if에 인증된 사용자인지 확인하는 것도 넣어줄 것 -->
         <v-btn
           color="red darken-4"
           icon
