@@ -23,6 +23,16 @@
           <v-btn icon v-bind="attrs" v-on="on">
             <router-link to="/movie">MOVIE</router-link>
           </v-btn>
+           <v-btn icon v-bind="attrs" v-on="on">
+            <router-link to="/logout">Signup</router-link>
+          </v-btn>
+          <v-btn icon v-bind="attrs" v-on="on">
+            <router-link to="/logout">LogIn</router-link>
+          </v-btn>
+          <v-btn icon v-bind="attrs" v-on="on">
+            <router-link to="/logout">Logout</router-link>
+          </v-btn>
+          
         </template>
       </v-menu>
        <template v-slot:extension>
