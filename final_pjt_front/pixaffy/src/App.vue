@@ -90,7 +90,7 @@ nav {
 .v-application span a {
   color: rgb(242, 237, 243);
   text-decoration: none;
-  font-family: 'Jeju Gothic', sans-serif;
+  font-family: 'Jeju Gothic', sans-serif !important;
 }
 #app-background {
   background-color: #2e343b;
