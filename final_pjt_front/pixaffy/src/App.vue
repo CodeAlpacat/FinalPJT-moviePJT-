@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-app-bar app color="secondary" height="50px" dark shrink-on-scroll>
+    <v-app-bar app color="blue darken-4" height="50px" dark shrink-on-scroll>
       <div class="d-flex">
         <v-app-bar-nav-icon> </v-app-bar-nav-icon>
         <v-toolbar-title></v-toolbar-title>
@@ -63,19 +63,14 @@ export default {
 };
 </script>
 <style lang="scss">
+@import url(//fonts.googleapis.com/earlyaccess/jejogothic.css);
 nav {
-  padding: 30px;
-  background-color: #2e343b;
-
-  a {
-    font-weight: bold;
-    font-size: 24px;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+  padding: 10px;
+}
+.v-application span a {
+  color: rgb(242, 237, 243);
+  text-decoration: none;
+  font-family: 'Jeju Gothic', sans-serif;
 }
 #app-background {
   background-color: #2e343b;
