@@ -1,39 +1,94 @@
 <template>
-  <div>
-    <h1>Signup</h1>
+    <div class="login-card">
+      <account-error-list v-if="authError"></account-error-list>
+      <div class="login-card__div" :class="`rounded-lg`">
+        <div>
+          <v-img
+            class="login-card__div__img"
+            src="https://img.freepik.com/free-photo/white-brick-wall-texture-design-empty-white-brick-background-for-presentations_1962-1075.jpg?w=1800"
+            height="600px"
+            width="500px"
+          ></v-img>
+        </div>
+        <!-- div와 div로 grid를 이용해 반으로 분할 -->
+        <form
+          @submit.prevent="signup(credentials)"
+          class="login-card__div__form"
+        >
+          <div class="text-center my-3 login-card__div__header">
+            <h1>Signup</h1>
+          </div>
+          <div class="login-card__div__form__input">
+            <v-text-field
+              class="login-card__div__right"
+              prepend-icon="fa-solid fa-user"
+              v-model="credentials.username"
+              filled
+              color="blue-grey lighten-2"
+              label="username"
+              required
+              height="10px"
+            ></v-text-field>
+            <div></div>
+          </div>
+          <div class="login-card__div__form__input">
+            <v-text-field
+              prepend-icon="fa-solid fa-key"
+              v-model="credentials.password1"
+              filled
+              color="blue-grey lighten-2"
+              label="password"
+              type="password"
+              required
+            ></v-text-field>
+          </div>
+          <div class="login-card__div__form__input">
+            <v-text-field
+              prepend-icon="fa-solid fa-key"
+              v-model="credentials.password2"
+              filled
+              color="blue-grey lighten-2"
+              label="confirm password"
+              type="password"
+              required
+            ></v-text-field>
+          </div>
+          <div class="login-card__div__form__input">
+            <v-text-field
+              prepend-icon="mdi-email"
+              v-model="credentials.email"
+              filled
+              color="blue-grey lighten-2"
+              label="E-mail"
+              required
+              :rules="emailRules"
+              hide-details="auto"
+            ></v-text-field>
+          </div>
+          <div class="select-button">
+          <v-select
+            @input="limit_items"
+            v-model="genres_list"
+            :items="genres_DB"
+            item-text="name"
+            item-value="id"
+            :menu-props="{ maxwidth: '400' }"
+            hide-selected
+            label="장르!"
+            multiple
+            chips
+            deletable-chips
+            hint="3가지 장르를 골라보세요!"
+            persistent-hint
+          ></v-select>
+          </div>
+          <button class="login-card__div__form__btn"><span>Login</span></button>
+        </form>
+      </div>
+    </div>
 
-    <account-error-list v-if="authError"></account-error-list>
-
-    <form @submit.prevent="signup(credentials)">
-      <div>
-        <label for="username">Username: </label>
-        <input
-          v-model="credentials.username"
-          type="text"
-          id="username"
-          required
-        />
-      </div>
-      <div>
-        <label for="password1">Password: </label>
-        <input
-          v-model="credentials.password1"
-          type="password"
-          id="password1"
-          required
-        />
-      </div>
-      <div>
-        <label for="password2">Password Confirmation:</label>
-        <input
-          v-model="credentials.password2"
-          type="password"
-          id="password2"
-          required
-        />
-      </div>
-      <!-- <div> -->
-        <!-- <v-file-input
+    <!-- <div> -->
+    <!-- <v-file-input
           :rules="imageRules"
           @change="findImg"
           ref="profile"
@@ -42,7 +97,7 @@
           prepend-icon="mdi-camera"
           label="프로필 이미지"
         ></v-file-input> -->
-        <!-- <label for="profile-image">프로필이미지</label>
+    <!-- <label for="profile-image">프로필이미지</label>
         <input
           @change="findImg()"
           type="file"
@@ -51,208 +106,11 @@
           accept=".png, .jpeg, .bmp"
         />
       </div> -->
-      <div>
+    <!-- <div>
         {{ this.credentials.profile_img }}
-      </div>
-      <div>
-        <v-text-field
-          label="E-mail"
-          :rules="emailRules"
-          hide-details="auto"
-          prepend-icon="mdi-email"
-          v-model="credentials.email"
-        ></v-text-field>
-      </div>
-      <div>
-        {{ credentials.email }}
-      </div>
-      <div>
-        <v-container fluid>
-          <p>{{ genres_list }}</p>
-          <v-row>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="모험"
-                value="12"
-                :disabled="countSelectedGenres && !genres_list.includes('12')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="판타지"
-                value="14"
-                :disabled="countSelectedGenres && !genres_list.includes('14')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="애니메이션"
-                value="16"
-                :disabled="countSelectedGenres && !genres_list.includes('16')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="드라마"
-                value="18"
-                :disabled="countSelectedGenres && !genres_list.includes('18')"
-              ></v-checkbox>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="공포"
-                value="27"
-                :disabled="countSelectedGenres && !genres_list.includes('27')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="액션"
-                value="28"
-                :disabled="countSelectedGenres && !genres_list.includes('28')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="코미디"
-                value="35"
-                :disabled="countSelectedGenres && !genres_list.includes('35')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="역사"
-                value="36"
-                :disabled="countSelectedGenres && !genres_list.includes('36')"
-              ></v-checkbox>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="서부"
-                value="37"
-                :disabled="countSelectedGenres && !genres_list.includes('37')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="스릴러"
-                value="53"
-                :disabled="countSelectedGenres && !genres_list.includes('53')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="범죄"
-                value="80"
-                :disabled="countSelectedGenres && !genres_list.includes('80')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="다큐멘터리"
-                value="99"
-                :disabled="countSelectedGenres && !genres_list.includes('99')"
-              ></v-checkbox>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="SF"
-                value="878"
-                :disabled="countSelectedGenres && !genres_list.includes('878')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="미스터리"
-                value="9648"
-                :disabled="countSelectedGenres && !genres_list.includes('9648')"
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="음악"
-                value="10402"
-                :disabled="
-                  countSelectedGenres && !genres_list.includes('10402')
-                "
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="로맨스"
-                value="10749"
-                :disabled="
-                  countSelectedGenres && !genres_list.includes('10749')
-                "
-              ></v-checkbox>
-            </v-col>
-          </v-row>
-          <v-row>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="가족"
-                value="10751"
-                :disabled="
-                  countSelectedGenres && !genres_list.includes('10751')
-                "
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="전쟁"
-                value="10752"
-                :disabled="
-                  countSelectedGenres && !genres_list.includes('10752')
-                "
-              ></v-checkbox>
-            </v-col>
-            <v-col cols="3">
-              <v-checkbox
-                v-model="genres_list"
-                label="TV 영화"
-                value="10770"
-                :disabled="
-                  countSelectedGenres && !genres_list.includes('10770')
-                "
-              ></v-checkbox>
-            </v-col>
-          </v-row>
-        </v-container>
-      </div>
-      <div>
-        <button>Signup</button>
-      </div>
-      <div>
-        <p>
-          {{ credentials.genre_likes }}
-        </p>
-      </div>
-    </form>
-  </div>
+      </div> -->
+
+
 </template>
 
 <script>
@@ -277,6 +135,7 @@ export default {
         // profile_img: null,
       },
       genres_list: [],
+      genres_DB: [],
       // imageRules: [
       //   (value) =>
       //     !value ||
@@ -293,12 +152,16 @@ export default {
   },
   computed: {
     ...mapGetters(["authError"]),
-    countSelectedGenres() {
-      return !(this.genres_list.length < 3);
-    },
   },
+
   methods: {
     ...mapActions(["signup"]),
+    limit_items(e) {
+      if(e.length > 3) {
+        alert('세 개만 고를 수 있습니다.')
+        e.pop()
+      }
+    }
     // findImg() {
     //   this.credentials.profile_img = this.$refs.profile.files[0];
     // },
@@ -326,12 +189,104 @@ export default {
   },
   watch: {
     genres_list: function (val) {
-      const new_val = { genre_likes: val };
-      this.credentials.genre_likes = JSON.stringify(new_val);
-      console.log(this.credentials.genre_likes);
+      val = val.map((item) => {
+        return item.toString();
+      })
+      const new_val = { genre_likes: val }
+      this.credentials.genre_likes = JSON.stringify(new_val)
     },
   },
+  async created() {
+    const response = await fetch('http://127.0.0.1:8000/movies/genres/')
+    this.genres_DB = await response.json()
+  }
 };
 </script>
 
-<style></style>
+<style scoped>
+.login-card {
+  margin: 0 auto;
+  margin-top: 110px;
+}
+
+.login-card__div {
+  display: grid;
+  grid: auto-flow / 1fr 1fr;
+  min-height: 450px;
+  min-width: 700px;
+  height: 600px;
+  width: 900px;
+  background-color: white;
+  border-radius: 40px;
+}
+
+.login-card__div__header {
+  padding-bottom: 20px;
+}
+
+.login-card__div__right {
+  padding-bottom: 20px;
+}
+
+.login-card__div__form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.login-card__div__form__btn {
+  width: 260px;
+  height: 35px;
+  border-radius: 30px;
+  border: none;
+  color: white;
+  background-color: #999d9e;
+  text-align: center;
+  opacity: 1;
+  cursor: pointer;
+  transition: 0.5s;
+  margin-top: 15px;
+}
+.login-card__div__form__btn:hover {
+  opacity: 0.7;
+}
+
+.login-card__div__form__btn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+  font-size: 16px;
+}
+
+.login-card__div__form__btn span:after {
+  content: "\00bb";
+  font-size: 30px;
+  position: absolute;
+  opacity: 0;
+
+  bottom: -8px;
+  right: -15px;
+  transition: 0.5s;
+}
+
+.login-card__div__form__btn:hover span {
+  padding-right: 25px;
+}
+
+.login-card__div__form__btn:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+.login-card__div__form__input {
+  width: 270px;
+  height: 80px;
+}
+.login-card__div__img {
+  border-radius: 10px;
+}
+.select-button {
+  max-width: 300px;
+}
+</style>
