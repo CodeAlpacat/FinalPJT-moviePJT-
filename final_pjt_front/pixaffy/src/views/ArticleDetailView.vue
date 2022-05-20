@@ -48,47 +48,88 @@
           </div>
         </div>
         <div style="display: flex; align-items: center;">
+          <!-- 좋아요 -->
           <div class="subtitle-item">
             <v-btn
               icon
-              :color="true ? 'red darken-2' : 'grey'"
+              :color="isCommentLiked ? 'red darken-2' : 'grey'"
+              @click="toggleCommentLiked"
             >
               <v-icon>mdi-heart</v-icon>
             </v-btn>
           </div>
-          <div class="subtitle-item">
-            <v-btn
-              icon
-              color="blue darken-4"
+          <!-- 댓글 -->
+
+
+          <v-row justify="center">
+            <v-dialog
+              v-model="dialogComment"
+              persistent
+              max-width="600px"
             >
-              <v-icon>mdi-message-text</v-icon>
-            </v-btn>
-          </div>
+              <template v-slot:activator="{ on, attrs }">
+                <div class="subtitle-item">
+                  <v-btn
+                    color="blue darken-4"
+                    icon
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="toggleDialogComment"
+                  >
+                    <v-icon>mdi-message-text</v-icon>
+                  </v-btn>
+                </div>
+              </template>
+
+              <v-card>
+                <v-card-title>
+                  <span class="comment-title">댓글 작성하기</span>
+                </v-card-title>
+                <div class="textarea">
+                <v-textarea
+                  v-model="comment"
+                  color="amber darken-4"
+                >
+                  <template v-slot:label>
+                    <div>
+                      댓글 내용을 작성해주세요 <small></small>
+                    </div>
+                  </template>
+                </v-textarea>
+                </div>
+
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn
+                    color="blue darken-1"
+                    text
+                    @click="toggleDialogComment"
+                  >
+                    닫기
+                  </v-btn>
+                  <v-btn
+                    color="blue darken-1"
+                    text
+                    @click="toggleDialogComment"
+                  >
+                    완료
+                  </v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </v-row>
+
         </div>
       </div>
       <!-- 내용,  -->
       <div class="content">
         내용
       </div>
+      <!-- 댓글 -->
       <div class="comments">
-        <div>
-          <div>
-            댓글 작성자
-          </div>
-          댓글 내용
-        </div>
-        <div>
-          <div>
-            댓글 작성자
-          </div>
-          댓글 내용
-        </div>
-        <div>
-          <div>
-            댓글 작성자
-          </div>
-          댓글 내용
-        </div>
+        <comment-view></comment-view>
+        <comment-view></comment-view>
+        <comment-view></comment-view>
       </div>
     </div>
   </div>
@@ -96,10 +137,24 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+import CommentView from '../components/CommentView.vue'
+
 export default {
   name: 'ArticleDetailView',
   data: () => ({
+    comment: '',
+    
     }),
+  components:{
+    CommentView,
+  },
+  methods: {
+    ...mapActions(['toggleDialogComment','toggleCommentLiked'])
+  },
+  computed: {
+    ...mapGetters(['dialogComment','isCommentLiked'])
+  }
 }
 </script>
 
@@ -148,14 +203,16 @@ export default {
     width: 90%;
     margin: 0 5% 20px;
   }
-  .comments > div {
-    border-bottom: 1px solid rgb(203,206,213);
-    margin-top: 15px;
-    padding: 5px;
+  
+  
+  .textarea {
+    margin: 0 30px;
   }
-  .comments > div > div {
-    background-color: rgb(173,192,221);
-    font-weight: bold;
-    border-radius: 2px;
+  .comment-title {
+    margin: 0 10px;
+    font-family: 'Jeju Gothic', sans-serif !important;
+    font-weight: bold !important;
+    color: rgb(2, 7, 21);
+    font-size: 24px;
   }
 </style>

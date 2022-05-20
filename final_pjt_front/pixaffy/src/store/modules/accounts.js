@@ -12,17 +12,21 @@ export default {
     currentUser: {},
     profile: {},
     authError: null,
-    dialogDetail: false,
+    dialogDetail: false,  // 디테일 창 모달 토글 변수
+    dialogComment: false, // 댓글 생성 모달 토글 변수
     movie: null,
+    commentLiked: false, // 댓글 좋아요 여부
   },
   // 모든 state는 getters 를 통해서 접근하겠다.
   getters: {
     isLoggedIn: state => !!state.token,
+    isCommentLiked: state => !!state.commentLiked,
     currentUser: state => state.currentUser,
     profile: state => state.profile,
     authError: state => state.authError,
     authHeader: state => ({ Authorization: `Token ${state.token}`}),
     dialogDetail: state => state.dialogDetail,
+    dialogComment: state => state.dialogComment,
     movie: state => state.movie,
   },
 
@@ -32,7 +36,9 @@ export default {
     SET_PROFILE: (state, profile) => state.profile = profile,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
     SET_DIALOG_DETAIL: (state) => state.dialogDetail = !state.dialogDetail,
-    SET_MOVIE: (state, movie) => state.movie = movie
+    SET_DIALOG_COMMENT : (state) => state.dialogComment = !state.dialogComment,
+    SET_MOVIE: (state, movie) => state.movie = movie,
+    SET_COMMENT_LIKED: (state) => state.commentLiked = !state.commentLiked, // comment_liked의 경우 시험용으로 comment 좋아요 정보를 받아오고 있지 않음, 추후 추가할것
   },
 
   actions: {
@@ -185,8 +191,16 @@ export default {
       commit('SET_DIALOG_DETAIL')
     },
 
+    toggleDialogComment({ commit }){
+      commit('SET_DIALOG_COMMENT')
+    },
+
+    toggleCommentLiked({ commit }){
+      commit('SET_COMMENT_LIKED')
+    },
+
     movieSelect({commit}, movie){
       commit('SET_MOVIE', movie)
-    }
+    },
   },
 }
