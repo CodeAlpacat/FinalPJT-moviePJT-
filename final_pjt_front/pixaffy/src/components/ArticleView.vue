@@ -1,13 +1,13 @@
 <template>
   <div class="article">
     <div class="col-6">
-      제목1 <span class="subcontent">(댓글 수)</span>
+      {{ article.title }} <span class="subcontent">{{ article.comment_count }}</span>
     </div>
     <div class="col-2">
-      글쓴이
+      {{ article.user.username }}
     </div>
     <div class="col-2">
-      <span class="likes">좋아요 수</span>
+      <span class="likes">{{article.like_count}}</span>
     </div>
     <div class="col-2">
       <span class="subcontent">날짜</span>
@@ -17,7 +17,10 @@
 
 <script>
 export default {
-  name:"ArticleView"
+  name:"ArticleView",
+  props: {
+    article: Object,
+  }
 }
 </script>
 

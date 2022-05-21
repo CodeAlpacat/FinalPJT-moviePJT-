@@ -15,13 +15,8 @@
           날짜
         </div>
       </div>
-      <article-view></article-view>
-      <article-view></article-view>
-      <article-view></article-view>
-      <article-view></article-view>
-      <article-view></article-view>
-      <article-view></article-view>
-      <article-view></article-view>
+
+      <article-view v-for="article in articleList" :key="article.pk" :article="article"></article-view>
     </div>
     <div style="text-align:right; margin-right:10%">
       <v-btn
@@ -41,6 +36,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 import ArticleView from '@/components/ArticleView.vue'
 export default {
   name: 'CommunityView',
@@ -52,6 +48,15 @@ export default {
         page: 1,
       }
     },
+  computed: {
+    ...mapGetters(['articleList'])
+  },
+  methods: {
+    ...mapActions(['fetchArticleList'])
+  },
+  created() {
+    this.fetchArticleList()
+  }
 }
 </script>
 
