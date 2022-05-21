@@ -23,7 +23,7 @@ class ArticleListSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Article
-        fields = ('pk', 'user', 'title', 'content', 'comment_count', 'like_count')
+        fields = ('pk', 'user', 'title', 'content', 'comment_count', 'like_count',  'created_at', 'updated_at')
 
 
 #detail 특정 게시글 조회
@@ -44,4 +44,4 @@ class ArticleSerializer(serializers.ModelSerializer):
     liked_users = UserSerializer(read_only=True, many=True)
     class Meta:
         model = Article
-        fields = ('pk', 'user', 'title', 'content', 'comments', 'liked_users')
+        fields = ('pk', 'user', 'title', 'content', 'comments', 'liked_users', 'created_at', 'updated_at')

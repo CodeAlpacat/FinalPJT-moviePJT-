@@ -15,3 +15,8 @@ class User(AbstractUser):
     #     options = {'quality': 80},
     # )
     genre_likes = models.JSONField(default='{}')
+
+
+# class Profile(models.Model):
+    # user = models.OneToOneField(User, primary_key=True, on_delete=models.CASCADE, related_name='profile')
+    
