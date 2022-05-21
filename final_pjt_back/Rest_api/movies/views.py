@@ -6,7 +6,8 @@ from rest_framework.decorators import api_view
 from django.shortcuts import get_list_or_404, get_object_or_404
 from .serializers.movie import MovieListSerializer, MovieSerializer
 from .serializers.genre import GenreListSerializer
-from .models import Genre, Movie
+from .serializers.movie_follow import MovieFollowSerializer
+from .models import Genre, Movie, MovieFollow
 from django.contrib.auth import get_user_model
 
 from random import randint
@@ -137,3 +138,17 @@ def genres_list(request):
     genres = get_list_or_404(Genre)
     serializers = GenreListSerializer(genres, many=True)
     return Response(serializers.data)
+
+#특정 영화의
+@api_view(['POST'])
+def movie_follow(request, movie_pk):
+    movie_follow = get_object_or_404(MovieFollow, pk=movie_pk)
+    user = request.user
+    if movie_follow.kept_by_user.filter(pk=user.pk).exists():
+        movie_follow.kept_by_user.remove(user)
+        serializer = MovieFollowSerializer(movie_follow)
+        return Response(serializer.data)
+    else:
+        movie_follow.kept_by_user.add(user)
+        serializer = MovieFollowSerializer(movie_follow)
+        return Response(serializer.data)
