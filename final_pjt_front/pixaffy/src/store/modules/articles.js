@@ -10,21 +10,37 @@ export default {
   state: {
     articles: [],
     article: {},
+    likedArticleList: [],  // 게시글 리스트
   },
 
   getters: {
     articles: state => state.articles,
     article: state => state.article,
+    likedArticleList: state => state.likedArticleList,
     isAuthor: (state, getters) => {
       return state.article.user?.username === getters.currentUser.username
     },
     isArticle: state => !_.isEmpty(state.article),
+    isCommentLiked: (state, getters) => {
+      let isLiked = false
+      if (state.article.liked_users){
+        const nowUser = getters.currentUser.pk
+        for (let user of state.article.liked_users) {
+          if (user.pk === nowUser){
+            isLiked = true
+            break
+          }
+        }
+      }
+      return isLiked
+    },
   },
 
   mutations: {
     SET_ARTICLES: (state, articles) => state.articles = articles,
     SET_ARTICLE: (state, article) => state.article = article,
     SET_ARTICLE_COMMENTS: (state, comments) => (state.article.comments = comments),
+    SET_LIKED_ARTICLE_LIST: (state, likedList) => (state.likedArticleList = likedList),
   },
 
   actions: {
@@ -138,7 +154,7 @@ export default {
         })
           .then(() => {
             commit('SET_ARTICLE', {})
-            router.push({ name: 'articles' })
+            router.push({ name: 'community' })
           })
           .catch(err => console.error(err.response))
       }
@@ -170,7 +186,8 @@ export default {
           에러 메시지 표시
       */
       const comment = { content }
-
+      console.log(content)
+      console.log(articlePk)
       axios({
         url: drf.articles.comments(articlePk),
         method: 'post',
@@ -226,6 +243,10 @@ export default {
             })
             .catch(err => console.error(err.response))
         }
+      },
+  
+      toggleCommentLiked({ commit }){
+        commit('SET_COMMENT_LIKED')
       },
   },
 }
