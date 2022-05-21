@@ -17,13 +17,18 @@ class ArticleListSerializer(serializers.ModelSerializer):
             model = Comment
             fields = '__all__'
 
+    class ArticleCustomSerializer(serializers.ModelSerializer):
+        class Meta:
+            model = Article
+            fields = '__all__'
+
     user = UserSerializer(read_only=True)
     comment_count = serializers.IntegerField()
     like_count = serializers.IntegerField()
 
     class Meta:
         model = Article
-        fields = ('pk', 'user', 'title', 'content', 'comment_count', 'like_count',  'created_at', 'updated_at')
+        fields = ('pk', 'user', 'title', 'content', 'comment_count', 'like_count', 'created_at', 'updated_at', 'liked_users')
 
 
 #detail 특정 게시글 조회
@@ -44,4 +49,4 @@ class ArticleSerializer(serializers.ModelSerializer):
     liked_users = UserSerializer(read_only=True, many=True)
     class Meta:
         model = Article
-        fields = ('pk', 'user', 'title', 'content', 'comments', 'liked_users', 'created_at', 'updated_at')
+        fields = ('pk', 'user', 'title', 'content', 'comments', 'liked_users', 'created_at', 'updated_at', 'liked_users')
