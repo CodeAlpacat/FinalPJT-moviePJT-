@@ -10,7 +10,7 @@
       <span class="likes">{{article.like_count}}</span>
     </div>
     <div class="col-2">
-      <span class="subcontent">날짜</span>
+      <span class="subcontent">{{ dateForArticle }}</span>
     </div>
   </div>
 </template>
@@ -18,9 +18,44 @@
 <script>
 export default {
   name:"ArticleView",
+  data() {
+    return {
+      presentDate: null,
+      createdDate: null,
+    }
+  },
   props: {
     article: Object,
+  },
+  computed:{
+    dateForArticle() {
+      if ((this.presentDate.getTime() - this.createdDate.getTime()) / (1000*60*60*24) >= 1){
+        return `${this.createdDate.getFullYear()}.${this.createdDate.getMonth()+1}.${this.createdDate.getDate()}`
+      }
+      else if ((this.presentDate.getTime() - this.createdDate.getTime()) / (1000*60*60) >= 1){
+        return `${parseInt((this.presentDate.getTime() - this.createdDate.getTime()) / (1000*60*60))}시간 전`
+      }
+      else if ((this.presentDate.getTime() - this.createdDate.getTime()) / (1000*60) >= 1){
+        return `${parseInt((this.presentDate.getTime() - this.createdDate.getTime()) / (1000*60))}분 전`
+      }
+      else {
+        return '방금 전'
+      }
+    }
+  },
+  methods: {
+    fetchPresentDate() {
+      this.presentDate = new Date()
+    },
+    fetchCreatedDate() {
+      this.createdDate = new Date(this.article.created_at)
+    }
+  },
+  created() {
+    this.fetchPresentDate()
+    this.fetchCreatedDate()
   }
+
 }
 </script>
 

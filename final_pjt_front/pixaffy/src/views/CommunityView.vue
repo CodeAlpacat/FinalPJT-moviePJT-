@@ -15,13 +15,17 @@
           날짜
         </div>
       </div>
-
-      <article-view v-for="article in articleList" :key="article.pk" :article="article"></article-view>
+      <div v-for="article in articles.slice((page - 1)*10,(page*10))" :key="article.pk">
+        <article-view :article="article"></article-view>
+      </div>
     </div>
-    <div style="text-align:right; margin-right:10%">
+    <div 
+      style="text-align:right; margin-right:10%"
+    >
       <v-btn
         icon
         color="blue darken-4"
+        @click="$router.push({ name:'articleNew'})"
       >
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
@@ -29,7 +33,7 @@
     <div class="text-center">
       <v-pagination
         v-model="page"
-        :length="6"
+        :length="parseInt(Math.ceil(articles.length/10))"
       ></v-pagination>
     </div>
   </div>
@@ -49,13 +53,13 @@ export default {
       }
     },
   computed: {
-    ...mapGetters(['articleList'])
+    ...mapGetters(['articles'])
   },
   methods: {
-    ...mapActions(['fetchArticleList'])
+    ...mapActions(['fetchArticles'])
   },
   created() {
-    this.fetchArticleList()
+    this.fetchArticles()
   }
 }
 </script>

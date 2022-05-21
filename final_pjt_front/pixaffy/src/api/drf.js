@@ -18,15 +18,12 @@ export default {
   },
   articles: {
     // /articles/
-    articles: () => HOST + ARTICLES,
+    articles: () => BASE_HOST + COMMUNITY,
     // /articles/1/
     article: articlePk => HOST + ARTICLES + `${articlePk}/`,
     likeArticle: articlePk => HOST + ARTICLES + `${articlePk}/` + 'like/',
     comments: articlePk => HOST + ARTICLES + `${articlePk}/` + COMMENTS,
     comment: (articlePk, commentPk) =>
       HOST + ARTICLES + `${articlePk}/` + COMMENTS + `${commentPk}/`,
-  },
-  community: {
-    articleList: () => BASE_HOST + COMMUNITY,
   }
 }

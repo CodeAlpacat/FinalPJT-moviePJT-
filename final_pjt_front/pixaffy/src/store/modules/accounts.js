@@ -16,7 +16,7 @@ export default {
     dialogComment: false, // 댓글 생성 모달 토글 변수
     movie: null,
     commentLiked: false, // 댓글 좋아요 여부
-    articleList: null,  // 게시글 리스트
+    articleList: [],  // 게시글 리스트
   },
   // 모든 state는 getters 를 통해서 접근하겠다.
   getters: {
@@ -213,7 +213,11 @@ export default {
         headers: getters.authHeader,
       })
         .then(res => {
+          console.log('성공했니?')
           commit('SET_ARTICLE_LIST', res.data)
+        })
+        .catch(err => {
+          console.log('실패!' + err)
         })
     }
   },
