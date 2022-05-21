@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
-from movies.models import MovieFollow
+from movies.models import Movie
 from community.models import Article
 from dj_rest_auth.registration.serializers import RegisterSerializer
 
@@ -17,8 +17,8 @@ class ProfileSerializer(serializers.ModelSerializer):
     class MovieFollowSerializer(serializers.ModelSerializer):
         
         class Meta:
-            model = MovieFollow
-            fields = ('pk', 'movie')
+            model = Movie
+            fields = '__all__'
         
     # 유저가 좋아요한 게시글 / 유저가 작성한 게시글 / 유저가 팔로우한 영화들
     like_articles = ArticleSerializer(many=True)
@@ -27,7 +27,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('pk', 'username', 'email', 'like_articles', 'articles', 'keep_movies', 'genre_likes')
+        fields = ('pk', 'username', 'email', 'like_articles', 'articles', 'keep_movies', 'genre_likes', 'followings', 'followers')
         
 class CustomSignupSerializer(RegisterSerializer):
     # profile_img = serializers.ImageField(use_url=True)
