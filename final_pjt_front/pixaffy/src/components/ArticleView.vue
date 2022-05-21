@@ -1,6 +1,10 @@
 <template>
   <div class="article">
-    <div class="col-6">
+    <div 
+      class="col-6" 
+      @click="$router.push({ name:'article', params: {articlePk: article.pk}})"
+      onmouseover="this.style.cursor='hand'"
+    >
       {{ article.title }} <span class="subcontent">{{ article.comment_count }}</span>
     </div>
     <div class="col-2">

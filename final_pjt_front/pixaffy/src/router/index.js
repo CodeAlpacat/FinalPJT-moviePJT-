@@ -57,7 +57,7 @@ const routes = [
   },
   {
     // path: '/articles/:article_pk',
-    path: '/articles/',
+    path: '/articles/:articlePk',
     name: 'article',
     component: ArticleDetailView
   },

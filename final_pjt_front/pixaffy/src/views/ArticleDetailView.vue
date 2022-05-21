@@ -3,12 +3,13 @@
     <div class="article-frame">
         <div class="title">
           <div>
-            <h3>닥터 스트레인지 왜 공포 영화같지~</h3>
+            <h3>{{ article.title }}</h3>
           </div>
           <div>
             <v-menu
               bottom
               left
+              :disabled="!isAuthor"
             >
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
@@ -21,12 +22,14 @@
               </template>
               <v-list>
                 <v-list-item>
-                  <v-list-item-title>
+                  <v-list-item-title
+                    @click="$router.push({ name:'articleEdit', params: {articlePk: article.pk}})"
+                  >
                     게시글 수정
                   </v-list-item-title>
                 </v-list-item>
                 <v-list-item>
-                  <v-list-item-title>
+                  <v-list-item-title @click="deleteArticle(article.pk)">
                     게시글 삭제
                   </v-list-item-title>
                 </v-list-item>
@@ -44,7 +47,7 @@
             >도라</v-avatar>
           </div>
           <div style="margin-left:10px">
-            <h4>도라이썬</h4>
+            <h4>{{ article.user.username }}</h4>
           </div>
         </div>
         <div style="display: flex; align-items: center;">
@@ -52,8 +55,8 @@
           <div class="subtitle-item">
             <v-btn
               icon
-              :color="isCommentLiked ? 'red darken-2' : 'grey'"
-              @click="toggleCommentLiked"
+              :color="liked ? 'red darken-2' : 'grey'"
+              @click="likeArticle(articlePk); liked=!liked;"
             >
               <v-icon>mdi-heart</v-icon>
             </v-btn>
@@ -63,7 +66,7 @@
 
           <v-row justify="center">
             <v-dialog
-              v-model="dialogComment"
+              v-model="dialog"
               persistent
               max-width="600px"
             >
@@ -74,7 +77,6 @@
                     icon
                     v-bind="attrs"
                     v-on="on"
-                    @click="toggleDialogComment"
                   >
                     <v-icon>mdi-message-text</v-icon>
                   </v-btn>
@@ -103,14 +105,14 @@
                   <v-btn
                     color="blue darken-1"
                     text
-                    @click="toggleDialogComment"
+                    @click="dialog=false"
                   >
                     닫기
                   </v-btn>
                   <v-btn
                     color="blue darken-1"
                     text
-                    @click="toggleDialogComment"
+                    @click="dialog=false; createComment({articlePK: articlePK, content: comment})"
                   >
                     완료
                   </v-btn>
@@ -123,13 +125,13 @@
       </div>
       <!-- 내용,  -->
       <div class="content">
-        내용
+        {{ article.content }}
       </div>
       <!-- 댓글 -->
       <div class="comments">
-        <comment-view></comment-view>
-        <comment-view></comment-view>
-        <comment-view></comment-view>
+        <div v-for="comment in article.comments" :key="comment.pk">
+          <comment-view :comment="comment"></comment-view>
+        </div>
       </div>
     </div>
   </div>
@@ -142,19 +144,26 @@ import CommentView from '../components/CommentView.vue'
 
 export default {
   name: 'ArticleDetailView',
-  data: () => ({
-    comment: '',
-    
-    }),
+  data(){ 
+    return {
+      comment: '',
+      articlePk: this.$route.params.articlePk,
+      dialog: false,
+      liked: false,
+    }
+  },
   components:{
     CommentView,
   },
   methods: {
-    ...mapActions(['toggleDialogComment','toggleCommentLiked'])
+    ...mapActions(['toggleCommentLiked', 'fetchArticle', 'likeArticle', 'deleteArticle', 'createComment'])
   },
   computed: {
-    ...mapGetters(['dialogComment','isCommentLiked'])
-  }
+    ...mapGetters(['isAuthor', 'article'])
+  },
+  created() {
+    this.fetchArticle(this.articlePk)
+  },
 }
 </script>
 

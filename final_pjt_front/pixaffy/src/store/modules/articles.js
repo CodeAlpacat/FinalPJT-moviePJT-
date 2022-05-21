@@ -10,6 +10,7 @@ export default {
   state: {
     articles: [],
     article: {},
+    articleList: [],  // 게시글 리스트
   },
 
   getters: {
@@ -19,6 +20,7 @@ export default {
       return state.article.user?.username === getters.currentUser.username
     },
     isArticle: state => !_.isEmpty(state.article),
+    isCommentLiked: state => (state.article.liked_users.includes(state.article.user?.pk)),
   },
 
   mutations: {
@@ -226,6 +228,10 @@ export default {
             })
             .catch(err => console.error(err.response))
         }
+      },
+  
+      toggleCommentLiked({ commit }){
+        commit('SET_COMMENT_LIKED')
       },
   },
 }

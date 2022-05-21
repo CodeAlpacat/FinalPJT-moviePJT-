@@ -2,7 +2,6 @@ const HOST = 'http://localhost:8000/api/v1/'
 const BASE_HOST = 'http://localhost:8000/'
 
 const ACCOUNTS = 'accounts/'
-const ARTICLES = 'articles/'
 const COMMENTS = 'comments/'
 const COMMUNITY = 'community/'
 
@@ -20,10 +19,10 @@ export default {
     // /articles/
     articles: () => BASE_HOST + COMMUNITY,
     // /articles/1/
-    article: articlePk => HOST + ARTICLES + `${articlePk}/`,
-    likeArticle: articlePk => HOST + ARTICLES + `${articlePk}/` + 'like/',
-    comments: articlePk => HOST + ARTICLES + `${articlePk}/` + COMMENTS,
+    article: articlePk => BASE_HOST + COMMUNITY + `${articlePk}/`,
+    likeArticle: articlePk => BASE_HOST + COMMUNITY + `${articlePk}/` + 'like/',
+    comments: articlePk => BASE_HOST + COMMUNITY + `${articlePk}/` + COMMENTS,
     comment: (articlePk, commentPk) =>
-      HOST + ARTICLES + `${articlePk}/` + COMMENTS + `${commentPk}/`,
+    BASE_HOST + COMMUNITY + `${articlePk}/` + COMMENTS + `${commentPk}/`,
   }
 }
