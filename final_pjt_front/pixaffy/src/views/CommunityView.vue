@@ -53,13 +53,15 @@ export default {
       }
     },
   computed: {
-    ...mapGetters(['articles'])
+    ...mapGetters(['articles','currentUser','likedArticleList'])
   },
   methods: {
-    ...mapActions(['fetchArticles'])
+    ...mapActions(['fetchArticles','fetchProfile','fetchCurrentUser'])
   },
-  created() {
-    this.fetchArticles()
+  async created() {
+    await this.fetchArticles();
+    const localuser = JSON.parse(window.localStorage.getItem('currentUser'))
+    this.fetchProfile({'username':localuser.username});
   }
 }
 </script>

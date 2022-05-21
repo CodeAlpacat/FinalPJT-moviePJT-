@@ -89,7 +89,7 @@
                 </v-card-title>
                 <div class="textarea">
                 <v-textarea
-                  v-model="comment"
+                  v-model="content"
                   color="amber darken-4"
                 >
                   <template v-slot:label>
@@ -112,7 +112,7 @@
                   <v-btn
                     color="blue darken-1"
                     text
-                    @click="dialog=false; createComment({articlePK, content})"
+                    @click="dialog=false; createComment({articlePk, content}); content=''"
                   >
                     완료
                   </v-btn>
@@ -130,7 +130,7 @@
       <!-- 댓글 -->
       <div class="comments">
         <div v-for="comment in article.comments" :key="comment.pk">
-          <comment-view :comment="comment"></comment-view>
+          <comment-view :comment="comment" :articlePk="ariticlePk"></comment-view>
         </div>
       </div>
     </div>
@@ -150,19 +150,23 @@ export default {
       articlePk: this.$route.params.articlePk,
       dialog: false,
       liked: this.$route.params.isLiked,
+      articleComments: this.$route.params.articleComments
     }
   },
-  components:{
-    CommentView,
+  components: {
+    CommentView
   },
   methods: {
     ...mapActions(['toggleCommentLiked', 'fetchArticle', 'likeArticle', 'deleteArticle', 'createComment'])
   },
   computed: {
-    ...mapGetters(['isAuthor', 'article', 'isCommentLiked'])
+    ...mapGetters(['isAuthor', 'isCommentLiked', 'article'])
   },
-  created() {
-    this.fetchArticle(this.articlePk);
+  async created() {
+    await this.fetchArticle(this.articlePk);
+    // const response = await fetch(`http://localhost:8080/articles/${this.articlePk}`)
+    // const a = await response.json()
+    // console.log(a)
   },
 }
 </script>

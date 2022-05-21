@@ -6,7 +6,7 @@
           <div>
             댓글 작성자
           </div>
-          댓글 내용
+          {{ payload.content }}
         </div>
       </div>
       <div style="flex-basis: 50px; margin-top: 15px;" v-if="isOnMouse"  >
@@ -14,6 +14,7 @@
         <v-btn
           color="red darken-4"
           icon
+          @click="deleteComment({'articlePk': article.pk, 'commentPk': comment.id })"
         >
           <v-icon>mdi-delete</v-icon>
         </v-btn>
@@ -23,18 +24,38 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
+
 export default {
   name: "CommentView",
-  data: () => ({
-    isOnMouse: false,
-  }),
+  props: {
+    comment: Object,
+    articlePk: Number,
+  },
+  data(){
+    return {
+      isOnMouse: false,
+      payload: {
+        content: this.comment.content
+      },
+    }
+  },
+  computed: {
+    ...mapGetters(['article'])
+  },
   methods: {
+    ...mapActions(['deleteComment']),
     MouseOnComment(){
       this.isOnMouse = true
     },
     MouseOutComment(){
       this.isOnMouse = false
     }
+  },
+  created() {
+    console.log(this.articlePk)
+    console.log(this.article)
+    console.log(this.article.pk)
   }
 }
 </script>

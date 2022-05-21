@@ -181,6 +181,12 @@ export default {
       })
         .then(res => {
           commit('SET_PROFILE', res.data)
+          const getList = getters.profile.like_articles
+          const getlikedList = function( item ) {
+            return item.pk
+          }
+          const likedList = getList.map(getlikedList)
+          commit('SET_LIKED_ARTICLE_LIST', likedList)
         })
     },
 
