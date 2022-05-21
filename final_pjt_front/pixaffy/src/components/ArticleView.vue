@@ -2,7 +2,7 @@
   <div class="article">
     <div 
       class="col-6" 
-      @click="$router.push({ name:'article', params: {articlePk: article.pk}})"
+      @click="$router.push({ name:'article', params: {articlePk: article.pk, isLiked:isCommentLiked}})"
       onmouseover="this.style.cursor='hand'"
     >
       {{ article.title }} <span class="subcontent">{{ article.comment_count }}</span>
@@ -20,6 +20,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 export default {
   name:"ArticleView",
   data() {
@@ -32,6 +33,7 @@ export default {
     article: Object,
   },
   computed:{
+    ...mapGetters(['isCommentLiked']),
     dateForArticle() {
       if ((this.presentDate.getTime() - this.createdDate.getTime()) / (1000*60*60*24) >= 1){
         return `${this.createdDate.getFullYear()}.${this.createdDate.getMonth()+1}.${this.createdDate.getDate()}`

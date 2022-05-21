@@ -20,7 +20,19 @@ export default {
       return state.article.user?.username === getters.currentUser.username
     },
     isArticle: state => !_.isEmpty(state.article),
-    isCommentLiked: state => (state.article.liked_users.includes(state.article.user?.pk)),
+    isCommentLiked: (state, getters) => {
+      let isLiked = false
+      if (state.article.liked_users){
+        const nowUser = getters.currentUser.pk
+        for (let user of state.article.liked_users) {
+          if (user.pk === nowUser){
+            isLiked = true
+            break
+          }
+        }
+      }
+      return isLiked
+    },
   },
 
   mutations: {

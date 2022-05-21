@@ -112,7 +112,7 @@
                   <v-btn
                     color="blue darken-1"
                     text
-                    @click="dialog=false; createComment({articlePK: articlePK, content: comment})"
+                    @click="dialog=false; createComment({articlePK, content})"
                   >
                     완료
                   </v-btn>
@@ -146,10 +146,10 @@ export default {
   name: 'ArticleDetailView',
   data(){ 
     return {
-      comment: '',
+      content: '',
       articlePk: this.$route.params.articlePk,
       dialog: false,
-      liked: false,
+      liked: this.$route.params.isLiked,
     }
   },
   components:{
@@ -159,10 +159,10 @@ export default {
     ...mapActions(['toggleCommentLiked', 'fetchArticle', 'likeArticle', 'deleteArticle', 'createComment'])
   },
   computed: {
-    ...mapGetters(['isAuthor', 'article'])
+    ...mapGetters(['isAuthor', 'article', 'isCommentLiked'])
   },
   created() {
-    this.fetchArticle(this.articlePk)
+    this.fetchArticle(this.articlePk);
   },
 }
 </script>
