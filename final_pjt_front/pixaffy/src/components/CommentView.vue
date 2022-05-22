@@ -14,7 +14,7 @@
         <v-btn
           color="red darken-4"
           icon
-          @click="deleteComment({'articlePk': article.pk, 'commentPk': comment.id })"
+          @click="deleteComment({'articlePk': article.pk, 'commentPk': comment.id ? comment.id : comment.pk })"
         >
           <v-icon>mdi-delete</v-icon>
         </v-btn>

@@ -47,7 +47,7 @@
             >도라</v-avatar>
           </div>
           <div style="margin-left:10px">
-            <h4>{{ article.user.username }}</h4>
+            <h4>{{ user.username }}</h4>
           </div>
         </div>
         <div style="display: flex; align-items: center;">
@@ -130,7 +130,7 @@
       <!-- 댓글 -->
       <div class="comments">
         <div v-for="comment in article.comments" :key="comment.pk">
-          <comment-view :comment="comment" :articlePk="ariticlePk"></comment-view>
+          <comment-view :comment="comment" :articlePk="articlePk"></comment-view>
         </div>
       </div>
     </div>
@@ -150,7 +150,8 @@ export default {
       articlePk: this.$route.params.articlePk,
       dialog: false,
       liked: this.$route.params.isLiked,
-      articleComments: this.$route.params.articleComments
+      articleComments: this.$route.params.articleComments,
+      user: this.$route.params.user
     }
   },
   components: {
