@@ -6,7 +6,9 @@
           <div>
             {{ payload.username }}
           </div>
-          {{ payload.content }}
+          <span style="font-family:'Jeju Gothic', sans-serif !important;">
+            {{ payload.content }}
+          </span>
         </div>
       </div>
       <div style="flex-basis: 50px; margin-top: 15px;" v-if="isOnMouse"  >
@@ -66,10 +68,16 @@ export default {
     border-bottom: 1px solid rgb(203,206,213);
     margin-top: 15px;
     padding: 5px;
+    font-family:'Jeju Gothic', sans-serif !important;
+    font-size: 16px;
   }
   .comment-body > div {
     background-color: rgb(173,192,221);
     font-weight: bold;
     border-radius: 2px;
+    font-family:'Jeju Gothic', sans-serif !important;
+    margin-bottom: 10px;
+    padding: 5px 5px;
+    font-size: 20px;
   }
 </style>

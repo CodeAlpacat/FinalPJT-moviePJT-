@@ -83,10 +83,12 @@ export default {
   }
   .subcontent {
     color: rgb(117, 126, 139);
+    font-family:'Jeju Gothic', sans-serif !important;
   }
   .likes {
     color: rgb(221, 147, 48);
     font-weight: bold;
+    font-family:'Jeju Gothic', sans-serif !important;
   }
 
 </style>

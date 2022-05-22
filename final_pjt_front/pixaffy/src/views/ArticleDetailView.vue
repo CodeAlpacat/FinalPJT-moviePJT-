@@ -3,7 +3,7 @@
     <div class="article-frame">
         <div class="title">
           <div>
-            <h3>{{ article.title }}</h3>
+            <h3 style="font-family:'Jeju Gothic', sans-serif !important; color:rgb(27, 45, 71); font-size:28px">{{ article.title }}</h3>
           </div>
           <div>
             <v-menu
@@ -44,10 +44,11 @@
             <v-avatar
               color="primary"
               size="56"
+              style="font-family:'Jeju Gothic', sans-serif !important;"
             >도라</v-avatar>
           </div>
           <div style="margin-left:10px">
-            <h4>{{ user.username }}</h4>
+            <h4 style="font-family:'Jeju Gothic', sans-serif !important;">{{ user.username }}</h4>
           </div>
         </div>
         <div style="display: flex; align-items: center;">
@@ -124,7 +125,7 @@
         </div>
       </div>
       <!-- 내용,  -->
-      <div class="content">
+      <div class="content" style="font-family:'Jeju Gothic', sans-serif !important; font-size:20px;">
         {{ article.content }}
       </div>
       <!-- 댓글 -->
@@ -136,17 +137,19 @@
     </div>
     <div style="display:flex; justify-content: center;">
       <v-btn
+        rounded
         class="ma-2"
-        color="blue darken-2"
+        color="blue darken-4"
+        large
         dark
-        @click="$router.go(-1)"
+        @click="$router.push({name:'community'})"
       >
         <v-icon
           dark
           left
         >
           mdi-arrow-left
-        </v-icon>Back
+        </v-icon>뒤로가기
       </v-btn>
     </div>
   </div>
@@ -188,25 +191,25 @@ export default {
 </script>
 
 <style>
-  @import url(//fonts.googleapis.com/earlyaccess/jejogothic.css);
   .article-frame {
-    font-family: 'Jeju Gothic', sans-serif;
+    font-family:'Jeju Gothic', sans-serif !important;
     margin: 50px auto 10px;
     width: 900px;
     border: 2px solid rgb(40, 129, 221);
     border-radius: 5px;
   }
   .title {
-    font-family: 'Jeju Gothic', sans-serif;
+    font-family:'Jeju Gothic', sans-serif !important;
     display: flex;
     margin-bottom: 30px;
     padding-top: 10px;
     padding-left: 20px;
     padding-right: 10px;
     justify-content: space-between;
+    font-size: 24px;
   }
   .subtitle {
-    font-family: 'Jeju Gothic', sans-serif;
+    font-family:'Jeju Gothic', sans-serif !important;
     width: 90%;
     margin: 0 auto 20px;
     font-size: small;
@@ -216,11 +219,11 @@ export default {
     border-bottom: 3px solid rgb(165, 165, 187);
   }
   .subtitle-item {
-    font-family: 'Jeju Gothic', sans-serif;
+    font-family:'Jeju Gothic', sans-serif !important;
     margin: 0 5px;
   }
   .article-frame .subtitle .subtitle-item{
-    font-family: 'Jeju Gothic', sans-serif;
+    font-family:'Jeju Gothic', sans-serif !important;
     color: rgb(242, 237, 243);
   }
   .content {

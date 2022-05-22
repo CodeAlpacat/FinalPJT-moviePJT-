@@ -1,5 +1,8 @@
 <template>
   <div>
+    <div class="community-title">
+      영화 이야기 판
+    </div>
     <div class="body">
       <div class="articleTable">
         <div class="col-6">
@@ -20,14 +23,17 @@
       </div>
     </div>
     <div 
-      style="text-align:right; margin-right:10%"
+      style="text-align:right; margin-right:10%; margin-top:10px;"
     >
       <v-btn
-        icon
-        color="blue darken-4"
+        rounded
+        large
+        color="blue darken-3"
+        dark
         @click="$router.push({ name:'articleNew'})"
       >
         <v-icon>mdi-pencil</v-icon>
+        <span style="font-family:'Jeju Gothic', sans-serif !important; margin-left:20px;">글 작성하기</span>
       </v-btn>
     </div>
     <div class="text-center">
@@ -68,6 +74,14 @@ export default {
 
 <style scoped>
   @import url(//fonts.googleapis.com/earlyaccess/jejogothic.css);
+  .community-title{
+    margin: 60px auto 0;
+    text-align: center;
+    font-family:'Jeju Gothic', sans-serif !important;
+    font-size: 48px;
+    color: rgb(27, 45, 71);
+    font-weight: bolder;
+  }
   .body {
     display: flex;
     flex-direction: column;
@@ -83,6 +97,7 @@ export default {
     width: 100%;
     border-radius: 2px;
     text-align: center;
+    font-family:'Jeju Gothic', sans-serif !important;
   }
   .articleTable > div {
     color: rgb(223, 214, 210);

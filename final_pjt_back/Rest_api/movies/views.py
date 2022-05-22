@@ -1,12 +1,14 @@
 
 from django.shortcuts import render
+from django.db.models import Count
 from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
 from django.shortcuts import get_list_or_404, get_object_or_404
 from .serializers.movie import MovieListSerializer, MovieSerializer
 from .serializers.genre import GenreListSerializer
-from .models import Genre, Movie
+from .serializers.review import ReviewSerializer
+from .models import Genre, Movie, Review
 from django.contrib.auth import get_user_model
 
 from random import randint
@@ -151,3 +153,46 @@ def movie_follow(request, movie_pk):
         movie.kept_by_user.add(user)
         serializer = MovieSerializer(movie)
         return Response(serializer.data)
+
+# 리뷰 생성
+@api_view(['POST'])
+def create_review(request, movie_pk):
+    user = request.user
+    movie = get_object_or_404(Movie, pk=movie_pk)
+
+    serializer = ReviewSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(user=user, movie=movie) # 현재 유저와 영화 정보 저장
+        reviews = movie.reviews.all()
+        serializer = ReviewSerializer(reviews, many=True)
+        return Response(serializer.data, staus=status.HTTP_201_CREATED)
+
+# 리뷰 제거
+
+@api_view(['DELETE'])
+def review_delete(request, movie_pk, review_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    review = get_object_or_404(Review, pk=review_pk)
+    if request.user == review.user:
+        review.delete()
+        reviews = movie.reviews.all()
+        serializer = ReviewSerializer(reviews, many=True)
+        return Response(serializer.data)
+
+@api_view(['POST'])
+def like_review(request, movie_pk, review_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    review = get_object_or_404(Review, pk=review_pk)
+    user = request.user
+    serializer = ReviewSerializer(review)
+    if movie.pk == serializer.data.get('movie'):
+        if review.liked_users.filter(pk=user.pk).exists():
+            review.liked_users.remove(user)
+            serializer = ReviewSerializer(review)
+            return Response(serializer.data)
+        else:
+            review.liked_users.add(user)
+            serializer = ReviewSerializer(review)
+            return Response(serializer.data)
+    else:
+        return Response(status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
