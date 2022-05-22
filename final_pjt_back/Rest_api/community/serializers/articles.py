@@ -39,9 +39,14 @@ class ArticleSerializer(serializers.ModelSerializer):
             fields = ('pk', 'username')
     
     class CommentSerializer(serializers.ModelSerializer):
+        class UserCustomSerializer(serializers.ModelSerializer):
+            class Meta:
+                model = get_user_model()
+                fields = ('pk', 'username')
+        user = UserCustomSerializer(read_only=True)
         class Meta:
             model = Comment
-            fields = '__all__'
+            fields = ('pk', 'user', 'content', 'article',)
 
     
     user = UserSerializer(read_only=True)
