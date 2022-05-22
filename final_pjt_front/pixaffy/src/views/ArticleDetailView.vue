@@ -134,6 +134,21 @@
         </div>
       </div>
     </div>
+    <div style="display:flex; justify-content: center;">
+      <v-btn
+        class="ma-2"
+        color="blue darken-2"
+        dark
+        @click="$router.go(-1)"
+      >
+        <v-icon
+          dark
+          left
+        >
+          mdi-arrow-left
+        </v-icon>Back
+      </v-btn>
+    </div>
   </div>
 
 </template>
@@ -151,7 +166,7 @@ export default {
       dialog: false,
       liked: this.$route.params.isLiked,
       articleComments: this.$route.params.articleComments,
-      user: this.$route.params.user
+      user: JSON.parse(localStorage.getItem('currentUser'))
     }
   },
   components: {
@@ -176,9 +191,10 @@ export default {
   @import url(//fonts.googleapis.com/earlyaccess/jejogothic.css);
   .article-frame {
     font-family: 'Jeju Gothic', sans-serif;
-    margin: 50px auto;
+    margin: 50px auto 10px;
     width: 900px;
-    border: 2px solid rgb(27, 45, 71)
+    border: 2px solid rgb(40, 129, 221);
+    border-radius: 5px;
   }
   .title {
     font-family: 'Jeju Gothic', sans-serif;
