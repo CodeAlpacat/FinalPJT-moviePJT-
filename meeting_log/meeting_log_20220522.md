@@ -35,6 +35,50 @@
 
   ![image](https://user-images.githubusercontent.com/97648026/169691783-44987fac-c8b4-48c4-afee-066e8ebd84f6.png)
 
+
+
+### # 게시판 뒤로가기 기능 및 UI 수정(박재현)
+
+
+
+#### 결과 사진
+
+* 게시판
+
+![image](https://user-images.githubusercontent.com/97648026/169706358-cdfe3c98-c7e8-44b7-8dad-c6b962f88121.png)
+
+* 상세 페이지
+
+  ![image-20220523014745244](meeting_log_20220521.assets/image-20220523014745244.png)
+
+#### 주요 내용
+
+* 폰트 추가 및 뒤로 가기 버튼 추가
+
+
+
+### # 게시판 글 작성, 수정 페이지 UI 개선(박재현)
+
+
+
+#### 결과 사진
+
+![image-20220523014844713](meeting_log_20220521.assets/image-20220523014844713.png)
+
+![image-20220523020249929](meeting_log_20220521.assets/image-20220523020249929.png)
+
+### # 영화 Review Model 및 Serializer 작성(박재현)
+
+* 영화 Detail페이지에서 리뷰 작성 및 열람을 위한 Model 생성과 요청을 위한 Serializer를 작성하였다.
+
+  ![image](https://user-images.githubusercontent.com/97648026/169706982-5690d63d-8427-408b-adbc-209cee51a8a6.png)
+
+  #### 주요 기능
+
+  * 각 영화에 대하여 리뷰를 작성, 리뷰 삭제 가능
+  * 각 리뷰에 대하여 좋아요 가능
+  * Movie Detail 요청시 리뷰 목록 및 리뷰 정보 포함된 정보 송신
+
   
 
 ### # 향후 과제
