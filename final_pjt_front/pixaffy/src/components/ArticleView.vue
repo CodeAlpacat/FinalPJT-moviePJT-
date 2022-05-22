@@ -2,8 +2,8 @@
   <div class="article">
     <div 
       class="col-6" 
-      @click="$router.push({ name:'article', params: {article: article, articlePk: article.pk, isLiked: isInList, articleComments: article.comments}})"
-      onmouseover="this.style.cursor='hand'"
+      @click="$router.push({ name:'article', params: {article: article, articlePk: article.pk, isLiked: isInList, articleComments: article.comments, user: article.user}})"
+      style="cursor: pointer;"
     >
       {{ article.title }} <span class="subcontent">{{ article.comment_count }}</span>
     </div>
