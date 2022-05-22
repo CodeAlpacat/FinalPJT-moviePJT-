@@ -4,7 +4,7 @@
     <v-container fluid>
       <v-row>
         <v-col cols="12" sm="3" lg="2" v-for="movie in movieDatas" :key="movie.id">
-          <card-view-item :movie="movie"></card-view-item>
+          <card-view-item :movieProps="movie"></card-view-item>
         </v-col>
       </v-row>
     </v-container>

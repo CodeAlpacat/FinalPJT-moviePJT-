@@ -176,6 +176,7 @@ export default {
         .then(res => commit('SET_ARTICLE', res.data))
         .catch(err => console.error(err.response))
     },
+    
 
 		createComment({ commit, getters }, { articlePk, content }) {
       /* 댓글 생성

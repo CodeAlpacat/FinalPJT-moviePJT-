@@ -87,8 +87,6 @@ def recommend_movie_list(request, user_pk):
     number_list = [] # 추첨번호 리스트
     
     user_likes_genre = json.loads(user.genre_likes).get("genre_likes") or []  # 유저가 좋아하는 장르 id 값
-    print(user_likes_genre)
-    print(type(user_likes_genre))
     total_range = 0 # range 변수
 
     for movie in serializer.data:

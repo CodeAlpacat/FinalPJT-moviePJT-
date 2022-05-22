@@ -5,11 +5,11 @@
       <router-link :to="{ name: 'home' }">
         <v-img :src="posterPath" alt="포스터가 없습니다" class=""></v-img>
       </router-link>
-      <v-card-title class="sutitle-2">{{ movie.title }}</v-card-title>
+      <v-card-title class="sutitle-2">{{ movieProps.title }}</v-card-title>
       <v-card-text>
         <v-row align="center" class="mx-0">
           <v-rating
-            :value="movie.vote_average / 2"
+            :value="movieProps.vote_average / 2"
             color="amber"
             dense
             half-increments
@@ -18,47 +18,76 @@
           >
           </v-rating>
           <div class="ml-4">
-            {{ movie.vote_average * 10 }} % | {{ movie.release_date }}
+            {{ movieProps.vote_average * 10 }} % | {{ movieProps.release_date }}
           </div>
         </v-row>
         <div class="my-4 subtitle-2">
-          <span v-for="(genre, index) in movie.genres" :key="genre">
+          <span v-for="(genre, index) in movieProps.genres" :key="genre">
             {{ genretypeName(genre, index) }}
           </span>
         </div>
       </v-card-text>
+      <v-dialog v-model="dialog" width="800px">
+        <template v-slot:activator="{ on, attrs }">
+          <v-btn
+            color="red lighten-2"
+            dark
+            v-bind="attrs"
+            v-on="on"
+            @click="dialog = true"
+          >
+            Detail
+          </v-btn>
+        </template>
+        <v-card>
+          <detail-dialog :movieModal="movieProps"></detail-dialog>
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn color="primary" text @click="dialog = false">
+              I accept
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
     </v-card>
   </v-hover>
 </template>
 
 <script>
+import DetailDialog from "@/components/DetailDialog.vue";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "CardViewItem",
+  components: {
+    DetailDialog,
+  },
   props: {
-    movie: {
+    movieProps: {
       required: true,
     },
   },
   data() {
     return {
-      genres_list: []
-    }
+      genres_list: [],
+      dialog: false,
+    };
   },
-
   computed: {
+    ...mapGetters(["dialogDetail"]),
     posterPath() {
-      return "https://image.tmdb.org/t/p/w500/" + this.movie.poster_path;
+      return "https://image.tmdb.org/t/p/w500/" + this.movieProps.poster_path;
     },
   },
   async created() {
     const response = await fetch("http://127.0.0.1:8000/movies/genres/");
-    this.genres_list = await response.json()
+    this.genres_list = await response.json();
   },
   methods: {
+    ...mapActions(["movieSelect"]),
     genretypeName(id, index) {
       for (const item of this.genres_list) {
         if (item.id == id) {
-          if (this.movie.genres.length - 1 == index) {
+          if (this.movieProps.genres.length - 1 == index) {
             return item.name;
           } else {
             return item.name + ",";
