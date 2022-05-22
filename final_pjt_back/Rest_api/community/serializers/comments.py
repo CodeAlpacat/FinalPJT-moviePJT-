@@ -7,9 +7,11 @@ from ..models import Comment
 class CommentSerializer(serializers.ModelSerializer):
     
     class UserSerializer(serializers.ModelSerializer):
+        
         class Meta:
             model = get_user_model()
             fields = ('pk', 'username')
+            
     user = UserSerializer(read_only=True)
 
     class Meta:

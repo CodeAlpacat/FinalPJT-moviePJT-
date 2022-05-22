@@ -9,12 +9,8 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         user = super().save_user(request, user, form, False)
         profile_img = data.get("profile_img")
         genre_likes = data.get("genre_likes")
-        # print('-----------------------------------------')
-        # json_genre_likes = json.loads(genre_likes)
-        # array_json = json_genre_likes.get("genre_likes")
-        # print(array_json)
         if profile_img:
-            user.profile_img = genre_likes
+            user.profile_img = profile_img
         if genre_likes:
             user.genre_likes = genre_likes
 

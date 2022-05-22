@@ -130,7 +130,7 @@
       <!-- 댓글 -->
       <div class="comments">
         <div v-for="comment in article.comments" :key="comment.pk">
-          <comment-view :comment="comment" :articlePk="ariticlePk"></comment-view>
+          <comment-view :comment="comment" :articlePk="articlePk"></comment-view>
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: grey;">
+  <div style="background-color: grey">
     <div class="profile">
       <div class="profile__gap">
         <div class="profile__div1__profile_img">
@@ -9,22 +9,40 @@
           />
         </div>
       </div>
-      
+
       <v-app class="profile__div1">
-         <div class="profile__position">
-          <div class="profile__position__header">이원우</div>
+        <div class="profile__position">
+          <div class="profile__position__header">{{ userDatas.username }}</div>
           <hr />
           <div class="profile__position__content">
             <i class="fa-solid fa-envelope fa-lg"></i>
-            <div>www.naver.com</div>
+            <div>{{ userDatas.email }}</div>
           </div>
           <div class="profile__position__content">
             <i class="fa-solid fa-users-line fa-lg"></i>
-            <div>게시글 팔로워 팔로잉</div>
+            <div>
+              게시글:
+              {{
+                userDatas.articles.length ? userDatas.articles.length : 0
+              }}
+              팔로워:
+              {{
+                userDatas.followers.length ? userDatas.followers.length : 0
+              }}
+              팔로잉:
+              {{
+                userDatas.followings.length ? userDatas.followings.length : 0
+              }}
+            </div>
           </div>
           <div class="profile__position__content">
             <i class="fa-solid fa-film fa-lg"></i>
-            <div>장르</div>
+            <div>
+              좋아하는 장르:
+              <span v-for="genre in genres_list" :key="genre">
+                {{ genre }}
+              </span>
+            </div>
           </div>
 
           <div class="profile__position__button">
@@ -33,41 +51,36 @@
             </button>
           </div>
         </div>
-        <v-tabs
-      color="deep-purple accent-4"
-      left
-    >
-      <v-tab>Landscape</v-tab>
-      <v-tab>City</v-tab>
-      <v-tab>Abstract</v-tab>
+        <v-tabs color="deep-purple accent-4" left>
+          <v-tab>Landscape</v-tab>
+          <v-tab>City</v-tab>
+          <v-tab>Abstract</v-tab>
 
-      <v-tab-item
-      class="rounded-container"
-        v-for="n in 3"
-        :key="n"
-      >
-        <v-container fluid style="margin-top:100px;" >
-          <v-row class="rounded-container">
-            <v-col
-            class="rounded-container"
-              v-for="i in 6"
-              :key="i"
-              cols="12"
-              md="4"
-            >
-              <v-img
-              class="rounded-container"
-                :src="`https://picsum.photos/500/300?image=${i * n * 5 + 10}`"
-                :lazy-src="`https://picsum.photos/10/6?image=${i * n * 5 + 10}`"
-                aspect-ratio="1"
-              ></v-img>
-            </v-col>
-          </v-row>
-        </v-container>
-      </v-tab-item>
-    </v-tabs>
-
-       
+          <v-tab-item class="rounded-container" v-for="n in 3" :key="n">
+            <v-container fluid style="margin-top: 100px">
+              <v-row class="rounded-container">
+                <v-col
+                  class="rounded-container"
+                  v-for="i in 6"
+                  :key="i"
+                  cols="12"
+                  md="4"
+                >
+                  <v-img
+                    class="rounded-container"
+                    :src="`https://picsum.photos/500/300?image=${
+                      i * n * 5 + 10
+                    }`"
+                    :lazy-src="`https://picsum.photos/10/6?image=${
+                      i * n * 5 + 10
+                    }`"
+                    aspect-ratio="1"
+                  ></v-img>
+                </v-col>
+              </v-row>
+            </v-container>
+          </v-tab-item>
+        </v-tabs>
       </v-app>
 
       <div class="profile__div2"></div>
@@ -108,19 +121,43 @@ export default {
   methods: {
     ...mapActions(["fetchProfile"]),
   },
-  created() {
-    const payload = { username: this.$route.params.username };
-    this.fetchProfile(payload);
-  },
   data() {
     return {
       tab: null,
       items: ["My Movies", "작성한 게시글", "좋아요한 게시글!"],
+      userDatas: [],
+      genres_list: [],
     };
+  },
+  // created() {
+  //   const payload = { username: this.$route.params.username };
+  //   this.fetchProfile(payload);
+
+  // },
+  async created() {
+    const payload = { username: this.$route.params.username };
+    this.fetchProfile(payload);
+    const response = await fetch(
+      `http://127.0.0.1:8000/api/v1/accounts/profile/${this.$route.params.username}/`
+    );
+
+    const res = await fetch("http://127.0.0.1:8000/movies/genres/");
+    const save_genres = await res.json();
+
+    this.userDatas = await response.json();
+    const list_gen = JSON.parse(this.userDatas.genre_likes);
+    if (save_genres) {
+      this.genres_list = list_gen.genre_likes.map((item) => {
+        for (let i = 0; i < save_genres.length; i++) {
+          if (parseInt(item) === save_genres[i].id) {
+            return save_genres[i].name;
+          }
+        }
+      });
+    }
   },
 };
 </script>
-
 
 <style>
 .profile {

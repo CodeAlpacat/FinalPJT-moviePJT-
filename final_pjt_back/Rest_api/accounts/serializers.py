@@ -27,14 +27,14 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = get_user_model()
-        fields = ('pk', 'username', 'email', 'like_articles', 'articles', 'keep_movies', 'genre_likes', 'followings', 'followers')
+        fields = ('pk', 'username', 'email', 'like_articles', 'articles', 'keep_movies', 'genre_likes', 'followings', 'followers', 'profile_img')
         
 class CustomSignupSerializer(RegisterSerializer):
-    # profile_img = serializers.ImageField(use_url=True)
+    profile_img = serializers.CharField(min_length=0)
     genre_likes = serializers.JSONField(default='{}')
     def get_cleaned_data(self):
         data = super().get_cleaned_data()
-        # data['profile_img'] = self.validated_data.get('profile_img', '')
+        data['profile_img'] = self.validated_data.get('profile_img', '')
         data['genre_likes'] = self.validated_data.get('genre_likes', '')
 
         return data
