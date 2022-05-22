@@ -4,35 +4,33 @@
       <div class="profile__gap">
         <div class="profile__div1__profile_img">
           <img
-            src="https://www.hidomin.com/news/photo/202105/453232_224470_4025.jpg"
-            alt=""
+            :src="
+              profile.profile_img
+                ? profile.profile_img
+                : 'https://user-images.githubusercontent.com/90893428/169695116-afc5cb17-b075-43c9-9ff8-7c8155c8dd79.png'
+            "
+            alt="프로필 사진이 없습니다."
           />
         </div>
       </div>
 
       <v-app class="profile__div1">
         <div class="profile__position">
-          <div class="profile__position__header">{{ userDatas.username }}</div>
+          <div class="profile__position__header">{{ profile.username }}</div>
           <hr />
           <div class="profile__position__content">
             <i class="fa-solid fa-envelope fa-lg"></i>
-            <div>{{ userDatas.email }}</div>
+            <div>{{ profile.email }}</div>
           </div>
           <div class="profile__position__content">
             <i class="fa-solid fa-users-line fa-lg"></i>
             <div>
               게시글:
-              {{
-                userDatas.articles.length ? userDatas.articles.length : 0
-              }}
+              {{ profile.articles.length ? profile.articles.length : 0 }}
               팔로워:
-              {{
-                userDatas.followers.length ? userDatas.followers.length : 0
-              }}
+              {{ profile.followers ? profile.followers.length : 0 }}
               팔로잉:
-              {{
-                userDatas.followings.length ? userDatas.followings.length : 0
-              }}
+              {{ profile.followings.length ? profile.followings.length : 0 }}
             </div>
           </div>
           <div class="profile__position__content">
@@ -46,8 +44,16 @@
           </div>
 
           <div class="profile__position__button">
-            <button class="profile__div1__follow_btn">
-              <span>팔로우</span>
+            <button
+              v-show="!(currentUser.username === profile.username)"
+              @click="
+                followProfile(profile.pk, profile.username);
+                followOrUnfollow();
+              "
+              class="profile__div1__follow_btn"
+            >
+              <span v-if="unFollowButton">팔로우</span>
+              <span v-if="!unFollowButton">언팔로우</span>
             </button>
           </div>
         </div>
@@ -116,36 +122,37 @@ import { mapGetters, mapActions } from "vuex";
 export default {
   name: "ProfileView",
   computed: {
-    ...mapGetters(["profile"]),
+    ...mapGetters(["profile", "currentUser"]),
   },
   methods: {
-    ...mapActions(["fetchProfile"]),
+    ...mapActions(["fetchProfile", "followProfile"]),
+    followOrUnfollow() {
+      if (this.profile.followers.includes(this.currentUser.pk)) {
+        this.unFollowButton = true;
+      } else {
+        this.unFollowButton = false;
+      }
+    },
   },
   data() {
     return {
       tab: null,
       items: ["My Movies", "작성한 게시글", "좋아요한 게시글!"],
-      userDatas: [],
       genres_list: [],
+      myProfile: false,
+      unFollowButton: true,
     };
   },
-  // created() {
-  //   const payload = { username: this.$route.params.username };
-  //   this.fetchProfile(payload);
 
-  // },
   async created() {
+ 
+
     const payload = { username: this.$route.params.username };
     this.fetchProfile(payload);
-    const response = await fetch(
-      `http://127.0.0.1:8000/api/v1/accounts/profile/${this.$route.params.username}/`
-    );
 
     const res = await fetch("http://127.0.0.1:8000/movies/genres/");
     const save_genres = await res.json();
-
-    this.userDatas = await response.json();
-    const list_gen = JSON.parse(this.userDatas.genre_likes);
+    const list_gen = JSON.parse(this.profile.genre_likes);
     if (save_genres) {
       this.genres_list = list_gen.genre_likes.map((item) => {
         for (let i = 0; i < save_genres.length; i++) {
@@ -154,6 +161,13 @@ export default {
           }
         }
       });
+    }
+       //처음부터 로그인한 유저가 팔로워 목록에 없다면 팔로우를 띄우기 위해 false
+    for (let i = 0; i < this.profile.followers.length; i++) {
+      if (this.currentUser.pk === this.profile.followers[i]) {
+        this.unFollowButton = false;
+        console.log(this.unFollowButton);
+      }
     }
   },
 };
@@ -222,7 +236,7 @@ hr {
   width: 500px;
   height: 680px;
   border-radius: 5%;
-  background-color: red;
+  background-color: white;
 }
 
 .profile__div1__profile_img img {

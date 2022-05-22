@@ -1,26 +1,16 @@
 <template>
   <div>
-    <v-card-actions class="justify-end">
-      <v-btn
-        text
-        @click="toggleDialogDetail"
-      >Close</v-btn>
-    </v-card-actions>
     <movie-trailer></movie-trailer>
+    <h1>{{ profile.pk }}</h1>
     <div class="d-block mb-6 mt-6 py-6">
-      <v-row
-        justify="space-between"
-      >
+      <v-row justify="space-between">
         <div>
           <span @click="toggleOverview">OVERVIEW</span> |
           <span @click="toggleReview">REVIEW</span> |
           <span @click="toggleDescription">DESCRIPTION</span>
         </div>
         <div>
-          <v-btn
-            elevation="8"
-            rounded
-          > Add To My List</v-btn>
+          <v-btn elevation="8" rounded> Add To My List</v-btn>
         </div>
       </v-row>
     </div>
@@ -32,59 +22,67 @@
         <review-detail></review-detail>
       </div>
       <div v-show="descriptionShow">
-        <description-detail></description-detail>
+        <description-detail :movie="movieModal"></description-detail>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import MovieTrailer from './MovieTrailer.vue'
-import OverviewDetail from './OverviewDetail.vue'
-import ReviewDetail from './ReviewDetail.vue'
-import DescriptionDetail from './DescriptionDetail.vue'
-import { mapActions, mapGetters } from 'vuex'
+import MovieTrailer from "./MovieTrailer.vue";
+import OverviewDetail from "./OverviewDetail.vue";
+import ReviewDetail from "./ReviewDetail.vue";
+import DescriptionDetail from "./DescriptionDetail.vue";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
-  name: 'detailDialog',
+  name: "DetailDialog",
+  props: {
+    movieModal: {
+      required: true,
+    },
+  },
   components: {
     MovieTrailer,
     OverviewDetail,
     ReviewDetail,
     DescriptionDetail,
   },
+  computed: {
+    ...mapGetters(["profile", "currentUser"]),
+  },
   data() {
     return {
       overviewShow: true,
       reviewShow: false,
       descriptionShow: false,
-    }
-
+      toggleDetail: false,
+    };
   },
-  computed: {
-    ...mapGetters(['movie'])
+  created() {
+    //현재 유저의 프로필 정보(좋아하는 영화 정보 포함)
+    const payload = { username: this.currentUser.username };
+    this.fetchProfile(payload);
   },
   methods: {
-    ...mapActions(['toggleDialogDetail']),
+    ...mapActions(["fetchProfile"]),
     toggleOverview() {
-      this.overviewShow = true
-      this.reviewShow = false
-      this.descriptionShow = false
+      this.overviewShow = true;
+      this.reviewShow = false;
+      this.descriptionShow = false;
     },
     toggleReview() {
-      this.overviewShow = false
-      this.reviewShow = true
-      this.descriptionShow = false
+      this.overviewShow = false;
+      this.reviewShow = true;
+      this.descriptionShow = false;
     },
     toggleDescription() {
-      this.overviewShow = false
-      this.reviewShow = false
-      this.descriptionShow = true
+      this.overviewShow = false;
+      this.reviewShow = false;
+      this.descriptionShow = true;
     },
-  }
-}
+  },
+};
 </script>
 
-<style>
-
-</style>
+<style></style>

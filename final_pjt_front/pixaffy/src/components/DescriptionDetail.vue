@@ -77,14 +77,17 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
 export default {
   name:'descriptionDetail',
   data: () => ({
       model: null,
     }),
+  props: {
+    movie: {
+      required: true
+    }
+  },
   computed: {
-    ...mapGetters(['movie']),
     posterPath() {
         return "https://image.tmdb.org/t/p/w500/" + this.movie.poster_path;
     },
