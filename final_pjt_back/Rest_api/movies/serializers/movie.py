@@ -16,10 +16,10 @@ class MovieSerializer(serializers.ModelSerializer):
                 model = get_user_model()
                 fields = ('pk', 'username')
         user = UserSerializer(read_only=True)
-        like_count = serializers.IntegerField()
+        like_count =serializers.IntegerField(source="liked_users.count", read_only=True)
         class Meta:
             model = Review
-            fields = ('pk', 'movie', 'content', 'liked_users', 'user', 'like_count')
+            fields = ('pk', 'movie', 'content', 'liked_users', 'user','like_count')
     
     reviews = ReviewSerializer(many=True, read_only=True)
     class Meta:

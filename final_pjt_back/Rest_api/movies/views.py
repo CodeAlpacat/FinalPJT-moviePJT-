@@ -157,13 +157,12 @@ def movie_follow(request, movie_pk):
 def create_review(request, movie_pk):
     user = request.user
     movie = get_object_or_404(Movie, pk=movie_pk)
-
     serializer = ReviewSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(user=user, movie=movie) # 현재 유저와 영화 정보 저장
         reviews = movie.reviews.all()
         serializer = ReviewSerializer(reviews, many=True)
-        return Response(serializer.data, staus=status.HTTP_201_CREATED)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 # 리뷰 제거
 
@@ -190,6 +189,7 @@ def like_review(request, movie_pk, review_pk):
             return Response(serializer.data)
         else:
             review.liked_users.add(user)
+            review.save()
             serializer = ReviewSerializer(review)
             return Response(serializer.data)
     else:
