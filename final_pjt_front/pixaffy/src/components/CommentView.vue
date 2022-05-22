@@ -4,7 +4,7 @@
       <div style="flex-grow: 1">
         <div class="comment-body">
           <div>
-            댓글 작성자
+            {{ payload.username }}
           </div>
           {{ payload.content }}
         </div>
@@ -36,7 +36,8 @@ export default {
     return {
       isOnMouse: false,
       payload: {
-        content: this.comment.content
+        content: this.comment.content,
+        username: this.comment.user.username,
       },
     }
   },

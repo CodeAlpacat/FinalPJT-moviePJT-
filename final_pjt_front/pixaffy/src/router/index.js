@@ -10,7 +10,7 @@ import CommunityView from '../views/CommunityView.vue'
 import ProfileView from '../views/ProfileView.vue'
 import ArticleDetailView from '../views/ArticleDetailView.vue'
 import ArticleNewView from '../views/ArticleNewView.vue'
-
+import ArticleEditView from '../views/ArticleEditView.vue'
 
 Vue.use(VueRouter)
 
@@ -65,6 +65,11 @@ const routes = [
     path: '/articles/new',
     name: 'articleNew',
     component: ArticleNewView
+  },
+  {
+    path: '/articles/:articlePk/edit',
+    name: 'articleEdit',
+    component: ArticleEditView
   },
 ]
 

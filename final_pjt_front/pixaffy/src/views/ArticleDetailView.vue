@@ -23,7 +23,7 @@
               <v-list>
                 <v-list-item>
                   <v-list-item-title
-                    @click="$router.push({ name:'articleEdit', params: {articlePk: article.pk}})"
+                    @click="$router.push({ name:'articleEdit', params: {articlePk: articlePk}})"
                   >
                     게시글 수정
                   </v-list-item-title>
