@@ -35,7 +35,20 @@
 
   ![image](https://user-images.githubusercontent.com/97648026/169691783-44987fac-c8b4-48c4-afee-066e8ebd84f6.png)
 
-  
+
+
+
+## 기능 구현(이원우)
+
+![캡처](https://user-images.githubusercontent.com/90893428/169707242-842ebc5f-42a2-4a1e-b1dc-399c481bf45b.PNG)
+
+![2](https://user-images.githubusercontent.com/90893428/169707241-78d840a2-6324-47c8-b9b2-556db6409d05.PNG)
+
+- 프로필 팔로우, 언팔로우 및 데이터 확인 / 팔로우, 팔로잉 갱신 확인
+- 개별 좋아하는 영화 담기 기능 완료 (문제점 발생: 팔로우가 되었는지 다시 들어가면 갱신이 되지 않음.)
+- 프로필 이미지 데이터베이스 저장 및 출력
+- 영화 디테일 다이얼로그와 개별 영화 컴포넌트 및 데이터 연결 완료
+- 좋아하는 영화 목록 프로필 페이지에 띄우기 성공
 
 ### # 향후 과제
 

@@ -10,7 +10,10 @@
           <span @click="toggleDescription">DESCRIPTION</span>
         </div>
         <div>
-          <v-btn elevation="8" rounded> Add To My List</v-btn>
+          <v-btn elevation="8" rounded @click="followMovies(movieModal.id); followOrUnfollow();"
+            ><span v-if="unFollowButton">Add To My List</span>
+            <span v-if="!unFollowButton">DELETE MOVIE</span></v-btn
+          >
         </div>
       </v-row>
     </div>
@@ -57,15 +60,25 @@ export default {
       reviewShow: false,
       descriptionShow: false,
       toggleDetail: false,
+      unFollowButton: true,
     };
   },
   created() {
     //현재 유저의 프로필 정보(좋아하는 영화 정보 포함)
     const payload = { username: this.currentUser.username };
     this.fetchProfile(payload);
+    setTimeout(() => {
+      for (let i = 0; i < this.profile.kept_by_user.length; i++) {
+      if (this.currentUser.pk === this.profile.kept_by_user[i]) {
+        this.unFollowButton = false;
+      }
+    }
+    }, 200);
+    
   },
+    
   methods: {
-    ...mapActions(["fetchProfile"]),
+    ...mapActions(["fetchProfile", "followMovies"]),
     toggleOverview() {
       this.overviewShow = true;
       this.reviewShow = false;
@@ -80,6 +93,13 @@ export default {
       this.overviewShow = false;
       this.reviewShow = false;
       this.descriptionShow = true;
+    },
+    followOrUnfollow() {
+      if (this.profile.kept_by_user.includes(this.currentUser.pk)) {
+        this.unFollowButton = true;
+      } else {
+        this.unFollowButton = false;
+      }
     },
   },
 };

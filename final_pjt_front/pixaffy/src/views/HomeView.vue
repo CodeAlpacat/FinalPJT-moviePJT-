@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div >
       <genre-based-recommendation></genre-based-recommendation>
       <card-view></card-view>

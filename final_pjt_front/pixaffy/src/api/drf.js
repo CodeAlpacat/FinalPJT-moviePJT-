@@ -4,7 +4,7 @@ const BASE_HOST = 'http://localhost:8000/'
 const ACCOUNTS = 'accounts/'
 const COMMENTS = 'comments/'
 const COMMUNITY = 'community/'
-
+const MOVIES = 'movies/'
 export default {
   accounts: {
     login: () => HOST + ACCOUNTS + 'login/',
@@ -15,7 +15,8 @@ export default {
     currentUserInfo: () => HOST + ACCOUNTS + 'user/',
     // username으로 프로필 제공
     profile: username => HOST + ACCOUNTS + 'profile/' + username +'/',
-    follow: userPk => HOST + ACCOUNTS + userPk +'/' + 'follow/'
+    follow: userPk => HOST + ACCOUNTS + userPk +'/' + 'follow/',
+    followMovies: moviePk => BASE_HOST + MOVIES + moviePk + '/' + 'moviefollow/'
   },
   articles: {
     // /articles/

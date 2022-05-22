@@ -55,7 +55,7 @@
 
 <script>
 import DetailDialog from "@/components/DetailDialog.vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 export default {
   name: "CardViewItem",
   components: {
@@ -73,7 +73,6 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["dialogDetail"]),
     posterPath() {
       return "https://image.tmdb.org/t/p/w500/" + this.movieProps.poster_path;
     },

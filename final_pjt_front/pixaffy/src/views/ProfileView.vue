@@ -57,62 +57,24 @@
             </button>
           </div>
         </div>
-        <v-tabs color="deep-purple accent-4" left>
-          <v-tab>Landscape</v-tab>
-          <v-tab>City</v-tab>
-          <v-tab>Abstract</v-tab>
-
-          <v-tab-item class="rounded-container" v-for="n in 3" :key="n">
-            <v-container fluid style="margin-top: 100px">
-              <v-row class="rounded-container">
-                <v-col
-                  class="rounded-container"
-                  v-for="i in 6"
-                  :key="i"
-                  cols="12"
-                  md="4"
-                >
-                  <v-img
-                    class="rounded-container"
-                    :src="`https://picsum.photos/500/300?image=${
-                      i * n * 5 + 10
-                    }`"
-                    :lazy-src="`https://picsum.photos/10/6?image=${
-                      i * n * 5 + 10
-                    }`"
-                    aspect-ratio="1"
-                  ></v-img>
-                </v-col>
-              </v-row>
-            </v-container>
-          </v-tab-item>
-        </v-tabs>
       </v-app>
 
-      <div class="profile__div2"></div>
+      <div class="profile__div2">
+        <v-app>
+          <v-tabs color="deep-purple accent-4" left>
+            <v-tab>MY MOVIES</v-tab>
+            <v-tab>작성한 게시글</v-tab>
+            <v-tab>좋아요한 게시글</v-tab>
+
+            <v-tab-item>
+              <v-tab v-for="item in items" :key="item">
+                <v-img :src="`https://image.tmdb.org/t/p/w500/${item.poster_path}`"></v-img>
+              </v-tab>
+            </v-tab-item>
+          </v-tabs>
+        </v-app>
+      </div>
     </div>
-
-    <!-- <div>
-    <h1>{{ profile.username }}</h1>
-
-    <h2>작성한 글</h2>
-    <ul>
-      <li v-for="article in profile.articles" :key="article.pk">
-        <router-link :to="{ name: 'article', params: { articlePk: article.pk } }">
-          {{ article.title }}
-        </router-link>
-      </li>
-    </ul>
-
-    <h2>좋아요 한 글</h2>
-    <ul>
-      <li v-for="article in profile.liked_articles" :key="article.pk">
-        <router-link :to="{ name: 'article', params: { articlePk: article.pk } }">
-          {{ article.title }}
-        </router-link>
-      </li>
-    </ul>
-  </div> -->
   </div>
 </template>
 
@@ -137,38 +99,39 @@ export default {
   data() {
     return {
       tab: null,
-      items: ["My Movies", "작성한 게시글", "좋아요한 게시글!"],
+      items: null,
       genres_list: [],
       myProfile: false,
       unFollowButton: true,
+      posterPath: null,
     };
   },
 
   async created() {
- 
-
     const payload = { username: this.$route.params.username };
     this.fetchProfile(payload);
 
     const res = await fetch("http://127.0.0.1:8000/movies/genres/");
     const save_genres = await res.json();
-    const list_gen = JSON.parse(this.profile.genre_likes);
-    if (save_genres) {
-      this.genres_list = list_gen.genre_likes.map((item) => {
-        for (let i = 0; i < save_genres.length; i++) {
-          if (parseInt(item) === save_genres[i].id) {
-            return save_genres[i].name;
+    setTimeout(() => {
+      const list_gen = JSON.parse(this.profile.genre_likes);
+      if (save_genres) {
+        this.genres_list = list_gen.genre_likes.map((item) => {
+          for (let i = 0; i < save_genres.length; i++) {
+            if (parseInt(item) === save_genres[i].id) {
+              return save_genres[i].name;
+            }
           }
-        }
-      });
-    }
-       //처음부터 로그인한 유저가 팔로워 목록에 없다면 팔로우를 띄우기 위해 false
-    for (let i = 0; i < this.profile.followers.length; i++) {
-      if (this.currentUser.pk === this.profile.followers[i]) {
-        this.unFollowButton = false;
-        console.log(this.unFollowButton);
+        });
       }
-    }
+      for (let i = 0; i < this.profile.followers.length; i++) {
+        if (this.currentUser.pk === this.profile.followers[i]) {
+          this.unFollowButton = false;
+        }
+      }
+      this.items = this.profile.keep_movies;
+    }, 100);
+    //처음부터 로그인한 유저가 팔로워 목록에 없다면 팔로우를 띄우기 위해 false
   },
 };
 </script>
@@ -193,6 +156,12 @@ hr {
   background-color: rgb(226, 216, 216);
   height: 600px;
   position: relative;
+  box-shadow: -5px 2px 10px rgb(86, 75, 75);
+}
+
+.profile__div2 {
+  background-color: rgb(226, 216, 216);
+  height: 800px;
   box-shadow: -5px 2px 10px rgb(86, 75, 75);
 }
 
