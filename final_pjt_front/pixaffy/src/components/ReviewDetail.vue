@@ -2,7 +2,7 @@
   <div>
     <div style="display: flex; flex-direction: column; width:90%; margin: 50px auto 0;">
       <div v-if="movie.reviews">
-        <div v-for="review in movie.reviews.slice((page - 1)*10,(page*10))" :key="review.pk">
+        <div v-for="review in getReverse.slice((page - 1)*10,(page*10))" :key="review.pk">
           <review-view :review="review" :movie="movie"></review-view>
         </div>
       </div>
@@ -110,6 +110,12 @@ export default {
   },
   methods: {
     ...mapActions(['createReview','movieSelect']),
+  },
+  computed: {
+    getReverse() {
+      let result = this.movie.reviews
+      return result.reverse()
+    }
   },
   created() {
     
