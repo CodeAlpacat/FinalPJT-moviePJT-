@@ -164,7 +164,7 @@ def create_review(request, movie_pk):
     serializer = ReviewSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(user=user, movie=movie) # 현재 유저와 영화 정보 저장
-        reviews = movie.reviews.all().order_by('-pk')
+        reviews = movie.reviews.all().order_by('pk')
         serializer = ReviewSerializer(reviews, many=True)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -176,7 +176,7 @@ def review_delete(request, movie_pk, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
     if request.user == review.user:
         review.delete()
-        reviews = movie.reviews.all().order_by('-pk')
+        reviews = movie.reviews.all().order_by('pk')
         serializer = ReviewSerializer(reviews, many=True)
         return Response(serializer.data)
 
@@ -189,13 +189,13 @@ def like_review(request, movie_pk, review_pk):
     if movie.pk == serializer.data.get('movie'):
         if review.liked_users.filter(pk=user.pk).exists():
             review.liked_users.remove(user)
-            reviews = movie.reviews.all().order_by('-pk')
+            reviews = movie.reviews.all().order_by('pk')
             serializer = ReviewSerializer(reviews, many=True)
             return Response(serializer.data)
         else:
             review.liked_users.add(user)
             review.save()
-            reviews = movie.reviews.all().order_by('-pk')
+            reviews = movie.reviews.all().order_by('pk')
             serializer = ReviewSerializer(reviews, many=True)
             return Response(serializer.data)
     else:
