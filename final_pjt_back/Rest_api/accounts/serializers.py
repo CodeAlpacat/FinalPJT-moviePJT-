@@ -11,7 +11,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         
         class Meta:
             model = Article
-            fields = ('pk', 'title', 'content')
+            fields = '__all__'
 
     #유저가 팔로우한 영화들을 가져오기 위해 재정의
     class MovieFollowSerializer(serializers.ModelSerializer):
@@ -21,13 +21,13 @@ class ProfileSerializer(serializers.ModelSerializer):
             fields = '__all__'
         
     # 유저가 좋아요한 게시글 / 유저가 작성한 게시글 / 유저가 팔로우한 영화들
-    like_articles = ArticleSerializer(many=True)
-    articles = ArticleSerializer(many=True)
-    keep_movies = MovieFollowSerializer(many=True)
-
+    like_articles = ArticleSerializer(many=True, read_only=True)
+    articles = ArticleSerializer(many=True, read_only=True)
+    keep_movies = MovieFollowSerializer(many=True, read_only=True)
     class Meta:
         model = get_user_model()
         fields = ('pk', 'username', 'email', 'like_articles', 'articles', 'keep_movies', 'genre_likes', 'followings', 'followers', 'profile_img')
+        read_only_fields = ('followings',)
         
 class CustomSignupSerializer(RegisterSerializer):
     profile_img = serializers.CharField(min_length=0)

@@ -1,7 +1,6 @@
 <template>
   <div>
     <movie-trailer></movie-trailer>
-    <h1>{{ profile.pk }}</h1>
     <div class="d-block mb-6 mt-6 py-6">
       <v-row justify="space-between">
         <div>
@@ -10,10 +9,16 @@
           <span @click="toggleDescription">DESCRIPTION</span>
         </div>
         <div>
-          <v-btn elevation="8" rounded @click="followMovies(movieModal.id); followOrUnfollow();"
-            ><span v-if="unFollowButton">Add To My List</span>
-            <span v-if="!unFollowButton">DELETE MOVIE</span></v-btn
+          <button
+            class="profile__div1__follow_btn"
+            @click="
+              followMovies(movieModal.id);
+              followOrUnfollow();
+            "
           >
+            <span v-if="unFollowButton">Add To My List</span>
+            <span v-if="!unFollowButton">DELETE MOVIE</span>
+          </button>
         </div>
       </v-row>
     </div>
@@ -36,12 +41,15 @@ import MovieTrailer from "./MovieTrailer.vue";
 import OverviewDetail from "./OverviewDetail.vue";
 import ReviewDetail from "./ReviewDetail.vue";
 import DescriptionDetail from "./DescriptionDetail.vue";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions } from "vuex";
 
 export default {
   name: "DetailDialog",
   props: {
     movieModal: {
+      required: true,
+    },
+    profile: {
       required: true,
     },
   },
@@ -51,9 +59,6 @@ export default {
     ReviewDetail,
     DescriptionDetail,
   },
-  computed: {
-    ...mapGetters(["profile", "currentUser"]),
-  },
   data() {
     return {
       overviewShow: true,
@@ -61,24 +66,28 @@ export default {
       descriptionShow: false,
       toggleDetail: false,
       unFollowButton: true,
+      userInfo: null,
     };
   },
   created() {
-    //현재 유저의 프로필 정보(좋아하는 영화 정보 포함)
-    const payload = { username: this.currentUser.username };
-    this.fetchProfile(payload);
-    setTimeout(() => {
-      for (let i = 0; i < this.profile.kept_by_user.length; i++) {
-      if (this.currentUser.pk === this.profile.kept_by_user[i]) {
-        this.unFollowButton = false;
+    this.userInfo = JSON.parse(localStorage.getItem("currentUser")).pk;
+    console.log(this.profile);
+    for (let i = 0; i < this.profile.keep_movies; i++) {
+      for (
+        let j = 0;
+        j < this.profile.keep_movies[i].kept_by_user.length;
+        j++
+      ) {
+        if (this.userInfo == this.profile.keep_movies[i].kept_by_user[j]) {
+          this.unFollowButton = false;
+          break;
+        }
       }
     }
-    }, 200);
-    
   },
-    
+
   methods: {
-    ...mapActions(["fetchProfile", "followMovies"]),
+    ...mapActions(["followMovies"]),
     toggleOverview() {
       this.overviewShow = true;
       this.reviewShow = false;
@@ -95,14 +104,74 @@ export default {
       this.descriptionShow = true;
     },
     followOrUnfollow() {
-      if (this.profile.kept_by_user.includes(this.currentUser.pk)) {
-        this.unFollowButton = true;
+      if (this.profile.kept_by_user) {
+        if (this.profile.kept_by_user.some((item) => item == this.userInfo)) {
+          this.unFollowButton = true;
+
+        } else {
+          this.unFollowButton = false;
+        }
       } else {
-        this.unFollowButton = false;
+        if (this.profile.keep_movies.some((item) => item.id == this.userInfo)) {
+          this.unFollowButton = true;
+        
+        } else {
+          this.unFollowButton = false;
+        
+        }
       }
     },
   },
 };
 </script>
 
-<style></style>
+<style>
+.profile__div1__follow_btn {
+  width: 180px;
+  height: 40px;
+  border-radius: 30px;
+  border: none;
+  color: white;
+  background-color: rgb(23, 146, 195);
+  text-align: center;
+  opacity: 1.3;
+  cursor: pointer;
+  transition: 0.5s;
+  margin-top: 35px;
+  box-shadow: 2px 2px 2px grey;
+}
+
+.profile__div1__follow_btn:hover {
+  opacity: 0.9;
+}
+
+.profile__div1__follow_btn span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.profile__div1__follow_btn span:after {
+  content: "\f234";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 900;
+  font-size: 20px;
+  position: absolute;
+  opacity: 0;
+  bottom: -2px;
+  right: -10px;
+  transition: 0.5s;
+}
+
+.profile__div1__follow_btn:hover span {
+  padding-right: 25px;
+}
+
+.profile__div1__follow_btn:hover span:after {
+  opacity: 1;
+  right: -1;
+}
+</style>

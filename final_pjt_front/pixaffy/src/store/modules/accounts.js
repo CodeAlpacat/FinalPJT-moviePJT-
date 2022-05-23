@@ -17,6 +17,7 @@ export default {
     movie: null,
     follow: {},
     followMovies: {},
+    profileEdit: {},
   },
   // 모든 state는 getters 를 통해서 접근하겠다.
   getters: {
@@ -28,13 +29,14 @@ export default {
     dialogDetail: state => state.dialogDetail,
     movie: state => state.movie,
     follow: state => state.follow,
-    followMovies: state => state.followMovies
+    followMovies: state => state.followMovies,
   },
 
   mutations: {
     SET_TOKEN: (state, token) => state.token = token,
     SET_CURRENT_USER: (state, user) => state.currentUser = user,
     SET_PROFILE: (state, profile) => state.profile = profile,
+    SET_EDIT_PROFILE: (state, profileEdit) => state.profileEdit = profileEdit,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
     SET_DIALOG_DETAIL: (state) => state.dialogDetail = !state.dialogDetail,
     SET_DIALOG_COMMENT : (state) => state.dialogComment = !state.dialogComment,
@@ -194,7 +196,7 @@ export default {
           const likedList = getList.map(getlikedList)
           commit('SET_LIKED_ARTICLE_LIST', likedList)
         })
-        .catch(err => console(err.response))
+        .catch(err => console.log(err.response))
     },
 
     movieSelect({commit}, movie){
@@ -226,6 +228,23 @@ export default {
         commit('SET_PROFILE', res.data)
       })
       .catch(err => console.log(err.response))
-    }
+    },
+    
+    updateArticle({ commit, getters }, { currentUsername, username, genre_likes, email, profile_img }) {
+       
+      axios({
+        url: drf.accounts.profile(currentUsername),
+        method: 'put',
+        data: { username, genre_likes, email, profile_img },
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          commit('SET_ARTICLE', res.data)
+          router.push({
+            name: 'article',
+            params: { articlePk: getters.article.pk }
+          })
+        })
+    },
   },
 }

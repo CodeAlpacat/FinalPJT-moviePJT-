@@ -40,7 +40,10 @@
           </v-btn>
         </template>
         <v-card>
-          <detail-dialog :movieModal="movieProps"></detail-dialog>
+          <detail-dialog
+            :movieModal="movieProps"
+            :profile="profile"
+          ></detail-dialog>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="primary" text @click="dialog = false">
@@ -55,7 +58,7 @@
 
 <script>
 import DetailDialog from "@/components/DetailDialog.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters} from "vuex";
 export default {
   name: "CardViewItem",
   components: {
@@ -70,19 +73,24 @@ export default {
     return {
       genres_list: [],
       dialog: false,
+      userId: null,
     };
   },
   computed: {
     posterPath() {
       return "https://image.tmdb.org/t/p/w500/" + this.movieProps.poster_path;
     },
+    ...mapGetters(["profile"]),
   },
   async created() {
     const response = await fetch("http://127.0.0.1:8000/movies/genres/");
     this.genres_list = await response.json();
+    this.username = await JSON.parse(localStorage.getItem('currentUser')).username
+    const payload = { username: this.username };
+    await this.fetchProfile(payload);
   },
   methods: {
-    ...mapActions(["movieSelect"]),
+    ...mapActions(["movieSelect", "fetchProfile"]),
     genretypeName(id, index) {
       for (const item of this.genres_list) {
         if (item.id == id) {

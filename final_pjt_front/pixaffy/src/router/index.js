@@ -11,6 +11,7 @@ import ProfileView from '../views/ProfileView.vue'
 import ArticleDetailView from '../views/ArticleDetailView.vue'
 import ArticleNewView from '../views/ArticleNewView.vue'
 import ArticleEditView from '../views/ArticleEditView.vue'
+import ProfileEditFormView from '../views/ProfileEditFormView.vue'
 
 Vue.use(VueRouter)
 
@@ -56,6 +57,11 @@ const routes = [
     component: ProfileView
   },
   {
+    path: '/profile/:username/:userInfo',
+    name: 'profileEdit',
+    component: ProfileEditFormView
+  },
+  {
     // path: '/articles/:article_pk',
     path: '/articles/:articlePk',
     name: 'article',
@@ -71,6 +77,7 @@ const routes = [
     name: 'articleEdit',
     component: ArticleEditView
   },
+  
 ]
 
 const router = new VueRouter({

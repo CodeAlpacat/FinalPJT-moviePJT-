@@ -8,11 +8,20 @@ from rest_framework import status
 
 
 
-@api_view(['GET'])
-def profile(request, username):
+@api_view(['GET', 'PUT'])
+def profile_or_edit(request, username):
+
     user = get_object_or_404(get_user_model(), username=username)
-    serializer = ProfileSerializer(user)
-    return Response(serializer.data)
+    if request.method == 'GET':
+        serializer = ProfileSerializer(user)
+        return Response(serializer.data)
+    
+    elif request.method == 'PUT' and request.user.is_authenticated:
+        serializer = ProfileSerializer(data=request.data, instance=user)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+        
 
 
 

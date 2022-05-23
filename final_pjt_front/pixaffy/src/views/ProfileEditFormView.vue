@@ -6,14 +6,14 @@
         <v-img
           class="login-card__div__img"
           src="https://img.freepik.com/free-photo/white-brick-wall-texture-design-empty-white-brick-background-for-presentations_1962-1075.jpg?w=1800"
-          height="750px"
+          height="600px"
           width="500px"
         ></v-img>
       </div>
       <!-- div와 div로 grid를 이용해 반으로 분할 -->
       <form @submit.prevent="signup(credentials)" class="login-card__div__form">
         <div class="text-center my-3 login-card__div__header">
-          <h1>Signup</h1>
+          <h1>Edit Profile</h1>
         </div>
         <div class="login-card__div__form__input">
           <v-text-field
@@ -27,28 +27,6 @@
             height="10px"
           ></v-text-field>
           <div></div>
-        </div>
-        <div class="login-card__div__form__input">
-          <v-text-field
-            prepend-icon="fa-solid fa-key"
-            v-model="credentials.password1"
-            filled
-            color="blue-grey lighten-2"
-            label="password"
-            type="password"
-            required
-          ></v-text-field>
-        </div>
-        <div class="login-card__div__form__input">
-          <v-text-field
-            prepend-icon="fa-solid fa-key"
-            v-model="credentials.password2"
-            filled
-            color="blue-grey lighten-2"
-            label="confirm password"
-            type="password"
-            required
-          ></v-text-field>
         </div>
         <div class="login-card__div__form__input">
           <v-text-field
@@ -71,24 +49,24 @@
             item-value="id"
             :menu-props="{ maxwidth: '400' }"
             hide-selected
-            label="장르!"
+            label="장르"
             multiple
             chips
             deletable-chips
-            hint="3가지 장르를 골라보세요!"
+            hint="장르를 다시 선택해 주세요!"
             persistent-hint
           ></v-select>
-        <v-file-input
+          <v-file-input
           style="margin-top: 20px;"
             rounded
-            label="프로필사진"
+            label="재업로드"
             filled
             prepend-icon="mdi-camera"
             type="file"
             @change="findImg"
           ></v-file-input>
         </div>
-        <button class="login-card__div__form__btn"><span>Signup</span></button>
+        <button class="login-card__div__form__btn"><span>수정완료</span></button>
       </form>
     </div>
   </div>
@@ -99,21 +77,18 @@ import { mapActions, mapGetters } from "vuex";
 import AccountErrorList from "@/components/AccountErrorList.vue";
 
 export default {
-  name: "SignupView",
+  name: "ProfileEditFormView",
   components: {
     AccountErrorList,
   },
   data() {
     return {
-      // formData: {},
       credentials: {
-        username: "",
-        password1: "",
-        password2: "",
-        //  장르 추가
-        genre_likes: null,
-        email: "",
-        profile_img: null,
+        currentUsername: this.$route.params.username,
+        username: this.$route.params.userInfo.username,
+        genre_likes: this.$route.params.userInfo.genre_likes,
+        email: this.$route.params.userInfo.email,
+        profile_img: this.$route.params.userInfo.profile_img,
       },
       loadedImage: null,
       content: null,
@@ -160,6 +135,8 @@ export default {
   async created() {
     const response = await fetch("http://127.0.0.1:8000/movies/genres/");
     this.genres_DB = await response.json();
+
+    console.log(this.credentials.currentUsername);
   },
 };
 </script>
