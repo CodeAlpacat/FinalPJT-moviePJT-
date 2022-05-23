@@ -6,7 +6,7 @@
         <v-img
           class="login-card__div__img"
           src="https://img.freepik.com/free-photo/white-brick-wall-texture-design-empty-white-brick-background-for-presentations_1962-1075.jpg?w=1800"
-          height="750px"
+          height="600px"
           width="500px"
         ></v-img>
       </div>
@@ -78,16 +78,8 @@
             hint="3가지 장르를 골라보세요!"
             persistent-hint
           ></v-select>
-        <v-file-input
-          style="margin-top: 20px;"
-            rounded
-            label="프로필사진"
-            filled
-            prepend-icon="mdi-camera"
-            type="file"
-            @change="findImg"
-          ></v-file-input>
         </div>
+        <input type="file" ref="doc" @change="findImg"/>
         <button class="login-card__div__form__btn"><span>Signup</span></button>
       </form>
     </div>

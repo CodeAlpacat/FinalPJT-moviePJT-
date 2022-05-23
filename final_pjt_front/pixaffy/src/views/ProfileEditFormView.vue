@@ -11,7 +11,7 @@
         ></v-img>
       </div>
       <!-- div와 div로 grid를 이용해 반으로 분할 -->
-      <form @submit.prevent="signup(credentials)" class="login-card__div__form">
+      <form @submit.prevent="updateProfile(credentials)" class="login-card__div__form">
         <div class="text-center my-3 login-card__div__header">
           <h1>Edit Profile</h1>
         </div>
@@ -56,15 +56,7 @@
             hint="장르를 다시 선택해 주세요!"
             persistent-hint
           ></v-select>
-          <v-file-input
-          style="margin-top: 20px;"
-            rounded
-            label="재업로드"
-            filled
-            prepend-icon="mdi-camera"
-            type="file"
-            @change="findImg"
-          ></v-file-input>
+          <input type="file" ref="doc" @change="findImg"/>
         </div>
         <button class="login-card__div__form__btn"><span>수정완료</span></button>
       </form>
@@ -107,7 +99,7 @@ export default {
   },
 
   methods: {
-    ...mapActions(["signup"]),
+    ...mapActions(["updateProfile"]),
     limit_items(e) {
       if (e.length > 3) {
         alert("세 개만 고를 수 있습니다.");
@@ -136,7 +128,6 @@ export default {
     const response = await fetch("http://127.0.0.1:8000/movies/genres/");
     this.genres_DB = await response.json();
 
-    console.log(this.credentials.currentUsername);
   },
 };
 </script>

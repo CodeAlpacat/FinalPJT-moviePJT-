@@ -16,7 +16,7 @@ def profile_or_edit(request, username):
         serializer = ProfileSerializer(user)
         return Response(serializer.data)
     
-    elif request.method == 'PUT' and request.user.is_authenticated:
+    elif request.user.is_authenticated:
         serializer = ProfileSerializer(data=request.data, instance=user)
         if serializer.is_valid(raise_exception=True):
             serializer.save()

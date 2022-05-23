@@ -31,6 +31,7 @@ export default {
     follow: state => state.follow,
     followMovies: state => state.followMovies,
     currentReview: state => state.currentReview,
+    profileEdit: state => state.profileEdit,
   },
 
   mutations: {
@@ -118,7 +119,6 @@ export default {
           router.push({ name: 'home' })
         })
         .catch(err => {
-          router.push({ name: 'home' })
           console.error(err.response.data)
           commit('SET_AUTH_ERROR', err.response.data)
         })
@@ -233,8 +233,8 @@ export default {
       .catch(err => console.log(err.response))
     },
     
-    updateArticle({ commit, getters }, { currentUsername, username, genre_likes, email, profile_img }) {
-       
+    updateProfile({ commit, getters }, { currentUsername, username, genre_likes, email, profile_img }) {
+      
       axios({
         url: drf.accounts.profile(currentUsername),
         method: 'put',
@@ -242,12 +242,14 @@ export default {
         headers: getters.authHeader,
       })
         .then(res => {
-          commit('SET_ARTICLE', res.data)
+          commit('SET_EDIT_PROFILE', res.data)
+          commit('SET_PROFILE', res.data)
           router.push({
-            name: 'article',
-            params: { articlePk: getters.article.pk }
+            name: 'profile',
+            params: { username }
           })
         })
+        .catch(err=> console.log(err.response))
     },
 
     createReview({ commit, getters}, { moviePk, content }) {
