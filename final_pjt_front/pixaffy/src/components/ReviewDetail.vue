@@ -124,23 +124,21 @@ export default {
     },
     sortedReviews() {
       // function transform(value) {
+        let movieReviews = this.movie.reviews
+        movieReviews.reverse()
         let first = 0
         let firstIndex = null
         let second = 0
         let secondIndex = null
         let third = 0
         let thirdIndex = null
-  
-        let movieReviews = this.movie.reviews
-        movieReviews.reverse()
-        
         let index = 0
         let likes = 0
-        let test = null
+        let test = []
   
         for (let review of movieReviews) {
           likes = review.like_count
-          if (likes >= first){
+          if (likes > first){
             third = second
             thirdIndex = secondIndex
             second = first
@@ -148,31 +146,59 @@ export default {
             first = likes
             firstIndex = index
           }
-          else if (likes >= second){
+          else if (likes > second){
             third = second
             thirdIndex = secondIndex
             second = likes
             secondIndex = index
           }
-          else if (likes >= third){
+          else if (likes > third){
             third = likes
             thirdIndex = index
           }
           index = index + 1
         }
-        if (thirdIndex){
-          test = movieReviews.splice(thirdIndex, 1)
-          movieReviews.splice(0,0,...test)
+        if (firstIndex){
+          test.push(movieReviews[firstIndex])
         }
         if (secondIndex){
-          test = movieReviews.splice(secondIndex, 1)
-          movieReviews.splice(0,0,...test)
+          test.push(movieReviews[secondIndex])
         }
-        if (firstIndex){
-          test = movieReviews.splice(firstIndex, 1)
-          movieReviews.splice(0,0,...test)
+        if (thirdIndex){
+          test.push(movieReviews[thirdIndex])
         }
 
+        let t
+        if(thirdIndex){
+          if(thirdIndex < secondIndex){
+            t = thirdIndex
+            thirdIndex = secondIndex
+            secondIndex = t
+          }
+          if(thirdIndex < firstIndex){
+            t = thirdIndex
+            thirdIndex = firstIndex
+            firstIndex = t
+          }
+        }
+        if(secondIndex){
+          if(secondIndex < firstIndex){
+            t = secondIndex
+            secondIndex = firstIndex
+            firstIndex = t
+          }
+        }
+
+        if (thirdIndex){
+          movieReviews.splice(thirdIndex, 1)
+        }
+        if (secondIndex){
+          movieReviews.splice(secondIndex, 1)
+        }
+        if (firstIndex){
+          movieReviews.splice(firstIndex, 1)
+        }
+        movieReviews.splice(0,0,...test)
 
         return movieReviews
     }
