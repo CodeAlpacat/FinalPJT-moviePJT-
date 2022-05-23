@@ -4,7 +4,7 @@
       <div style="flex-grow: 1">
         <div class="comment-body">
           <div>
-            {{ payload.username }}
+            <router-link :to="{ name: 'profile', params: { username:payload.username }}" class="router__author">{{ payload.username }}</router-link>
           </div>
           <span style="font-family:'Jeju Gothic', sans-serif !important;">
             {{ payload.content }}
@@ -79,5 +79,10 @@ export default {
     margin-bottom: 10px;
     padding: 5px 5px;
     font-size: 20px;
+  }
+
+    .router__author {
+    color: rgb(2, 7, 21) !important;
+    font-weight: bold;
   }
 </style>

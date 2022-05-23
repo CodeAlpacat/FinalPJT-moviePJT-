@@ -8,7 +8,7 @@
       {{ article.title }} <span class="subcontent">{{ article.comment_count }}</span>
     </div>
     <div class="col-2">
-      {{ article.user.username }}
+      <router-link :to="{ name: 'profile', params: { username:article.user.username }}" class="router__author">{{ article.user.username }}</router-link>
     </div>
     <div class="col-2">
       <span class="likes">{{article.like_count}}</span>
@@ -89,6 +89,10 @@ export default {
     color: rgb(221, 147, 48);
     font-weight: bold;
     font-family:'Jeju Gothic', sans-serif !important;
+  }
+  .router__author {
+    color: rgb(2, 7, 21) !important;
+    font-weight: bold;
   }
 
 </style>
