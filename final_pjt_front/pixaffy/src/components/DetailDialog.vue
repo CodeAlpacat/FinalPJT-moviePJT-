@@ -27,7 +27,7 @@
         <overview-detail></overview-detail>
       </div>
       <div v-show="reviewShow">
-        <review-detail></review-detail>
+        <review-detail :movie="movieModal"></review-detail>
       </div>
       <div v-show="descriptionShow">
         <description-detail :movie="movieModal"></description-detail>

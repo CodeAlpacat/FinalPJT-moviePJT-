@@ -2,24 +2,24 @@
   <div :class="best ? 'best-review' : 'none-best'">
   <!-- 위에서 best 값이 true 일 경우, best-review style 적용, false 일 경우, none-best style 적용 -->
     <div class="col-2 username">
-      작성자
+      {{review.user.username}}
     </div>
     <div class="col-8 review-content">
-      리뷰 내용
+      {{review.content}}
     </div>
     <div class="col-2 likes-count">
       <div style="margin-top: 14px">
         <v-btn
           icon
           :color="reviewLiked ? 'amber lighten-1' : 'grey'"
-          @click="toggleReviewLiked"
+          @click="likeReview({'moviePk': movie.id, 'reviewPk': review.pk}); reviewLiked = !reviewLiked;"
         >
         <!-- 위에서 reviwLiked 여부로 색상 반전, 클릭시 toggleReviewLiked 값이 true/false로 토글 -->
           <v-icon>mdi-star</v-icon>
         </v-btn>
       </div>
       <div style="font-size:14px; font-weight: bold;">
-        478 liked
+        {{review.like_count}}
       </div>
       <!-- 좋아요 수 -->
     </div>
@@ -27,22 +27,39 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from 'vuex'
 export default {
   name:'ReviewView',
   props: {
+    review: Object,
+    movie: Object,
     best: Boolean,
   },
   data () {
+      const currentUser = JSON.parse(localStorage.getItem('currentUser'))
       return {
         page: 1,
-        reviewLiked: false,
+        reviewLiked: (this.review.liked_users).includes(currentUser.pk)
+        // best: false,
       }
     },
+  watch: {
+    reviewLiked: function () {
+      return this.review.liked_users.includes(JSON.parse(localStorage.getItem('currentUser')).pk)
+    },
+
+  },
+  computed: {
+    ...mapGetters(['currentReview'])
+  },
   methods: {
-    toggleReviewLiked (){
-      this.reviewLiked = !this.reviewLiked
-    }
-  }
+    ...mapActions(['likeReview']),
+    // toggleReviewLiked (){
+    //   this.reviewLiked = !this.reviewLiked
+    // }
+
+  },
+  // this.review.liked_users.includes(JSON.parse(localStorage.getItem('currentUser').pk))
 }
 </script>
 
