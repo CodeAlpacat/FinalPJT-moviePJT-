@@ -106,7 +106,7 @@ export default {
           commit('SET_ARTICLE', res.data)
           router.push({
             name: 'article',
-            params: { articlePk: getters.article.pk }
+            params: {article: getters.article, articlePk: getters.article.pk, articleComments: getters.article.comments, user: getters.article.user, isLiked: false }
           })
         })
     },
