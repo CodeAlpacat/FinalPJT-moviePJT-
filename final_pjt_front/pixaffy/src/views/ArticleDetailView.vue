@@ -59,7 +59,7 @@
               <router-link
                 :to="{
                   name: 'profile',
-                  params: { username: $route.params.user.username },
+                  params: { username: $route.params.user.username, profileUser: profile},
                 }"
                 class="router__author"
                 >{{ $route.params.user.username }}</router-link
@@ -143,6 +143,7 @@
           <comment-view
             :comment="comment"
             :articlePk="articlePk"
+            :username="$route.params.username"
           ></comment-view>
         </div>
       </div>
@@ -197,7 +198,7 @@ export default {
   async created() {
     await this.fetchArticle(this.articlePk);
 
-    const payload = { username: this.user.username };
+    const payload = { username: this.$route.params.username };
     this.fetchProfile(payload);
   },
 };

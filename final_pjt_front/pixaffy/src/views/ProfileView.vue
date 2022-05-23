@@ -16,7 +16,7 @@
 
       <v-app class="profile__div1">
         <div class="profile__position">
-          <div class="profile__position__header">{{ profile.username }}</div>
+          <div class="profile__position__header">{{ $route.params.username }}</div>
           <hr />
           <div class="profile__position__content">
             <i class="fa-solid fa-envelope fa-lg"></i>

@@ -4,7 +4,7 @@
       <div style="flex-grow: 1">
         <div class="comment-body">
           <div>
-            <router-link :to="{ name: 'profile', params: { username:payload.username }}" class="router__author">{{ payload.username }}</router-link>
+            <router-link :to="{ name: 'profile', params: { username:payload.username, profileUser:profile }}" class="router__author">{{ payload.username }}</router-link>
           </div>
           <span style="font-family:'Jeju Gothic', sans-serif !important;">
             {{ payload.content }}
@@ -33,6 +33,9 @@ export default {
   props: {
     comment: Object,
     articlePk: Number,
+    username: {
+      required: true
+    }
   },
   data(){
     return {
@@ -44,10 +47,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['article'])
+    ...mapGetters(['article', 'profile'])
   },
   methods: {
-    ...mapActions(['deleteComment']),
+    ...mapActions(['deleteComment', 'fetchProfile']),
     MouseOnComment(){
       this.isOnMouse = true
     },
@@ -56,9 +59,7 @@ export default {
     }
   },
   created() {
-    console.log(this.articlePk)
-    console.log(this.article)
-    console.log(this.article.pk)
+    this.fetchProfile({username:this.$route.params.username})
   }
 }
 </script>

@@ -14,7 +14,7 @@ export default {
     // currentUserInfo: () => HOST + ACCOUNTS + 'user/',
     currentUserInfo: () => HOST + ACCOUNTS + 'user/',
     // username으로 프로필 제공
-    profile: username => HOST + ACCOUNTS + 'profile/' + username +'/',
+    profile: (username) => HOST + ACCOUNTS + 'profile/' + username +'/',
     follow: userPk => HOST + ACCOUNTS + userPk +'/' + 'follow/',
     followMovies: moviePk => BASE_HOST + MOVIES + moviePk + '/' + 'moviefollow/',
     reviews: moviePk => BASE_HOST + MOVIES + moviePk + '/' + 'reviews/', // create 리뷰

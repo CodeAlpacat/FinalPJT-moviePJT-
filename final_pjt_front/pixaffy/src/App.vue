@@ -1,6 +1,6 @@
 <template>
-  <v-app>
-    <v-app-bar app color="blue darken-4" height="50px" dark shrink-on-scroll>
+  <!-- <v-app>
+    <v-app-bar app color="blue darken-4" height="50px" dark shrink-on-scroll absolute scroll-target="#scrolling-techniques-2">
       <div class="d-flex">
         <v-app-bar-nav-icon> </v-app-bar-nav-icon>
         <v-toolbar-title></v-toolbar-title>
@@ -46,10 +46,52 @@
         <v-autocomplete clearable dense rounded solo-inverted></v-autocomplete>
       </template>
     </v-app-bar>
-    <v-sheet>
+    <v-sheet id="scrolling-techniques-2" class="overflow-y-auto">
       <v-container style="height: 130px"> </v-container>
     </v-sheet>
 
+    <transition
+      mode="out-in"
+      enter-active-class="animate__animated animate__fadeIn animate__faster"
+      leave-active-class="animate__animated animate__fadeOut animate__faster"
+    >
+      <router-view />
+    </transition>
+  </v-app> -->
+  <v-app>
+    <v-app-bar
+      fixed
+      color="#fcb69f"
+      dark
+      shrink-on-scroll
+      src="https://picsum.photos/1920/1080?random"
+    >
+      <template v-slot:img="{ props }">
+        <v-img
+          v-bind="props"
+          gradient="to top right, rgba(19,84,122,.5), rgba(128,208,199,.8)"
+        ></v-img>
+      </template>
+
+      <v-app-bar-nav-icon></v-app-bar-nav-icon>
+      <v-app-bar-title>도라이썬</v-app-bar-title>
+      <v-spacer></v-spacer>
+
+      <v-btn icon v-bind="attrs" v-on="on">
+        <router-link
+          :to="{ name: 'profile', params: { username, profileUser: profile } }"
+        >
+          {{ currentUser.username }}'s page
+        </router-link>
+      </v-btn>
+      <v-btn icon>
+        <v-icon>mdi-magnify</v-icon>
+      </v-btn>
+
+      <v-btn icon>
+        <v-icon>mdi-dots-vertical</v-icon>
+      </v-btn>
+    </v-app-bar>
     <transition
       mode="out-in"
       enter-active-class="animate__animated animate__fadeIn animate__faster"
@@ -61,7 +103,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "App",
   components: {},
@@ -69,17 +111,18 @@ export default {
     collapseOnScroll: true,
   }),
   computed: {
-      ...mapGetters(['isLoggedIn', 'currentUser']),
-      username() {
-        return this.currentUser.username ? this.currentUser.username : 'guest'
-      },
+    ...mapGetters(["isLoggedIn", "currentUser", "profile"]),
+    username() {
+      return this.currentUser.username ? this.currentUser.username : "guest";
     },
+  },
   methods: {
-      ...mapActions(['fetchCurrentUser'])
-    },
-    created() {
-      this.fetchCurrentUser()
-    }
+    ...mapActions(["fetchCurrentUser", "fetchProfile"]),
+  },
+  created() {
+    this.fetchCurrentUser();
+    this.fetchProfile({ username: this.currentUser.username });
+  },
 };
 </script>
 <style lang="scss">
@@ -90,7 +133,7 @@ nav {
 .v-application span a {
   color: rgb(242, 237, 243);
   text-decoration: none;
-  font-family: 'Jeju Gothic', sans-serif !important;
+  font-family: "Jeju Gothic", sans-serif !important;
 }
 #app-background {
   background-color: #2e343b;

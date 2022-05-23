@@ -52,7 +52,7 @@ const routes = [
     component: CommunityView
   },
   {
-    path: '/profile/:username',
+    path: '/profile/:username/:profileUser/route',
     name: 'profile',
     component: ProfileView
   },
