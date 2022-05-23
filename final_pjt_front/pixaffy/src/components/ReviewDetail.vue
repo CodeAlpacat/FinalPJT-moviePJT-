@@ -2,9 +2,15 @@
   <div>
     <div style="display: flex; flex-direction: column; width:90%; margin: 50px auto 0;">
       <div v-if="movie.reviews">
-        <div v-for="review in getReverse.slice((page - 1)*10,(page*10))" :key="review.pk">
-          <review-view :review="review" :movie="movie"></review-view>
+        <div v-for="review in (page===1 ? sortedReviews.slice(0,3) : [])" :key="review.pk">
+          <review-view :review="review" :movie="movie" :best="true"></review-view>
         </div>
+        <div v-for="review in (page!==1 ? sortedReviews.slice((page - 1)*10,(page*10)) : sortedReviews.slice(3,10))" :key="review.pk">
+          <review-view :review="review" :movie="movie" :best="false"></review-view>
+        </div>
+        <!-- <div v-for="review in getReverse.slice((page - 1)*10,(page*10))" :key="review.pk">
+          <review-view :review="review" :movie="movie"></review-view>
+        </div> -->
       </div>
       <div style="margin:20px 5px 0 auto">
         <div class="create-review">
@@ -115,6 +121,60 @@ export default {
     getReverse() {
       let result = this.movie.reviews
       return result.reverse()
+    },
+    sortedReviews() {
+      // function transform(value) {
+        let first = 0
+        let firstIndex = null
+        let second = 0
+        let secondIndex = null
+        let third = 0
+        let thirdIndex = null
+  
+        let movieReviews = this.movie.reviews
+        movieReviews.reverse()
+        
+        let index = 0
+        let likes = 0
+        let test = null
+  
+        for (let review of movieReviews) {
+          likes = review.like_count
+          if (likes >= first){
+            third = second
+            thirdIndex = secondIndex
+            second = first
+            secondIndex = firstIndex
+            first = likes
+            firstIndex = index
+          }
+          else if (likes >= second){
+            third = second
+            thirdIndex = secondIndex
+            second = likes
+            secondIndex = index
+          }
+          else if (likes >= third){
+            third = likes
+            thirdIndex = index
+          }
+          index = index + 1
+        }
+        if (thirdIndex){
+          test = movieReviews.splice(thirdIndex, 1)
+          movieReviews.splice(0,0,...test)
+        }
+        if (secondIndex){
+          test = movieReviews.splice(secondIndex, 1)
+          movieReviews.splice(0,0,...test)
+        }
+        if (firstIndex){
+          test = movieReviews.splice(firstIndex, 1)
+          movieReviews.splice(0,0,...test)
+        }
+
+
+        return movieReviews
     }
   },
   created() {
