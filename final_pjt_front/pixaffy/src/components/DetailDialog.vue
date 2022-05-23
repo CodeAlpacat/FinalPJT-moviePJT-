@@ -1,7 +1,7 @@
 <template>
   <div>
     <movie-trailer></movie-trailer>
-    <h1>{{ profile.pk }}</h1>
+    <h1>{{ movieModal.id }}</h1>
     <div class="d-block mb-6 mt-6 py-6">
       <v-row justify="space-between">
         <div>
@@ -22,7 +22,7 @@
         <overview-detail></overview-detail>
       </div>
       <div v-show="reviewShow">
-        <review-detail></review-detail>
+        <review-detail :movie="movieModal"></review-detail>
       </div>
       <div v-show="descriptionShow">
         <description-detail :movie="movieModal"></description-detail>

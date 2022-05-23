@@ -8,7 +8,7 @@ from django.conf import settings
 class User(AbstractUser):
     followings = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='followers')
     profile_img = models.TextField(blank=True)
-    genre_likes = models.JSONField(default='{}')
+    genre_likes = models.JSONField(default=dict)
 
 
 # class Profile(models.Model):

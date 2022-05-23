@@ -28,7 +28,8 @@ export default {
     dialogDetail: state => state.dialogDetail,
     movie: state => state.movie,
     follow: state => state.follow,
-    followMovies: state => state.followMovies
+    followMovies: state => state.followMovies,
+    currentReview: state => state.currentReview,
   },
 
   mutations: {
@@ -39,9 +40,11 @@ export default {
     SET_DIALOG_DETAIL: (state) => state.dialogDetail = !state.dialogDetail,
     SET_DIALOG_COMMENT : (state) => state.dialogComment = !state.dialogComment,
     SET_MOVIE: (state, movie) => state.movie = movie,
+    SET_CURRENT_REVIEW: (state, review) => state.review = review,
     SET_COMMENT_LIKED: (state) => state.commentLiked = !state.commentLiked, // comment_liked의 경우 시험용으로 comment 좋아요 정보를 받아오고 있지 않음, 추후 추가할것
     SET_FOLLOW: (state, follow) => state.follow = follow,
-    SET_FOLLOW_MOVIES: (state, followMovies) => state.followMovies = followMovies
+    SET_FOLLOW_MOVIES: (state, followMovies) => state.followMovies = followMovies,
+    SET_MOVIE_REVIEWS: (state, reviews) => (state.movie.reviews = reviews),
   },
 
   actions: {
@@ -226,6 +229,33 @@ export default {
         commit('SET_PROFILE', res.data)
       })
       .catch(err => console.log(err.response))
+    },
+
+    createReview({ commit, getters}, { moviePk, content }) {
+      const review = {content}
+      axios({
+        url: drf.accounts.reviews(moviePk),
+        method: 'post',
+        data: review,
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          commit('SET_MOVIE_REVIEWS', res.data)
+        })
+        .catch(err => console.error(err.response))
+    },
+
+    likeReview({ commit, getters}, { moviePk, reviewPk }) {
+      axios({
+        url: drf.accounts.likeReview(moviePk, reviewPk),
+        method: 'post',
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          console.log(res.data)
+          commit('SET_MOVIE_REVIEWS', res.data)
+        })
+        .catch(err => console.error(err.response))
     }
   },
 }

@@ -30,6 +30,8 @@ def movie_list(request):
 @api_view(['GET'])
 def movie_detail(request, movie_pk):
     movie = get_object_or_404(Movie,pk=movie_pk)
+    movie.reviews = movie.reviews.order_by('-pk')
+    movie.save()
     serializers = MovieSerializer(movie)
     return Response(serializers.data)
 
@@ -152,7 +154,9 @@ def movie_follow(request, movie_pk):
         serializer = MovieSerializer(movie)
         return Response(serializer.data)
 
+
 # 리뷰 생성
+
 @api_view(['POST'])
 def create_review(request, movie_pk):
     user = request.user
@@ -160,7 +164,7 @@ def create_review(request, movie_pk):
     serializer = ReviewSerializer(data=request.data)
     if serializer.is_valid(raise_exception=True):
         serializer.save(user=user, movie=movie) # 현재 유저와 영화 정보 저장
-        reviews = movie.reviews.all()
+        reviews = movie.reviews.all().order_by('-pk')
         serializer = ReviewSerializer(reviews, many=True)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -172,7 +176,7 @@ def review_delete(request, movie_pk, review_pk):
     review = get_object_or_404(Review, pk=review_pk)
     if request.user == review.user:
         review.delete()
-        reviews = movie.reviews.all()
+        reviews = movie.reviews.all().order_by('-pk')
         serializer = ReviewSerializer(reviews, many=True)
         return Response(serializer.data)
 
@@ -185,12 +189,14 @@ def like_review(request, movie_pk, review_pk):
     if movie.pk == serializer.data.get('movie'):
         if review.liked_users.filter(pk=user.pk).exists():
             review.liked_users.remove(user)
-            serializer = ReviewSerializer(review)
+            reviews = movie.reviews.all().order_by('-pk')
+            serializer = ReviewSerializer(reviews, many=True)
             return Response(serializer.data)
         else:
             review.liked_users.add(user)
             review.save()
-            serializer = ReviewSerializer(review)
+            reviews = movie.reviews.all().order_by('-pk')
+            serializer = ReviewSerializer(reviews, many=True)
             return Response(serializer.data)
     else:
         return Response(status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)

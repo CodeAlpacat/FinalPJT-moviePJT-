@@ -16,7 +16,11 @@ export default {
     // username으로 프로필 제공
     profile: username => HOST + ACCOUNTS + 'profile/' + username +'/',
     follow: userPk => HOST + ACCOUNTS + userPk +'/' + 'follow/',
-    followMovies: moviePk => BASE_HOST + MOVIES + moviePk + '/' + 'moviefollow/'
+    followMovies: moviePk => BASE_HOST + MOVIES + moviePk + '/' + 'moviefollow/',
+    reviews: moviePk => BASE_HOST + MOVIES + moviePk + '/' + 'reviews/', // create 리뷰
+    review: (moviePk, reviewPk) => BASE_HOST + MOVIES + moviePk + '/' + 'reviews/'+reviewPk + '/', // delete 리뷰
+    likeReview: (moviePk, reviewPk) => BASE_HOST + MOVIES + moviePk + '/' + 'reviews/'+reviewPk + '/'+'like/', // review 좋아요
+
   },
   articles: {
     // /articles/
