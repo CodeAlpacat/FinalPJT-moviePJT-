@@ -11,8 +11,8 @@
           </span>
         </div>
       </div>
-      <div style="flex-basis: 50px; margin-top: 15px;" v-if="isOnMouse"  >
-      <!-- v-if에 인증된 사용자인지 확인하는 것도 넣어줄 것 -->
+      <div style="flex-basis: 50px; margin-top: 15px;" v-if="(isOnMouse && (payload.username === currentUser.username))"  >
+      <!-- 댓글 작성자와 현재 사용자가 일치하고, onMouse이면 삭제버튼 활성화 -->
         <v-btn
           color="red darken-4"
           icon
@@ -42,8 +42,9 @@ export default {
       isOnMouse: false,
       payload: {
         content: this.comment.content,
-        username: this.comment.user.username,
+        username: this.comment.user.username, // 코멘트 작성자
       },
+      currentUser: JSON.parse(localStorage.getItem("currentUser")) // 현재 로그인한 사용자
     }
   },
   computed: {

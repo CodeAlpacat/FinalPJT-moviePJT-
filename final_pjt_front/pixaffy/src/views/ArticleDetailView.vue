@@ -29,12 +29,13 @@
                       params: { articlePk: articlePk },
                     })
                   "
+                  style="cursor: pointer"
                 >
                   게시글 수정
                 </v-list-item-title>
               </v-list-item>
               <v-list-item>
-                <v-list-item-title @click="deleteArticle(article.pk)">
+                <v-list-item-title @click="deleteArticle(article.pk)" style="cursor: pointer">
                   게시글 삭제
                 </v-list-item-title>
               </v-list-item>

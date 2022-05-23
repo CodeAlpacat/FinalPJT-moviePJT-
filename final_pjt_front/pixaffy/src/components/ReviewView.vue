@@ -6,6 +6,18 @@
     </div>
     <div class="col-8 review-content">
       {{review.content}}
+      <span v-if="(review.user.username === currentUser.username)">
+        <v-btn
+          icon
+          small
+          :color="colorActivate ? 'red darken-2' : 'grey'"
+          @mouseover="colorActivate = true"
+          @mouseleave="colorActivate = false"
+          @click="deleteReview({'moviePk': movie.id, 'reviewPk': review.pk})"
+        >
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+      </span>  
     </div>
     <div class="col-2 likes-count">
       <div style="margin-top: 14px">
@@ -36,11 +48,13 @@ export default {
     best: Boolean,
   },
   data () {
-      const currentUser = JSON.parse(localStorage.getItem('currentUser'))
-      return {
+    const user = JSON.parse(localStorage.getItem("currentUser"))
+    return {
         page: 1,
-        reviewLiked: (this.review.liked_users).includes(currentUser.pk)
+        currentUser: JSON.parse(localStorage.getItem("currentUser")),
+        reviewLiked: (this.review.liked_users).includes(user.pk),
         // best: false,
+        colorActivate: false,
       }
     },
   watch: {
@@ -53,7 +67,7 @@ export default {
     ...mapGetters(['currentReview'])
   },
   methods: {
-    ...mapActions(['likeReview']),
+    ...mapActions(['likeReview','deleteReview']),
     // toggleReviewLiked (){
     //   this.reviewLiked = !this.reviewLiked
     // }
