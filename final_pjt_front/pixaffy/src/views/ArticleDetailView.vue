@@ -208,7 +208,7 @@ export default {
 <style>
 .article-frame {
   font-family: "Jeju Gothic", sans-serif !important;
-  margin: 50px auto 10px;
+  margin: 150px auto 10px;
   width: 900px;
   border: 2px solid rgb(40, 129, 221);
   border-radius: 5px;

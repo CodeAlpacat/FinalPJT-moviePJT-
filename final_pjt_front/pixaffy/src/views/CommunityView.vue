@@ -23,7 +23,7 @@
       </div>
     </div>
     <div 
-      style="text-align:right; margin-right:10%; margin-top:10px;"
+      style="text-align:right; width:900px; margin:10px auto 0; text-align: right;"
     >
       <v-btn
         rounded
@@ -86,7 +86,7 @@ export default {
     display: flex;
     flex-direction: column;
     background-color: rgb(59, 119, 172);
-    width: 80%;
+    width: 900px;
     margin: 50px auto 0;
     border-radius: 3px;
     padding: 5px;

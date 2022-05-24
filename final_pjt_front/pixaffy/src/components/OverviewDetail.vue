@@ -8,19 +8,18 @@
     <v-slide-group
       v-model="model"
       class="pa-4"
-      active-class="success"
       show-arrows
     >
       <v-slide-item
-        v-for="n in 15"
-        :key="n"
+        v-for="i in 15"
+        :key="i"
         v-slot="{ active, toggle }"
       >
         <v-card
-          :color="active ? undefined : 'grey lighten-1'"
+          :color="active ? 'rgb(128, 128, 128)' : 'rgb(128, 128, 128)'"
           class="ma-4"
-          height="200"
-          width="100"
+          height="400"
+          width="183"
           @click="toggle"
         >
           <v-row
@@ -29,12 +28,12 @@
             justify="center"
           >
             <v-scale-transition>
-              <v-icon
+              <!-- <v-icon
                 v-if="active"
                 color="white"
                 size="48"
                 v-text="'mdi-close-circle-outline'"
-              ></v-icon>
+              ></v-icon> -->
             </v-scale-transition>
           </v-row>
         </v-card>
@@ -53,6 +52,7 @@ export default {
   props: {
     movie: Object
   },
+
 }
 </script>
 
