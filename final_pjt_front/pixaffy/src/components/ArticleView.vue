@@ -8,7 +8,7 @@
       {{ article.title }} <span class="subcontent">{{ article.comment_count }}</span>
     </div>
     <div class="col-2">
-      <router-link :to="{ name: 'profile', params: { username:article.user.username, profileUser:profile }}" class="router__author">{{ article.user.username }}</router-link>
+      <router-link :to="{ name: 'profileCommunity', params: { username:article.user.username }}" class="router__author">{{ article.user.username }}</router-link>
     </div>
     <div class="col-2">
       <span class="likes">{{article.like_count}}</span>
@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
+import { mapGetters } from 'vuex'
 export default {
   name:"ArticleView",
   data() {
@@ -33,7 +33,7 @@ export default {
     article: Object,
   },
   computed:{
-    ...mapGetters(['isCommentLiked','likedArticleList', 'profile']),
+    ...mapGetters(['isCommentLiked','likedArticleList']),
     isInList() {
       return this.likedArticleList.includes(this.article.pk)
     },
@@ -53,7 +53,6 @@ export default {
     }
   },
   methods: {
-    ...mapActions(["fetchProfile"]),
     fetchPresentDate() {
       this.presentDate = new Date()
     },
@@ -64,7 +63,6 @@ export default {
   created() {
     this.fetchPresentDate()
     this.fetchCreatedDate()
-    this.fetchProfile({username: this.article.user.username});
   }
 
 }
