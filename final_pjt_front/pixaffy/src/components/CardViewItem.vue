@@ -34,7 +34,7 @@
             dark
             v-bind="attrs"
             v-on="on"
-            @click="toggleDialog"
+            @click="dialog=true"
           >
             Detail
           </v-btn>
@@ -102,10 +102,6 @@ export default {
         }
       }
     },
-    async toggleDialog() {
-      await this.getMovieTrailer()
-      this.dialog = true
-    }
   },
 };
 </script>
