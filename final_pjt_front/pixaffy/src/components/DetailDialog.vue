@@ -1,6 +1,6 @@
 <template>
   <div>
-    <movie-trailer :movie="movieModal" :trailer="trailer"></movie-trailer>
+    <movie-trailer :movie="movieModal"></movie-trailer>
     <div class="d-block mb-6 mt-6 py-6">
       <v-row justify="space-between">
         <div>
@@ -24,7 +24,7 @@
     </div>
     <div>
       <div v-show="overviewShow">
-        <overview-detail></overview-detail>
+        <overview-detail :movie="movieModal"></overview-detail>
       </div>
       <div v-show="reviewShow">
         <review-detail :movie="movieModal"></review-detail>
@@ -72,6 +72,29 @@ export default {
     };
   },
   created() {
+    // addEventListener('activate', event => {
+    //   event.waitUntil(async function() {
+    //     // Feature-detect
+    //     if (self.registration.navigationPreload) {
+    //       // Enable navigation preloads!
+    //       await self.registration.navigationPreload.enable();
+    //     }
+    //   }());
+    // });
+    // addEventListener('fetch', event => {
+    //   event.respondWith(async function() {
+    //     // Respond from the cache if we can
+    //     const cachedResponse = await caches.match(event.request);
+    //     if (cachedResponse) return cachedResponse;
+
+    //     // Else, use the preloaded response, if it's there
+    //     const response = await event.preloadResponse;
+    //     if (response) return response;
+
+    //     // Else try the network.
+    //     return fetch(event.request);
+    //   }());
+    // });
     axios({
         url: `https://api.themoviedb.org/3/movie/${this.movieModal.id}/videos?api_key=c0ea5b6535679915d16aada2f7427157`
       })

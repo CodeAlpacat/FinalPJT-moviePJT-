@@ -9,25 +9,74 @@
           <v-col
             cols="4"
           >
-            <v-img
-              :src="posterPath"
-            ></v-img>
+          <div
+            style="
+              padding: auto 3px auto;
+            "
+          >
+            <div
+              style="
+                margin: auto 3px auto;
+              "
+            >
+              <v-img
+                :src="posterPath"
+              ></v-img>
+            </div>
+          </div>
           </v-col>
           <v-col
             cols="8"
           >
-            <h2>{{ movie.title }}</h2>
-            <h4>장르</h4>
-            <v-rating
-                :value="movie.vote_average / 2"
-                color="amber"
-                dense
-                half-increments
-                readonly
-                size="20"
+            <div
+              style="
+                margin: 5px;
+                padding: 10px;
+                border-left: 3px solid rgb(218,221,228);
+              "
+            >
+              <div 
+                style="font-family: 'Jeju Gothic', sans-serif !important;
+                font-size: 40px;
+                font-weight: bold;
+                margin: 5px 0;
+                "
+                >{{ movie.title }}
+              </div>
+              <div
+                style="
+                  display: flex;
+                  font-family: 'Jeju Gothic', sans-serif !important;
+                  font-size: 24px;
+                  font-weight: bold;
+                  margin: 5px 0;
+                  color: rgb(90, 96, 120);
+                "
               >
-            </v-rating>
-            <h4>{{ movie.overview }}</h4>
+                <div 
+                  v-for="genre in genres" :key="genre.id"
+                  style="margin: auto 5px"
+                >
+                {{genre.name}}
+                </div>
+              </div>
+              <div
+                style="
+                  margin-bottom: 10px;
+                "
+              >
+                <v-rating
+                    :value="movie.vote_average / 2"
+                    color="amber"
+                    dense
+                    half-increments
+                    readonly
+                    size="20"
+                  >
+                </v-rating>
+              </div>
+              <h4>{{ movie.overview }}</h4>
+            </div>
           </v-col>
         </v-row>
       </v-card>
@@ -40,19 +89,19 @@
     <v-slide-group
       v-model="model"
       class="pa-4"
-      active-class="success"
       show-arrows
     >
       <v-slide-item
-        v-for="n in 15"
-        :key="n"
+        v-for="actor in actors"
+        :key="actor.id"
         v-slot="{ active, toggle }"
       >
         <v-card
-          :color="active ? undefined : 'grey lighten-1'"
+          :color="active ? 'rgb(128, 128, 128)' : 'rgb(128, 128, 128)'"
+          :img="`https://image.tmdb.org/t/p/w780${actor.profile_path}`"
           class="ma-4"
-          height="200"
-          width="100"
+          height="400"
+          width="183"
           @click="toggle"
         >
           <v-row
@@ -61,12 +110,12 @@
             justify="center"
           >
             <v-scale-transition>
-              <v-icon
+              <!-- <v-icon
                 v-if="active"
                 color="white"
                 size="48"
                 v-text="'mdi-close-circle-outline'"
-              ></v-icon>
+              ></v-icon> -->
             </v-scale-transition>
           </v-row>
         </v-card>
@@ -77,10 +126,13 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name:'descriptionDetail',
   data: () => ({
       model: null,
+      actors: null,
+      genres: null,
     }),
   props: {
     movie: {
@@ -92,9 +144,37 @@ export default {
         return "https://image.tmdb.org/t/p/w500/" + this.movie.poster_path;
     },
   },
+  created() {
+    axios({
+      url: `https://api.themoviedb.org/3/movie/${this.movie.id}/credits?api_key=c0ea5b6535679915d16aada2f7427157`
+    })
+      .then(res => {
+        let casts = []
+        for (let person of res.data.cast) {
+          if (person.profile_path){
+            casts.push(person)
+          }
+        }
+        this.actors = casts
+      })
+      .catch(err => {
+        console.log(err)
+      })
+    axios({
+      url: `https://api.themoviedb.org/3/movie/${this.movie.id}?api_key=c0ea5b6535679915d16aada2f7427157&language=ko-KR`
+    })
+      .then(res => {
+        this.genres = res.data.genres
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 }
 </script>
 
 <style>
-
+  .col .col-4 > div {
+    margin: auto 3px auto;
+  }
 </style>
