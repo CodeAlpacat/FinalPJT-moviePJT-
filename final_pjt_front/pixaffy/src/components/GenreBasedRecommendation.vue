@@ -1,6 +1,6 @@
 <template>
   <div id="carouselMovie">
-    <h2 class="mx-3" style='color:#E5EAEE;'>좋아하는 장르가 있어? 옜다~</h2>
+    <h2 class="mx-3" style="color:#E5EAEE; font-family: 'Jeju Gothic', sans-serif !important;">좋아하는 장르가 있어? 옜다~</h2>
     <carousel-3d
       :controls-visible="true"
       :clickable="false"

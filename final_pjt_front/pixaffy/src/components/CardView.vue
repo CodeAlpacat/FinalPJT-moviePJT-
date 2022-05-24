@@ -1,6 +1,6 @@
 <template>
   <!-- <div>
-    <h2 class="mt-2" style="color: #e5eaee">Now Playing</h2>
+    <h2 class="mt-2" style="color:#E5EAEE; font-family: 'Jeju Gothic', sans-serif !important;">Now Playing</h2>
     <v-container fluid>
       <v-row>
         <v-col

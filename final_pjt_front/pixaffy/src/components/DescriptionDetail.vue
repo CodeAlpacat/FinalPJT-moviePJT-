@@ -101,7 +101,7 @@
           :img="`https://image.tmdb.org/t/p/w780${actor.profile_path}`"
           class="ma-4"
           height="400"
-          width="183"
+          width="190"
           @click="toggle"
         >
           <v-row
@@ -110,12 +110,18 @@
             justify="center"
           >
             <v-scale-transition>
-              <!-- <v-icon
+              <div
                 v-if="active"
-                color="white"
-                size="48"
-                v-text="'mdi-close-circle-outline'"
-              ></v-icon> -->
+                style="color: rgb(255,255,255); font-size: 24px; background-color: rgba(31,41,61,.4);
+                padding: 5px 10px;
+                border-radius: 10px;
+                max-width: 175px;
+                text-align: center;
+                font-family: 'Jeju Gothic', sans-serif !important;
+                "
+              >
+              {{ actor.original_name }}
+              </div>
             </v-scale-transition>
           </v-row>
         </v-card>
@@ -133,6 +139,7 @@ export default {
       model: null,
       actors: null,
       genres: null,
+      selectedActor: null,
     }),
   props: {
     movie: {
@@ -146,7 +153,7 @@ export default {
   },
   created() {
     axios({
-      url: `https://api.themoviedb.org/3/movie/${this.movie.id}/credits?api_key=c0ea5b6535679915d16aada2f7427157`
+      url: `https://api.themoviedb.org/3/movie/${this.movie.id}/credits?api_key=c0ea5b6535679915d16aada2f7427157&language=ko-KR`
     })
       .then(res => {
         let casts = []
@@ -174,7 +181,7 @@ export default {
 </script>
 
 <style>
-  .col .col-4 > div {
+  .col.col-4 > div {
     margin: auto 3px auto;
   }
 </style>

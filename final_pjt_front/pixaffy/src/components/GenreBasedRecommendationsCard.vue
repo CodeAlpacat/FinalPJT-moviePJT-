@@ -4,7 +4,7 @@
     <figcaption class="d-flex justify-space-between" style="flex-flow: wrap">
       <!-- 상세페이지로 이동 or 다이얼로그 띄움 -->
       
-      <v-dialog v-model="dialog" width="800px">
+      <v-dialog v-model="dialog" width="800" scrollable>
         <template v-slot:activator="{ on, attrs }">
           <v-btn text color="white" style="height: 70px; font-size: 20px" v-bind="attrs"
             v-on="on"

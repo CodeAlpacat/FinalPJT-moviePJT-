@@ -3,12 +3,56 @@
     <movie-trailer :movie="movieModal"></movie-trailer>
     <div class="d-block mb-6 mt-6 py-6">
       <v-row justify="space-between">
-        <div>
-          <span @click="toggleOverview">OVERVIEW</span> |
-          <span @click="toggleReview">REVIEW</span> |
-          <span @click="toggleDescription">DESCRIPTION</span>
+        <div
+          style="
+            display: flex;
+            align-items: center;
+          "
+          >
+            <div
+              style="
+                padding: 10px;
+                margin: 5px 10px;
+                border-radius: 40%;
+                font-family: 'Jeju Gothic', sans-serif !important;
+                font-weight: bold;
+                transition: all 2s;
+                cursor: pointer;
+                "
+              @click="toggleOverview"
+            >
+              OVERVIEW
+            </div>
+            <div
+              style="
+                padding: 10px;
+                margin: 5px 10px;
+                border-radius: 40%;
+                font-family: 'Jeju Gothic', sans-serif !important;
+                font-weight: bold;
+                transition: all 2s;
+                cursor: pointer;
+                "
+              @click="toggleReview"
+            >
+              REVIEW
+            </div>
+            <div
+              style="
+                padding: 10px;
+                margin: 5px 10px;
+                border-radius: 40%;
+                font-family: 'Jeju Gothic', sans-serif !important;
+                font-weight: bold;
+                transition: all 2s;
+                cursor: pointer;
+                "
+              @click="toggleDescription"
+            >
+              DESCRIPTION
+            </div>
         </div>
-        <div>
+        <div style="margin-right: 30px; align-items: center; display: flex;">
           <button
             class="profile__div1__follow_btn"
             @click="
@@ -43,6 +87,7 @@ import ReviewDetail from "./ReviewDetail.vue";
 import DescriptionDetail from "./DescriptionDetail.vue";
 import { mapActions, mapGetters } from "vuex";
 import axios from 'axios';
+
 
 export default {
   name: "DetailDialog",
@@ -187,4 +232,10 @@ export default {
   opacity: 1;
   right: -1;
 }
+
+.hover {
+  color: white;
+  background-color: rgb(27,45,71);
+}
+
 </style>
