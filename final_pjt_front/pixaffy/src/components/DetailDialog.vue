@@ -1,6 +1,6 @@
 <template>
   <div>
-    <movie-trailer></movie-trailer>
+    <movie-trailer :movie="movieModal"></movie-trailer>
     <div class="d-block mb-6 mt-6 py-6">
       <v-row justify="space-between">
         <div>
@@ -41,7 +41,7 @@ import MovieTrailer from "./MovieTrailer.vue";
 import OverviewDetail from "./OverviewDetail.vue";
 import ReviewDetail from "./ReviewDetail.vue";
 import DescriptionDetail from "./DescriptionDetail.vue";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "DetailDialog",
@@ -70,6 +70,7 @@ export default {
     };
   },
   created() {
+    this.getMovieTrailer(this.movieModal.id)
     this.userInfo = JSON.parse(localStorage.getItem("currentUser")).pk;
     console.log(this.profile);
     for (let i = 0; i < this.profile.keep_movies; i++) {
@@ -84,10 +85,16 @@ export default {
         }
       }
     }
+    this.$nextTick(function(){
+      console.log(this.isVideo)
+    })
+  },
+  computed: {
+    ...mapGetters(['isVideo'])
   },
 
   methods: {
-    ...mapActions(["followMovies"]),
+    ...mapActions(["followMovies","getMovieTrailer"]),
     toggleOverview() {
       this.overviewShow = true;
       this.reviewShow = false;

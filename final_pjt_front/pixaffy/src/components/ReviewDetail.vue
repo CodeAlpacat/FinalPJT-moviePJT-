@@ -126,17 +126,17 @@ export default {
       // function transform(value) {
         let movieReviews = this.movie.reviews
         movieReviews.reverse()
-        let first = 0
+        let first = 0 // 1st
         let firstIndex = null
-        let second = 0
+        let second = 0 // 2nd
         let secondIndex = null
-        let third = 0
+        let third = 0 // 3rd
         let thirdIndex = null
         let index = 0
         let likes = 0
-        let test = []
+        let test = [] // Top3 저장 리스트
   
-        for (let review of movieReviews) {
+        for (let review of movieReviews) { // 1st, 2nd, 3rd 순위 결정
           likes = review.like_count
           if (likes > first){
             third = second
@@ -158,6 +158,7 @@ export default {
           }
           index = index + 1
         }
+        // 순위결정 후 Top3 리스트 push [1st, 2nd, 3rd]
         if (firstIndex){
           test.push(movieReviews[firstIndex])
         }
@@ -167,7 +168,7 @@ export default {
         if (thirdIndex){
           test.push(movieReviews[thirdIndex])
         }
-
+        // splice 통한 제거 후, 인덱스 변화를 배제하기 위해 가장 높은 인덱스 값 부터 처리
         let t
         if(thirdIndex){
           if(thirdIndex < secondIndex){

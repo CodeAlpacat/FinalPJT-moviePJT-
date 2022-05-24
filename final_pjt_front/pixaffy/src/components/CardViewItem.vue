@@ -34,7 +34,7 @@
             dark
             v-bind="attrs"
             v-on="on"
-            @click="dialog = true"
+            @click="toggleDialog"
           >
             Detail
           </v-btn>
@@ -90,7 +90,7 @@ export default {
     await this.fetchProfile(payload);
   },
   methods: {
-    ...mapActions(["movieSelect", "fetchProfile"]),
+    ...mapActions(["movieSelect", "fetchProfile","getMovieTrailer"]),
     genretypeName(id, index) {
       for (const item of this.genres_list) {
         if (item.id == id) {
@@ -102,6 +102,10 @@ export default {
         }
       }
     },
+    async toggleDialog() {
+      await this.getMovieTrailer()
+      this.dialog = true
+    }
   },
 };
 </script>

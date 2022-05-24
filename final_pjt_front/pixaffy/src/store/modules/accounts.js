@@ -2,6 +2,10 @@ import router from '@/router'
 import axios from 'axios'
 import drf from '@/api/drf'
 
+const VIDEO_API = '/videos?api_key='
+const API_KEY = 'c0ea5b6535679915d16aada2f7427157'
+const BASE_URL = 'https://api.themoviedb.org/3/movie/'
+const VIDEO_URL = 'https://www.youtube.com/embed/'
 
 export default {
   // namespaced: true,
@@ -18,6 +22,7 @@ export default {
     follow: {},
     followMovies: {},
     profileEdit: {},
+    movieTrailer: null,
   },
   // 모든 state는 getters 를 통해서 접근하겠다.
   getters: {
@@ -32,6 +37,8 @@ export default {
     followMovies: state => state.followMovies,
     currentReview: state => state.currentReview,
     profileEdit: state => state.profileEdit,
+    videoUrl: state => VIDEO_URL + state.movieTrailer,
+    isVideo: state => (state.movieTrailer != null)
   },
 
   mutations: {
@@ -48,6 +55,7 @@ export default {
     SET_FOLLOW: (state, follow) => state.follow = follow,
     SET_FOLLOW_MOVIES: (state, followMovies) => state.followMovies = followMovies,
     SET_MOVIE_REVIEWS: (state, reviews) => (state.movie.reviews = reviews),
+    SET_MOVIE_TRAILER: (state, video) => (state.movieTrailer = video),
   },
 
   actions: {
@@ -291,6 +299,18 @@ export default {
             })
           .catch(err => console.error(err.response))
       }
+    },
+
+    getMovieTrailer({ commit }, MoviePk) {
+      axios({
+        url: BASE_URL + String(MoviePk) + VIDEO_API + API_KEY
+      })
+        .then(res => {
+          commit('SET_MOVIE_TRAILER', res.data.results[0].key)
+        })
+        .catch(error => {
+          console.log(error)
+        })
     }
   },
 }
