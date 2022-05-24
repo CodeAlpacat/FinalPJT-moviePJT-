@@ -31,6 +31,7 @@
 
       <v-spacer></v-spacer>
       <v-autocomplete
+        class="hidden-sm-and-down"
         rounded
         v-model="model"
         :items="items"

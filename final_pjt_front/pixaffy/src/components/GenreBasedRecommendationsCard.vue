@@ -40,6 +40,7 @@
 import DetailDialog from "@/components/DetailDialog.vue"
 import { mapActions, mapGetters } from "vuex";
 export default {
+  name: 'GenreBasedRecommendationsCard',
   props: {
     movie: {
       required: true,
@@ -69,4 +70,6 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+
+</style>

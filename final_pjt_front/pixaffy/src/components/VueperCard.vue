@@ -2,7 +2,13 @@
   <v-hover v-slot="{ hover }" open-delay="100">
     <v-card :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }">
       <!-- 나중에 url을 디테일 페이지로 or 모달 -->
-        <v-img :src="posterPath" alt="포스터가 없습니다" class="" @click="dialog = true"></v-img>
+      <v-img
+        :src="posterPath"
+        alt="포스터가 없습니다"
+        class=""
+        @click="dialog = true"
+      ></v-img>
+
       <v-card-title class="sutitle-2" @click="dialog=true" style="cursor: pointer;">{{ movieProps.title }}</v-card-title>
       <v-card-text>
         <v-row align="center" class="mx-0">
@@ -45,9 +51,9 @@
 
 <script>
 import DetailDialog from "@/components/DetailDialog.vue";
-import { mapActions, mapGetters} from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
-  name: "CardViewItem",
+  name: "VueperCard",
   components: {
     DetailDialog,
   },
@@ -72,12 +78,13 @@ export default {
   async created() {
     const response = await fetch("http://127.0.0.1:8000/movies/genres/");
     this.genres_list = await response.json();
-    this.username = await JSON.parse(localStorage.getItem('currentUser')).username
+    this.username = await JSON.parse(localStorage.getItem("currentUser"))
+      .username;
     const payload = { username: this.username };
     await this.fetchProfile(payload);
   },
   methods: {
-    ...mapActions(["movieSelect", "fetchProfile","getMovieTrailer"]),
+    ...mapActions(["movieSelect", "fetchProfile", "getMovieTrailer"]),
     genretypeName(id, index) {
       for (const item of this.genres_list) {
         if (item.id == id) {
@@ -92,6 +99,3 @@ export default {
   },
 };
 </script>
-
-<style>
-</style>

@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: grey">
+  <div>
     <div class="profile">
       <div class="profile__gap">
         <div class="profile__div1__profile_img">
@@ -306,6 +306,7 @@ export default {
   margin-top: 100px;
   width: 1400px;
   height: 1400px;
+
 }
 hr {
   margin-top: 20px;
