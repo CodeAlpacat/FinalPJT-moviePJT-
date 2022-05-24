@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h2 class="mt-2" style='color:#E5EAEE;'>Now Playing</h2>
+    <h2 class="mt-2" style="color:#E5EAEE; font-family: 'Jeju Gothic', sans-serif !important;">Now Playing</h2>
     <v-container fluid>
       <v-row>
         <v-col cols="12" sm="3" lg="2" v-for="movie in movieDatas" :key="movie.id">

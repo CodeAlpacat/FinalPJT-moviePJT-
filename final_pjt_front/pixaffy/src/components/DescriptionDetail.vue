@@ -101,7 +101,7 @@
           :img="`https://image.tmdb.org/t/p/w780${actor.profile_path}`"
           class="ma-4"
           height="400"
-          width="183"
+          width="190"
           @click="toggle"
         >
           <v-row
@@ -115,7 +115,7 @@
                 style="color: rgb(255,255,255); font-size: 24px; background-color: rgba(31,41,61,.4);
                 padding: 5px 10px;
                 border-radius: 10px;
-                max-width: 170px;
+                max-width: 175px;
                 text-align: center;
                 font-family: 'Jeju Gothic', sans-serif !important;
                 "
@@ -153,7 +153,7 @@ export default {
   },
   created() {
     axios({
-      url: `https://api.themoviedb.org/3/movie/${this.movie.id}/credits?api_key=c0ea5b6535679915d16aada2f7427157`
+      url: `https://api.themoviedb.org/3/movie/${this.movie.id}/credits?api_key=c0ea5b6535679915d16aada2f7427157&language=ko-KR`
     })
       .then(res => {
         let casts = []
