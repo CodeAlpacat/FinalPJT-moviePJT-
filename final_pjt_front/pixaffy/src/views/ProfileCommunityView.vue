@@ -5,8 +5,8 @@
         <div class="profile__div1__profile_img">
           <img
             :src="
-              profile.profile_img
-                ? profile.profile_img
+              nowUserProfile.profile_img
+                ? nowUserProfile.profile_img
                 : 'https://user-images.githubusercontent.com/90893428/169695116-afc5cb17-b075-43c9-9ff8-7c8155c8dd79.png'
             "
             alt="프로필 사진이 없습니다."
@@ -22,17 +22,17 @@
           <hr />
           <div class="profile__position__content">
             <i class="fa-solid fa-envelope fa-lg"></i>
-            <div>{{ profile.email }}</div>
+            <div>{{ nowUserProfile.email }}</div>
           </div>
           <div class="profile__position__content">
             <i class="fa-solid fa-users-line fa-lg"></i>
             <div>
               게시글:
-              {{ profile.articles.length ? profile.articles.length : 0 }}
+              {{ nowUserProfile.articles.length ? nowUserProfile.articles.length : 0 }}
               팔로워:
-              {{ profile.followers ? profile.followers.length : 0 }}
+              {{ nowUserProfile.followers.length ? nowUserProfile.followers.length : 0 }}
               팔로잉:
-              {{ profile.followings.length ? profile.followings.length : 0 }}
+              {{ nowUserProfile.followings.length ? nowUserProfile.followings.length : 0 }}
             </div>
           </div>
           <div class="profile__position__content">
@@ -53,7 +53,7 @@
               <router-link
                 :to="{
                   name: 'profileEdit',
-                  params: { username: profile.username, userInfo: profile },
+                  params: { username: nowUserProfile.username, userInfo: nowUserProfile },
                 }"
                 ><span class="span_edit">회원정보수정</span></router-link
               >
@@ -61,13 +61,23 @@
             <button
               v-if="!follow_bool"
               @click="
-                followProfile(profile.pk, profile.username);
+                followProfile(nowUserProfile.pk);
                 followOrUnfollow();
               "
               class="profile__div1__follow_btn"
             >
               <span v-if="unFollowButton">팔로우</span>
               <span v-if="!unFollowButton">언팔로우</span>
+            </button>
+            <button
+              class="profile__div1__follow_btn"
+            >
+              <router-link
+                :to="{
+                  name: 'community',
+                }"
+                ><span class="span_edit">뒤로가기</span></router-link
+              >
             </button>
           </div>
         </div>
@@ -86,7 +96,7 @@
                   cols="3"
                   outlined
                   tile
-                  v-for="movie in profile.keep_movies"
+                  v-for="movie in nowUserProfile.keep_movies"
                   :key="movie.id"
                 >
                   <card-view-item :movieProps="movie"></card-view-item>
@@ -94,7 +104,7 @@
               </v-row>
             </v-tab-item>
             <v-tab-item style="margin-top: 50px; margin-left: 10px">
-              <div v-for="(article, idx) in profile.articles" :key="idx">
+              <div v-for="(article, idx) in nowUserProfile.articles" :key="idx">
                 <template>
                   <v-card shaped hover color="#BBDEFB">
                     <v-card-text>
@@ -163,7 +173,7 @@
               </div>
             </v-tab-item>
             <v-tab-item style="margin-top: 50px; margin-left: 10px">
-              <div v-for="(article, idx) in profile.like_articles" :key="idx">
+              <div v-for="(article, idx) in nowUserProfile.like_articles" :key="idx">
                 <template>
                   <v-card shaped hover color="#BBDEFB">
                     <v-card-text>
@@ -242,20 +252,20 @@
 import { mapGetters, mapActions } from "vuex";
 import CardViewItem from "@/components/CardViewItem.vue";
 export default {
-  name: "ProfileView",
+  name: "ProfileCommunityView",
   components: {
     CardViewItem,
   },
   computed: {
     ...mapGetters(["profile", "currentUser", "nowUserProfile"]),
-    follow_bool() {
-      return (this.$route.params.username === this.nowUserProfile.username)
+     follow_bool() {
+      return (this.currentUser.username === this.nowUserProfile.username)
     }
   },
   methods: {
     ...mapActions(["fetchProfile", "followProfile", "fetchNowUserProfile"]),
     followOrUnfollow() {
-      if (this.profile.followers.some((item) => item == this.currentUser.pk)) {
+      if (this.nowUserProfile.followers.some((item) => item == this.currentUser.pk)) {
         this.unFollowButton = true;
       } else {
         this.unFollowButton = false;
@@ -264,29 +274,28 @@ export default {
   },
   data() {
     return {
-      tab: null,
       items: null,
       genres_list: [],
       unFollowButton: true,
       posterPath: null,
       reveal: false,
+      profileLoaded:null
     };
   },
 
   async created() {
     const payload = { username: this.$route.params.username };
-    this.fetchProfile(payload);
-    this.fetchNowUserProfile({  username: this.currentUser.username })
+    this.fetchNowUserProfile(payload)
 
     const res = await fetch("http://127.0.0.1:8000/movies/genres/");
     const save_genres = await res.json();
-    for (let i = 0; i < this.profile.followers.length; i++) {
-      if (this.currentUser.pk === this.profile.followers[i]) {
+    for (let i = 0; i < this.nowUserProfile.followers.length; i++) {
+      if (this.currentUser.pk === this.nowUserProfile.followers[i]) {
         this.unFollowButton = false;
       }
     }
-    this.items = this.profile.keep_movies;
-    const list_gen = JSON.parse(this.profile.genre_likes)
+    this.items = this.nowUserProfile.keep_movies;
+    const list_gen = JSON.parse(this.nowUserProfile.genre_likes)
       if (save_genres) {
         this.genres_list = list_gen.genre_likes.map((item) => {
           for (let i = 0; i < save_genres.length; i++) {
@@ -296,6 +305,7 @@ export default {
           }
         });
       }
+
     }
 };
 </script>

@@ -60,7 +60,7 @@
               <router-link
                 :to="{
                   name: 'profile',
-                  params: { username: $route.params.user.username, profileUser: profile},
+                  params: { username: $route.params.user.username },
                 }"
                 class="router__author"
                 >{{ $route.params.user.username }}</router-link

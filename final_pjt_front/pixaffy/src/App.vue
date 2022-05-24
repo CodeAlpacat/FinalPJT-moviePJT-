@@ -74,18 +74,24 @@
       </template>
 
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
-      <v-app-bar-title>도라이썬</v-app-bar-title>
+      <v-app-bar-title
+        >도라이썬
+        <v-btn>
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn></v-app-bar-title
+      >
       <v-spacer></v-spacer>
 
-      <v-btn icon v-bind="attrs" v-on="on">
-        <router-link
-          :to="{ name: 'profile', params: { username, profileUser: profile } }"
-        >
+      <v-btn>
+        <router-link :to="{ name: 'profile', params: { username } }">
           {{ currentUser.username }}'s page
         </router-link>
       </v-btn>
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
+      <v-btn>
+        <router-link to="/home">HOME</router-link>
+      </v-btn>
+      <v-btn>
+        <router-link to="/community">커뮤니티</router-link>
       </v-btn>
 
       <v-btn icon>
@@ -111,17 +117,16 @@ export default {
     collapseOnScroll: true,
   }),
   computed: {
-    ...mapGetters(["isLoggedIn", "currentUser", "profile"]),
+    ...mapGetters(["isLoggedIn", "currentUser"]),
     username() {
       return this.currentUser.username ? this.currentUser.username : "guest";
     },
   },
   methods: {
-    ...mapActions(["fetchCurrentUser", "fetchProfile"]),
+    ...mapActions(["fetchCurrentUser"]),
   },
   created() {
     this.fetchCurrentUser();
-    this.fetchProfile({ username: this.currentUser.username });
   },
 };
 </script>

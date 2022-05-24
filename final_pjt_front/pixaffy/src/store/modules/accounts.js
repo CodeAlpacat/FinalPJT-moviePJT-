@@ -18,6 +18,7 @@ export default {
     follow: {},
     followMovies: {},
     profileEdit: {},
+    nowUserProfile: {},
   },
   // 모든 state는 getters 를 통해서 접근하겠다.
   getters: {
@@ -32,12 +33,14 @@ export default {
     followMovies: state => state.followMovies,
     currentReview: state => state.currentReview,
     profileEdit: state => state.profileEdit,
+    nowUserProfile: state => state.nowUserProfile,
   },
 
   mutations: {
     SET_TOKEN: (state, token) => state.token = token,
     SET_CURRENT_USER: (state, user) => state.currentUser = user,
     SET_PROFILE: (state, profile) => state.profile = profile,
+    SET_NOW_USER_PROFILE: (state, nowUserProfile) => state.nowUserProfile = nowUserProfile,
     SET_EDIT_PROFILE: (state, profileEdit) => state.profileEdit = profileEdit,
     SET_AUTH_ERROR: (state, error) => state.authError = error,
     SET_DIALOG_DETAIL: (state) => state.dialogDetail = !state.dialogDetail,
@@ -180,11 +183,7 @@ export default {
     },
 
     fetchProfile({ commit, getters }, { username }) {
-      /*
-      GET: profile URL로 요청보내기
-        성공하면
-          state.profile에 저장
-      */
+
       axios({
         url: drf.accounts.profile(username),
         method: 'get',
@@ -192,12 +191,19 @@ export default {
       })
         .then(res => {
           commit('SET_PROFILE', res.data)
-          const getList = getters.profile.like_articles
-          const getlikedList = function( item ) {
-            return item.pk
-          }
-          const likedList = getList.map(getlikedList)
-          commit('SET_LIKED_ARTICLE_LIST', likedList)
+        })
+        .catch(err => console.log(err.response))
+    },
+
+    fetchNowUserProfile({ commit, getters }, { username }) {
+
+      axios({
+        url: drf.accounts.profile(username),
+        method: 'get',
+        headers: getters.authHeader,
+      })
+        .then(res => {
+          commit('SET_NOW_USER_PROFILE', res.data)
         })
         .catch(err => console.log(err.response))
     },
@@ -215,7 +221,7 @@ export default {
       })
       .then(res => {
         commit('SET_FOLLOW', res.data)
-        commit('SET_PROFILE', res.data)
+        commit('SET_NOW_USER_PROFILE', res.data)
       })
       .catch(err => console.log(err.response))
     },

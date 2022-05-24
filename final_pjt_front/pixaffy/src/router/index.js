@@ -12,6 +12,7 @@ import ArticleDetailView from '../views/ArticleDetailView.vue'
 import ArticleNewView from '../views/ArticleNewView.vue'
 import ArticleEditView from '../views/ArticleEditView.vue'
 import ProfileEditFormView from '../views/ProfileEditFormView.vue'
+import ProfileCommunityView from '../views/ProfileCommunityView.vue'
 
 Vue.use(VueRouter)
 
@@ -52,9 +53,14 @@ const routes = [
     component: CommunityView
   },
   {
-    path: '/profile/:username/:profileUser/route',
+    path: '/profile/:username',
     name: 'profile',
     component: ProfileView
+  },
+  {
+    path: '/profile/community/:username',
+    name: 'profileCommunity',
+    component: ProfileCommunityView
   },
   {
     path: '/profile/:username/:userInfo',
