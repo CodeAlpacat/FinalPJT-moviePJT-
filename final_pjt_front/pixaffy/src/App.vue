@@ -76,10 +76,12 @@
       <v-app-bar-nav-icon></v-app-bar-nav-icon>
       <v-app-bar-title
         >도라이썬
+
+        <v-text-field label="Filled" filled></v-text-field>
         <v-btn>
           <v-icon>mdi-magnify</v-icon>
-        </v-btn></v-app-bar-title
-      >
+        </v-btn>
+      </v-app-bar-title>
       <v-spacer></v-spacer>
 
       <v-btn>

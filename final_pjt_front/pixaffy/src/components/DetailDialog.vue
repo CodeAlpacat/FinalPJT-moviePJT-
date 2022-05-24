@@ -1,6 +1,6 @@
 <template>
   <div>
-    <movie-trailer :movie="movieModal"></movie-trailer>
+    <movie-trailer :movie="movieModal" :trailer="trailer"></movie-trailer>
     <div class="d-block mb-6 mt-6 py-6">
       <v-row justify="space-between">
         <div>
@@ -42,6 +42,7 @@ import OverviewDetail from "./OverviewDetail.vue";
 import ReviewDetail from "./ReviewDetail.vue";
 import DescriptionDetail from "./DescriptionDetail.vue";
 import { mapActions, mapGetters } from "vuex";
+import axios from 'axios';
 
 export default {
   name: "DetailDialog",
@@ -67,12 +68,23 @@ export default {
       toggleDetail: false,
       unFollowButton: true,
       userInfo: null,
+      trailer: null,
     };
   },
   created() {
-    this.getMovieTrailer(this.movieModal.id ? this.movieModal.id : this.movieModal.pk)
+    axios({
+        url: `https://api.themoviedb.org/3/movie/${this.movieModal.id}/videos?api_key=c0ea5b6535679915d16aada2f7427157`
+      })
+        .then(res => {
+          this.trailer = res.data.results[0].key
+          console.log(this.movieModal.id)
+          console.log(this.trailer)
+          console.log(typeof(this.trailer))
+        })
+        .catch(error => {
+          console.log(error)
+        })
     this.userInfo = JSON.parse(localStorage.getItem("currentUser")).pk;
-    console.log(this.profile);
     for (let i = 0; i < this.profile.keep_movies; i++) {
       for (
         let j = 0;
@@ -85,16 +97,13 @@ export default {
         }
       }
     }
-    this.$nextTick(function(){
-      console.log(this.isVideo)
-    })
   },
   computed: {
     ...mapGetters(['isVideo'])
   },
 
   methods: {
-    ...mapActions(["followMovies","getMovieTrailer"]),
+    ...mapActions(["followMovies"]),
     toggleOverview() {
       this.overviewShow = true;
       this.reviewShow = false;

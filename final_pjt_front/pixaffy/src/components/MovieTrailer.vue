@@ -1,44 +1,44 @@
 <template>
-  <div class="d-block mb-6" v-if="isVideo">
+  <div class="d-block mb-6">
     <vueper-slides bullets-outside :dragging-distance="50">
       <vueper-slide
         v-for="(slide, i) in slides"
         :key="i"
-        :image="slide.image" />
+        :image="slide.image"
+        :video="slide.video" />
     </vueper-slides>
   </div>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { VueperSlides, VueperSlide } from 'vueperslides'
+import 'vueperslides/dist/vueperslides.css'
 export default {
   name: 'movieTrailer',
   props: {
     movie: Object,
+    trailer: String,
   },
+  components: { VueperSlides, VueperSlide },
   data() {
     return {
       slides: [
         {
           image: 'https://image.tmdb.org/t/p/w780/' + this.movie.poster_path,
           video: {
-            url: this.videoUrl,
+            url: 'https://www.youtube.com/embed/' + this.trailer,
             props: {
-              allow: 'autoplay;'
+              allow: 'autoplay'
             }
           }
         },
-        {
-          image: 'https://image.tmdb.org/t/p/w780/' + this.movie.poster_path
-        }
+        // {
+        //   image: 'https://image.tmdb.org/t/p/w780/' + this.movie.poster_path
+        // }
       ]
     }
   },
   computed: {
-    ...mapGetters([
-      'isVideo',
-      'videoUrl',
-    ])
   },
   created() {
 
