@@ -22,11 +22,8 @@ export default {
     follow: {},
     followMovies: {},
     profileEdit: {},
-<<<<<<< HEAD
     movieTrailer: null,
-=======
     nowUserProfile: {},
->>>>>>> 1635cb33bc827f27b98e11826792add800e458a4
   },
   // 모든 state는 getters 를 통해서 접근하겠다.
   getters: {
@@ -41,12 +38,9 @@ export default {
     followMovies: state => state.followMovies,
     currentReview: state => state.currentReview,
     profileEdit: state => state.profileEdit,
-<<<<<<< HEAD
     videoUrl: state => VIDEO_URL + state.movieTrailer,
-    isVideo: state => (state.movieTrailer != null)
-=======
+    isVideo: state => (state.movieTrailer != null),
     nowUserProfile: state => state.nowUserProfile,
->>>>>>> 1635cb33bc827f27b98e11826792add800e458a4
   },
 
   mutations: {

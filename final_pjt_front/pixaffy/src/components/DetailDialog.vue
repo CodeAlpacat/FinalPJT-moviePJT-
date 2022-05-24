@@ -70,7 +70,7 @@ export default {
     };
   },
   created() {
-    this.getMovieTrailer(this.movieModal.id)
+    this.getMovieTrailer(this.movieModal.id ? this.movieModal.id : this.movieModal.pk)
     this.userInfo = JSON.parse(localStorage.getItem("currentUser")).pk;
     console.log(this.profile);
     for (let i = 0; i < this.profile.keep_movies; i++) {
