@@ -40,7 +40,7 @@ export default {
         {
           image: 'https://image.tmdb.org/t/p/w780/' + this.movie.poster_path,
           video: {
-            url: 'https://www.youtube.com/embed/' + this.trailer,
+            url: 'https://www.youtube.com/embed/' + this.trailer + '?controls=0&fs=0&modestbranding=1&color=white&iv_load_policy=3&autohide=1&enablejsapi=1',
             props: {
               allow: 'autoplay'
             }
@@ -49,14 +49,10 @@ export default {
         {
           image: 'https://image.tmdb.org/t/p/w780/' + this.movie.poster_path
         }
-      ]
+      ],
+      trailer_key: null,
     }
   },
-  computed: {
-  },
-  created() {
-
-  }
 }
 </script>
 

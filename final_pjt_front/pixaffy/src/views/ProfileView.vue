@@ -61,7 +61,7 @@
             <button
               v-if="!follow_bool"
               @click="
-                followProfile(profile.pk, profile.username);
+                followProfile(profile.pk);
                 followOrUnfollow();
               "
               class="profile__div1__follow_btn"

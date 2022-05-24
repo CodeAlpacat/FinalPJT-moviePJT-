@@ -77,9 +77,6 @@ export default {
       })
         .then(res => {
           this.trailer = res.data.results[0].key
-          console.log(this.movieModal.id)
-          console.log(this.trailer)
-          console.log(typeof(this.trailer))
         })
         .catch(error => {
           console.log(error)

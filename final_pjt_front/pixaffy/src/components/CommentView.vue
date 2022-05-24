@@ -4,7 +4,7 @@
       <div style="flex-grow: 1">
         <div class="comment-body">
           <div>
-            <router-link :to="{ name: 'profile', params: { username:payload.username }}" class="router__author">{{ payload.username }}</router-link>
+            <router-link :to="{ name: 'profileCommunity', params: { username:payload.username }}" class="router__author">{{ payload.username }}</router-link>
           </div>
           <span style="font-family:'Jeju Gothic', sans-serif !important;">
             {{ payload.content }}

@@ -59,7 +59,7 @@
             <h4 style="font-family: 'Jeju Gothic', sans-serif !important">
               <router-link
                 :to="{
-                  name: 'profile',
+                  name: 'profileCommunity',
                   params: { username: $route.params.user.username },
                 }"
                 class="router__author"

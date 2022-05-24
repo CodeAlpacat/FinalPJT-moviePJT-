@@ -1,40 +1,23 @@
 <template>
   <div id="carouselMovie">
-    <h2 class="mx-3">좋아하는 장르가 있어? 옜다~</h2>
+    <h2 class="mx-3" style='color:#E5EAEE;'>좋아하는 장르가 있어? 옜다~</h2>
     <carousel-3d
       :controls-visible="true"
       :clickable="false"
       :key="algoBasedMovies.length"
       :listData="algoBasedMovies"
-      :height="500"
+      :height="800"
+      :width="550"
     >
       <Slide :index="i" v-for="(movie, i) in this.algoBasedMovies" :key="i">
-        <figure>
-          <img
-            :src="'https://image.tmdb.org/t/p/w500' + movie.poster_path"
-            alt=""
-          />
-          <figcaption class="d-flex justify-space-between">
-            <!-- 상세페이지로 이동 or 다이얼로그 띄움 -->
-            <v-btn text color="white">{{ movie.title }}</v-btn>
-            <v-rating
-              class="mt-2"
-              :value="movie.vote_average / 2"
-              color="amber"
-              dense
-              half-increments
-              readonly
-              size="14"
-            >
-            </v-rating>
-          </figcaption>
-        </figure>
+        <genre-based-recommendations-card :movie="movie"></genre-based-recommendations-card>
       </Slide>
     </carousel-3d>
   </div>
 </template>
 
 <script>
+import GenreBasedRecommendationsCard from "./GenreBasedRecommendationsCard.vue";
 import { Carousel3d, Slide } from "vue-carousel-3d";
 import { mapGetters } from "vuex";
 export default {
@@ -48,6 +31,7 @@ export default {
   components: {
     Carousel3d,
     Slide,
+    GenreBasedRecommendationsCard,
   },
   computed: {
     ...mapGetters(["currentUser"]),
