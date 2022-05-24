@@ -1,6 +1,6 @@
 <template>
   <div class="d-block mb-6">
-    <vueper-slides bullets-outside :dragging-distance="50">
+    <vueper-slides bullets-outside :dragging-distance="50" fixed-height="750px">
       <vueper-slide
         v-for="(slide, i) in slides"
         :key="i"
@@ -13,6 +13,20 @@
 <script>
 import { VueperSlides, VueperSlide } from 'vueperslides'
 import 'vueperslides/dist/vueperslides.css'
+
+addEventListener("fetch", event => { 
+  event.respondWith(async function() {
+    // Respond from the cache if we can
+    const cachedResponse = await caches.match(event.request);
+    if (cachedResponse) return cachedResponse; 
+    // Else, use the preloaded response, if it's there 
+    const response = await event.preloadResponse;
+    if (response) return response;
+    // Else try the network. 
+    return fetch(event.request);
+  }());
+});
+
 export default {
   name: 'movieTrailer',
   props: {
@@ -32,9 +46,9 @@ export default {
             }
           }
         },
-        // {
-        //   image: 'https://image.tmdb.org/t/p/w780/' + this.movie.poster_path
-        // }
+        {
+          image: 'https://image.tmdb.org/t/p/w780/' + this.movie.poster_path
+        }
       ]
     }
   },
@@ -47,5 +61,7 @@ export default {
 </script>
 
 <style>
-
+  .vueperslide__image {
+  transform: scale(0.7);
+}
 </style>
