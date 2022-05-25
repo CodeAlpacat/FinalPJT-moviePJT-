@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="profile">
+    <div class="profile overflow-auto">
       <div class="profile__gap">
         <div class="profile__div1__profile_img">
           <img
@@ -14,7 +14,7 @@
         </div>
       </div>
 
-      <v-app class="profile__div1">
+      <v-app class="profile__div1 overflow-hidden">
         <div class="profile__position">
           <div class="profile__position__header">
             {{ $route.params.username }}
@@ -75,7 +75,7 @@
 
       <div class="profile__div2">
         <v-app>
-          <v-tabs color="deep-purple accent-4" style="padding: 20px">
+          <v-tabs color="deep-purple accent-4" style="padding: 20px;">
             <v-tab>MY MOVIES</v-tab>
             <v-tab>작성한 게시글</v-tab>
             <v-tab>좋아요한 게시글</v-tab>
@@ -326,7 +326,7 @@ hr {
 
 .profile__div2 {
   background-color: rgb(226, 216, 216);
-  height: 800px;
+  height: 600px;
   box-shadow: -5px 2px 10px rgb(86, 75, 75);
 }
 

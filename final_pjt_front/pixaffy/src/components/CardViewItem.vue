@@ -25,23 +25,16 @@
           </span>
         </div>
       </v-card-text>
-      <v-dialog v-model="dialog" width="900px">
+      <v-dialog v-model="dialog" width="800">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn
-            color="red lighten-2"
-            dark
-            v-bind="attrs"
+          <v-btn text color="white" style="height: 70px; font-size: 20px" v-bind="attrs"
             v-on="on"
-            @click="dialog=true"
-          >
-            Detail
-          </v-btn>
+            @click="dialog = true">{{
+        movieProps.title
+      }}</v-btn>
         </template>
         <v-card>
-          <detail-dialog
-            :movieModal="movieProps"
-            :profile="profile"
-          ></detail-dialog>
+          <detail-dialog :movieModal="movieProps" :profile="profile"></detail-dialog>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="primary" text @click="dialog = false">

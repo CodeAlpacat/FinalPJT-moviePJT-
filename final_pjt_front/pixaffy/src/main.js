@@ -7,7 +7,8 @@ import '@fortawesome/fontawesome-free/js/all.js'
 import 'animate.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 Vue.component('font-awesome-icon', FontAwesomeIcon)
-
+import Vuebar from 'vuebar';
+Vue.use(Vuebar);
 Vue.config.productionTip = false
 
 new Vue({

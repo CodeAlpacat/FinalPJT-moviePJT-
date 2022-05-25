@@ -10,7 +10,7 @@
       :width="550"
     >
       <Slide :index="i" v-for="(movie, i) in this.algoBasedMovies" :key="i">
-        <genre-based-recommendations-card :movie="movie"></genre-based-recommendations-card>
+        <genre-based-recommendations-card :movie="movie" :profile="profile"></genre-based-recommendations-card>
       </Slide>
     </carousel-3d>
   </div>
@@ -34,8 +34,7 @@ export default {
     GenreBasedRecommendationsCard,
   },
   computed: {
-    ...mapGetters(["currentUser"]),
-    ...mapGetters(["isLoggedIn"]),
+    ...mapGetters(["currentUser", "profile", "isLoggedIn"]),
   },
   async mounted() {
     //추천 알고리즘의 User PK가 필요함

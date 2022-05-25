@@ -1,5 +1,5 @@
 <template>
-  <v-app style="margin-top: 113px; background-color: #1F293C;">
+  <v-app style="margin-top: 113px; background-color: #1f293c">
     <v-app-bar
       fixed
       color="#252527"
@@ -8,10 +8,7 @@
       src="https://picsum.photos/1920/1080?random"
     >
       <template v-slot:img="{ props }">
-        <v-img
-          v-bind="props"
-          gradient="to top right,"
-        ></v-img>
+        <v-img v-bind="props" gradient="to top right,"></v-img>
       </template>
       <template v-slot:extension>
         <v-tabs align-with-title>
@@ -27,7 +24,13 @@
         </v-tabs>
       </template>
 
-      <v-app-bar-title><v-img src="https://user-images.githubusercontent.com/97648026/170070287-cbed1e07-d24c-4a2b-811e-7c784283b2e5.png" width="250px" style="margin-top:20px;"></v-img></v-app-bar-title>
+      <v-app-bar-title
+        ><v-img
+          src="https://user-images.githubusercontent.com/97648026/170070287-cbed1e07-d24c-4a2b-811e-7c784283b2e5.png"
+          width="250px"
+          style="margin-top: 20px"
+        ></v-img
+      ></v-app-bar-title>
 
       <v-spacer></v-spacer>
       <v-autocomplete
@@ -170,6 +173,7 @@
       </v-menu>
     </v-app-bar>
     <transition
+      
       mode="out-in"
       enter-active-class="animate__animated animate__fadeIn animate__faster"
       leave-active-class="animate__animated animate__fadeOut animate__faster"
@@ -180,24 +184,33 @@
 </template>
 
 <script>
-    window.addEventListener( "activate", event => { event.waitUntil( async function () { // Feature-detect
-     if ( self.registration.navigationPreload ) { // Enable navigation preloads! 
-     console.log( "Enable navigation preloads!" ); 
-     await self.registration.navigationPreload.enable(); } return; } ) } );
-    window.addEventListener('fetch', event => {
-          // Prevent the default, and handle the request ourselves.
-          event.respondWith(async function() {
-            // Try to get the response from a cache.
-            const cachedResponse = await caches.match(event.request);
-            // Return it if we found one.
-            if (cachedResponse) return cachedResponse;
-            // If we didn't find a match in the cache, use the network.
-            return fetch(event.request);
-          }());
-        });
-
+window.addEventListener("activate", (event) => {
+  event.waitUntil(async function () {
+    // Feature-detect
+    if (self.registration.navigationPreload) {
+      // Enable navigation preloads!
+      console.log("Enable navigation preloads!");
+      await self.registration.navigationPreload.enable();
+    }
+    return;
+  });
+});
+window.addEventListener("fetch", (event) => {
+  // Prevent the default, and handle the request ourselves.
+  event.respondWith(
+    (async function () {
+      // Try to get the response from a cache.
+      const cachedResponse = await caches.match(event.request);
+      // Return it if we found one.
+      if (cachedResponse) return cachedResponse;
+      // If we didn't find a match in the cache, use the network.
+      return fetch(event.request);
+    })()
+  );
+});
 
 import { mapActions, mapGetters } from "vuex";
+
 export default {
   name: "App",
   components: {},
@@ -261,5 +274,47 @@ nav {
 .btn__router_link {
   color: grey !important;
   font-family: "Poppins", sans-serif !important;
+}
+
+.vb > .vb-dragger {
+  z-index: 5;
+  width: 12px;
+  right: 0;
+}
+
+.vb > .vb-dragger > .vb-dragger-styler {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: rotate3d(0, 0, 0, 0);
+  transform: rotate3d(0, 0, 0, 0);
+  -webkit-transition: background-color 100ms ease-out, margin 100ms ease-out,
+    height 100ms ease-out;
+  transition: background-color 100ms ease-out, margin 100ms ease-out,
+    height 100ms ease-out;
+  background-color: rgba(244, 88, 88, 0.1);
+  margin: 5px 5px 5px 0;
+  border-radius: 20px;
+  height: calc(100% - 10px);
+  display: block;
+}
+
+.vb.vb-scrolling-phantom > .vb-dragger > .vb-dragger-styler {
+  background-color: rgba(244, 88, 88, 0.3);
+}
+
+.vb > .vb-dragger:hover > .vb-dragger-styler {
+  background-color: rgba(244, 88, 88, 0.5);
+  margin: 0px;
+  height: 100%;
+}
+
+.vb.vb-dragging > .vb-dragger > .vb-dragger-styler {
+  background-color: rgba(244, 88, 88, 0.5);
+  margin: 0px;
+  height: 100%;
+}
+
+.vb.vb-dragging-phantom > .vb-dragger > .vb-dragger-styler {
+  background-color: rgba(244, 88, 88, 0.5);
 }
 </style>

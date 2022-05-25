@@ -200,3 +200,12 @@ def like_review(request, movie_pk, review_pk):
             return Response(serializer.data)
     else:
         return Response(status=status.HTTP_203_NON_AUTHORITATIVE_INFORMATION)
+
+@api_view(['GET'])
+def more_movies(request, page_pk):
+    movies = get_list_or_404(Movie)
+    page_pk *= 10
+    movies[page_pk, page_pk+10]
+
+    serializers = MovieListSerializer(movies, many=True)
+    return Response(serializers.data)
