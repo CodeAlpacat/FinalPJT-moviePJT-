@@ -23,7 +23,7 @@
             </v-card>
           </v-dialog>
           <v-img height="250" :src="posterPath" class="border-rad-img"></v-img>
-          <div class="d-flex flex-column justify-space-between back-color">
+          <div>
             <div>
               <v-card-text>
                 <h2 class="text-h6">{{ movie.title }}</h2>
@@ -39,9 +39,8 @@
                 <v-rating
                   :value="movie.vote_average / 2"
                   dense
-                  style="yellow !important; yellow !important;"
-                  color=""
-                  
+                  color="orange"
+                  background-color="orange"
                   hover
                   size="18"
                   class="mr-2 hidden-md-and-down"

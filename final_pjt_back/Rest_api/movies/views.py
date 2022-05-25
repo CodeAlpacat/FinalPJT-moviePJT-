@@ -204,8 +204,11 @@ def like_review(request, movie_pk, review_pk):
 @api_view(['GET'])
 def more_movies(request, page_pk):
     movies = get_list_or_404(Movie)
-    page_pk *= 10
-    movies = movies[page_pk, page_pk+10]
-
     serializers = MovieListSerializer(movies, many=True)
-    return Response(serializers.data)
+    list_movie = []
+    count_page = page_pk * 10
+    for i in range(count_page, count_page + 10):
+        list_movie.append(serializers.data[i])
+    # movies = serializers.data[page_pk, page_pk+10]
+
+    return Response(list_movie)

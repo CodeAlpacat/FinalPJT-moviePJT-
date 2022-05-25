@@ -23,18 +23,8 @@
             </v-card>
           </v-dialog>
           <v-img height="250" :src="posterPath" class="border-rad-img"></v-img>
-          <div class="d-flex flex-column justify-space-between back-color">
-            <div>
-              <v-card-text>
-                <h2 class="text-h6">{{ movie.title }}</h2>
-                {{
-                  movie.overview.length > 50
-                    ? movie.overview.substring(0, 50) + "..."
-                    : movie.overview
-                }}
-              </v-card-text>
-            </div>
-            <div>
+          <div style="position: relative">
+            <div style="position: absolute; margin-top: 138px">
               <v-card-title>
                 <v-rating
                   :value="movie.vote_average / 2"
@@ -50,6 +40,16 @@
                   {{ movie.release_date }}</span
                 >
               </v-card-title>
+            </div>
+            <div>
+              <v-card-text>
+                <h2 class="text-h6">{{ movie.title }}</h2>
+                {{
+                  movie.overview.length > 50
+                    ? movie.overview.substring(0, 50) + "..."
+                    : movie.overview
+                }}
+              </v-card-text>
             </div>
           </div>
 
@@ -96,24 +96,23 @@ export default {
 <style>
 .border-rad {
   border-radius: 15px;
-  background-color: rgba( 255, 255, 255, 0.1 ) !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
   color: rgba(223, 220, 221, 0.8) !important;
 }
+
 .border-rad-img {
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
 }
 .shadow-card {
   transition: 0.5s;
-
 }
 .shadow-card div:hover {
   box-shadow: -4px 4px 10px rgb(233, 213, 109);
-
 }
 
-.back-color{
-   height: 200px;
-   border-radius: 15px;
+.back-color {
+  height: 200px;
+  border-radius: 15px;
 }
 </style>

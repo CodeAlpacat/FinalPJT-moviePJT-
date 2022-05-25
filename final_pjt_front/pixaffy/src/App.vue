@@ -16,7 +16,7 @@
             <router-link to="/home">HOME</router-link>
           </v-tab>
           <v-tab>
-            <router-link to="/movie">MOVIE</router-link>
+            <router-link to="/movie">MOVIES</router-link>
           </v-tab>
           <v-tab>
             <router-link to="/community">Community</router-link>
