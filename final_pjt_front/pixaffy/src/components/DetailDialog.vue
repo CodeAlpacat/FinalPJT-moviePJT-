@@ -1,76 +1,66 @@
 <template>
-  <div
-    style="
-      background-color: rgb(75,82,97);
-    "
-  >
+  <div style="background-color: rgb(75, 82, 97)" class="scroll-remove">
     <movie-trailer :movie="movieModal"></movie-trailer>
     <div class="d-block mb-6 mt-6 py-6">
       <v-row justify="space-between">
-        <div
-          style="
-            display: flex;
-            align-items: center;
-          "
-          >
-            <div
-              style="
-                color: rgb(223,220,221);
-                padding: 10px;
-                margin: 5px 10px;
-                border-radius: 40%;
-                font-family: 'Jeju Gothic', sans-serif !important;
-                font-weight: bold;
-                transition: all 2s;
-                cursor: pointer;
-                "
-              @click="toggleOverview"
-            >
-              RELATED MOVIE
-            </div>
-            <div
-              style="
-                color: rgb(223,220,221);
-                padding: 10px;
-                margin: 5px 10px;
-                border-radius: 40%;
-                font-family: 'Jeju Gothic', sans-serif !important;
-                font-weight: bold;
-                transition: all 2s;
-                cursor: pointer;
-                "
-              @click="toggleReview"
-            >
-              REVIEW
-            </div>
-            <div
-              style="
-                color: rgb(223,220,221);
-                padding: 10px;
-                margin: 5px 10px;
-                border-radius: 40%;
-                font-family: 'Jeju Gothic', sans-serif !important;
-                font-weight: bold;
-                transition: all 2s;
-                cursor: pointer;
-                "
-              @click="toggleDescription"
-            >
-              DESCRIPTION
-            </div>
-        </div>
-        <div style="margin-right: 30px; align-items: center; display: flex;">
-          <button
-            class="profile__div1__follow_btn"
-            @click="
-              followMovies(movieModal.id);
-              followOrUnfollow();
+        <div style="display: flex; align-items: center">
+          <div
+            style="
+              color: rgb(223, 220, 221);
+              padding: 10px;
+              margin: 5px 10px;
+              border-radius: 40%;
+              font-family: 'Jeju Gothic', sans-serif !important;
+              font-weight: bold;
+              transition: all 2s;
+              cursor: pointer;
             "
+            @click="toggleOverview"
           >
-            <span v-if="unFollowButton">Add To My List</span>
-            <span v-if="!unFollowButton">DELETE MOVIE</span>
-          </button>
+            RELATED MOVIE
+          </div>
+          <div
+            style="
+              color: rgb(223, 220, 221);
+              padding: 10px;
+              margin: 5px 10px;
+              border-radius: 40%;
+              font-family: 'Jeju Gothic', sans-serif !important;
+              font-weight: bold;
+              transition: all 2s;
+              cursor: pointer;
+            "
+            @click="toggleReview"
+          >
+            REVIEW
+          </div>
+          <div
+            style="
+              color: rgb(223, 220, 221);
+              padding: 10px;
+              margin: 5px 10px;
+              border-radius: 40%;
+              font-family: 'Jeju Gothic', sans-serif !important;
+              font-weight: bold;
+              transition: all 2s;
+              cursor: pointer;
+            "
+            @click="toggleDescription"
+          >
+            DESCRIPTION
+          </div>
         </div>
+
+        <button
+          class="profile__div1__follow_btn"
+          @click="
+            followMovies(movieModal.id);
+            followOrUnfollow();
+          "
+        >
+          <span v-if="unFollowButton">Add To My List</span>
+          <span v-if="!unFollowButton">DELETE MOVIE</span>
+        </button>
       </v-row>
     </div>
     <transition
@@ -109,8 +99,7 @@ import OverviewDetail from "./OverviewDetail.vue";
 import ReviewDetail from "./ReviewDetail.vue";
 import DescriptionDetail from "./DescriptionDetail.vue";
 import { mapActions, mapGetters } from "vuex";
-import axios from 'axios';
-
+import axios from "axios";
 
 export default {
   name: "DetailDialog",
@@ -122,6 +111,7 @@ export default {
       required: true,
     },
   },
+
   components: {
     MovieTrailer,
     OverviewDetail,
@@ -142,23 +132,23 @@ export default {
   },
   created() {
     axios({
-        url: `https://api.themoviedb.org/3/movie/${this.movieModal.id}/videos?api_key=c0ea5b6535679915d16aada2f7427157`
-      })
-        .then(res => {
-          this.trailer = res.data.results[0].key
-        })
-        .catch(error => {
-          console.log(error)
-        })
-    axios({
-      url: `https://api.themoviedb.org/3/movie/${this.movieModal.id}/recommendations?api_key=c0ea5b6535679915d16aada2f7427157&language=ko-KR&page=1`
+      url: `https://api.themoviedb.org/3/movie/${this.movieModal.id}/videos?api_key=c0ea5b6535679915d16aada2f7427157`,
     })
-      .then(res => {
-        this.recommendMovie = res.data.results
+      .then((res) => {
+        this.trailer = res.data.results[0].key;
       })
-      .catch(error => {
-        console.log(error)
+      .catch((error) => {
+        console.log(error);
+      });
+    axios({
+      url: `https://api.themoviedb.org/3/movie/${this.movieModal.id}/recommendations?api_key=c0ea5b6535679915d16aada2f7427157&language=ko-KR&page=1`,
+    })
+      .then((res) => {
+        this.recommendMovie = res.data.results;
       })
+      .catch((error) => {
+        console.log(error);
+      });
     this.userInfo = JSON.parse(localStorage.getItem("currentUser")).pk;
     for (let i = 0; i < this.profile.keep_movies; i++) {
       for (
@@ -174,7 +164,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters(['isVideo'])
+    ...mapGetters(["isVideo"]),
   },
 
   methods: {
@@ -198,17 +188,14 @@ export default {
       if (this.profile.kept_by_user) {
         if (this.profile.kept_by_user.some((item) => item == this.userInfo)) {
           this.unFollowButton = true;
-
         } else {
           this.unFollowButton = false;
         }
       } else {
         if (this.profile.keep_movies.some((item) => item.id == this.userInfo)) {
           this.unFollowButton = true;
-        
         } else {
           this.unFollowButton = false;
-        
         }
       }
     },
@@ -219,7 +206,7 @@ export default {
 <style>
 @import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css";
 .profile__div1__follow_btn {
-  width: 180px;
+  width: 220px !important;
   height: 40px;
   border-radius: 30px;
   border: none;
@@ -229,8 +216,8 @@ export default {
   opacity: 1.3;
   cursor: pointer;
   transition: 0.5s;
-  margin-top: 35px;
   box-shadow: 2px 2px 2px grey;
+  margin-right: 40px;
 }
 
 .profile__div1__follow_btn:hover {
@@ -269,7 +256,16 @@ export default {
 
 .hover {
   color: white;
-  background-color: rgb(27,45,71);
+  background-color: rgb(27, 45, 71);
 }
 
+.scroll-remove {
+  overflow-x: hidden !important;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scroll-remove::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
 </style>

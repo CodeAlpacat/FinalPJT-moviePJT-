@@ -25,7 +25,7 @@
           </span>
         </div>
       </v-card-text>
-      <v-dialog v-model="dialog" width="800">
+      <v-dialog v-model="dialog" width="1700">
         <template v-slot:activator="{ on, attrs }">
           <v-btn text color="white" style="height: 70px; font-size: 20px" v-bind="attrs"
             v-on="on"

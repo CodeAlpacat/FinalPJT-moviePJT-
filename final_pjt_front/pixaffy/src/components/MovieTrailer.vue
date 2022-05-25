@@ -1,6 +1,6 @@
 <template>
-  <div id="trailer" class="d-block mb-6">
-    <vueper-slides bullets-outside :dragging-distance="50" fixed-height="750px">
+  <div id="trailer" class="d-block mb-6 ">
+    <vueper-slides bullets-outside :dragging-distance="50" fixed-height="750px" class="hidden-sm-and-down">
       <vueper-slide
         v-for="(slide, i) in slides"
         :key="i"

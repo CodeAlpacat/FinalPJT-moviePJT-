@@ -8,16 +8,21 @@
           height="440"
           style="border-radius: 15px"
         >
-          <v-dialog v-model="dialog" width="800" scrollable>
+          <v-dialog v-model="dialog" width="1700" scrollable>
             <v-card>
               <detail-dialog
                 :movieModal="movie"
                 :profile="profile"
               ></detail-dialog>
               <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" dark text @click="dialog = false">
-                  창 닫기
+                
+                <v-btn
+                  class="close_button"
+                  dark
+                  text
+                  @click="dialog = false"
+                >
+                  X
                 </v-btn>
               </v-card-actions>
             </v-card>

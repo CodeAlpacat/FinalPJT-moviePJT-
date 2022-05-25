@@ -81,7 +81,7 @@
             <v-list-item-subtitle
               v-text="item.release_date"
             ></v-list-item-subtitle>
-            <!-- <v-dialog v-model="dialog" width="800px">
+            <!-- <v-dialog v-model="dialog" width="1700">
               <template v-slot:activator="{ on, attrs }">
                 <v-btn
                   color="red lighten-2"
@@ -318,4 +318,6 @@ nav {
 .vb.vb-dragging-phantom > .vb-dragger > .vb-dragger-styler {
   background-color: rgba(244, 88, 88, 0.5);
 }
+
+.v-application--wrap {   min-height: 100% !important; }
 </style>

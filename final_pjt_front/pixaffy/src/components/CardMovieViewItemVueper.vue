@@ -8,7 +8,7 @@
           height="440"
           style="border-radius: 15px"
         >
-          <v-dialog v-model="dialog" width="800" scrollable>
+          <v-dialog v-model="dialog" width="1700" scrollable>
             <v-card>
               <detail-dialog
                 :movieModal="movie"
@@ -76,6 +76,7 @@ export default {
       return `https://image.tmdb.org/t/p/w500/${this.movie.poster_path}`;
     },
   },
+  
   props: {
     movie: {
       required: true,
@@ -115,4 +116,5 @@ export default {
    height: 200px;
    border-radius: 15px;
 }
+
 </style>
