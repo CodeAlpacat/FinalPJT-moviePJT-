@@ -36,13 +36,13 @@ import { mapGetters, mapActions } from 'vuex'
     text-align: center;
     font-size: 40px;
     font-weight: bolder;
-    color: rgb(27,45,71);
+    color: rgb(23,146,195);
     font-family:'Jeju Gothic', sans-serif !important; 
   }
   .edit-article{
     width: 80%;
-    background-color: rgb(237,242,250);
-    border: 2px solid rgb(19, 150, 229);
+    background-color: rgb(51,56,66);
+    border: 2px solid rgb(51, 56, 66);
     margin: 40px auto 30px;
     border-radius: 5px;
     padding: 10px 20px;

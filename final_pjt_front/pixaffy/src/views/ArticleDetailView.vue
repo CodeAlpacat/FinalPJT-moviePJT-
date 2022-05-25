@@ -3,7 +3,7 @@
     <div class="article-frame">
       <div class="title"
         style="
-          background-color: rgb(27, 45, 71);
+          background-color: rgb(23, 146, 195);
         "
       >
         <div>
@@ -77,7 +77,7 @@
           <div class="subtitle-item">
             <v-btn
               icon
-              :color="liked ? 'red darken-2' : 'grey'"
+              :color="liked ? 'red lighten-2' : 'grey'"
               @click="
                 likeArticle(articlePk);
                 liked = !liked;
@@ -92,7 +92,7 @@
             <v-dialog v-model="dialog" persistent max-width="600px">
               <template v-slot:activator="{ on, attrs }">
                 <div class="subtitle-item">
-                  <v-btn color="blue darken-4" icon v-bind="attrs" v-on="on">
+                  <v-btn color="blue darken-1" icon v-bind="attrs" v-on="on">
                     <v-icon>mdi-message-text</v-icon>
                   </v-btn>
                 </div>
@@ -157,7 +157,7 @@
       <v-btn
         rounded
         class="ma-2"
-        color="blue darken-4"
+        color="blue darken-1"
         large
         dark
         @click="$router.push({ name: 'community' })"
@@ -214,9 +214,9 @@ export default {
   font-family: "Jeju Gothic", sans-serif !important;
   margin: 150px auto 10px;
   width: 900px;
-  border: 2px solid rgb(40, 129, 221);
+  border: 2px solid rgb(51, 56, 66);
   border-radius: 5px;
-  background-color: rgb(179, 196, 229);
+  background-color: rgb(51, 56, 66);
 }
 .title {
   font-family: "Jeju Gothic", sans-serif !important;
@@ -252,6 +252,7 @@ export default {
   margin: 20px 5% 30px;
   padding-bottom: 20px;
   border-bottom: 2px solid rgb(165, 165, 187);
+  color: rgb(220,218,228)
 }
 .comments {
   width: 90%;
@@ -270,7 +271,16 @@ export default {
 }
 
 .router__author {
-  color: rgb(2, 7, 21) !important;
+  color: rgb(23, 146, 195) !important;
   font-weight: bold;
+}
+
+.theme--light.v-list {
+  background-color: rgb(75, 82, 97);
+  color: rgba(255,255,255,0.87);
+}
+
+.theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
+  color: rgba(255,255,255,0.87);
 }
 </style>

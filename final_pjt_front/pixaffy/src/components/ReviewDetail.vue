@@ -40,7 +40,7 @@
                     dark
                     small
                     fab
-                    color="blue darken-1"
+                    color="#1792C3"
                     v-bind="attrs"
                     v-on="on"
                   >
@@ -57,6 +57,7 @@
                 <v-textarea
                   v-model="content"
                   color="amber darken-4"
+                  dark
                 >
                   <template v-slot:label>
                     <div>
@@ -70,14 +71,14 @@
                   <v-spacer></v-spacer>
                   <v-btn
                     color="blue darken-1"
-                    text
                     @click="dialog=false"
+                    dark
                   >
                     닫기
                   </v-btn>
                   <v-btn
                     color="blue darken-1"
-                    text
+                    dark
                     @click="dialog=false; createReview({'moviePk': movie.id ? movie.id : movie.pk, 'content':content}); content=''; toggleView()"
                   >
                     완료
@@ -257,12 +258,12 @@ export default {
     margin: 0 10px;
     font-family: 'Jeju Gothic', sans-serif !important;
     font-weight: bold !important;
-    color: rgb(2, 7, 21);
+    color: rgb(218,221, 228);
     font-size: 24px !important;
   }
   .theme--light.v-pagination .v-pagination__item {
     background-color: rgb(26, 28, 32) !important;
-    color: rgb(218,221,228);
+    color: rgb(218,221,228) !important;
   }
   .theme--light.v-pagination .v-pagination__navigation {
     background-color: rgb(26, 28, 32) !important;
@@ -270,5 +271,19 @@ export default {
   .theme--light.v-icon {
     color: rgb(218,221,228);
   }
+
+  .theme--light.v-pagination .v-pagination__item--active {
+    background-color: rgb(23,146,195) !important;
+    color: rgb(218,221,228) !important;
+  }
   
+  .v-application .blue.darken-1 {
+    background-color: rgb(23, 146, 195) !important;
+    border-color: rgb(23, 146, 195) !important;
+  }
+  
+  .theme--light.v-input textarea {
+    color: rgba(218,221,228,0.87)
+  }
+
 </style>

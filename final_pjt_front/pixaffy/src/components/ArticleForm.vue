@@ -5,22 +5,23 @@
         label="제목을 작성해 주세요."
         :rules="titleRules"
         hide-details="auto"
-         v-model="newArticle.title"
+        v-model="newArticle.title"
+        dark
       ></v-text-field>
         <v-textarea
-          background-color="indigo lighten-5"
           clearable
           clear-icon="mdi-close-circle"
           label="내용을 작성해 주세요."
           v-model="newArticle.content"
           :rules="contentRules"
+          dark
         ></v-textarea>
     </div>
     <div>
       <div class="text-center">
         <v-btn
           rounded
-          color="primary"
+          color="amber darken-4"
           dark
           large
           @click="onSubmit"
@@ -35,10 +36,10 @@
         </v-btn>
         <v-btn
           rounded
-          color="blue darken-4"
+          color="blue darken-1"
           dark
           large
-          @click="$router.go(-1)"
+          @click="$router.push({ name: 'community' })"
           style="font-family:'Jeju Gothic', sans-serif !important; margin-left:20px;"
         > 뒤로가기
           <v-icon

@@ -224,7 +224,7 @@ export default {
   border-radius: 30px;
   border: none;
   color: white;
-  background-color: rgb(30, 136, 229);
+  background-color: rgb(30, 130, 226);
   text-align: center;
   opacity: 1.3;
   cursor: pointer;

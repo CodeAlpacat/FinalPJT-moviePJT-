@@ -23,12 +23,12 @@
       </div>
     </div>
     <div 
-      style="text-align:right; width:900px; margin:10px auto 0; text-align: right;"
+      style="text-align:right; width:1350px; margin:10px auto 0; text-align: right;"
     >
       <v-btn
         rounded
         large
-        color="blue darken-3"
+        color="blue darken-1"
         dark
         @click="$router.push({ name:'articleNew'})"
       >
@@ -79,21 +79,21 @@ export default {
     text-align: center;
     font-family:'Jeju Gothic', sans-serif !important;
     font-size: 48px;
-    color: rgb(28, 165, 220);
+    color: rgb(23, 146, 195);
     font-weight: bolder;
   }
   .body {
     display: flex;
     flex-direction: column;
-    background-color: rgb(59, 119, 172);
-    width: 900px;
+    background-color: rgb(75, 82, 97);
+    width: 1350px;
     margin: 50px auto 0;
     border-radius: 3px;
     padding: 5px;
   }
   .articleTable {
     display: flex;
-    background-color: rgb(27, 45, 71);
+    background-color: rgb(23, 146, 195);
     width: 100%;
     border-radius: 2px;
     text-align: center;

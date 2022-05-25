@@ -71,18 +71,18 @@ export default {
 <style>
   .article {
     display: flex;
-    background-color: rgb(179, 196, 229);
+    background-color: rgb(51, 56, 66);
     border-radius: 2px;
     text-align: center;
     margin-top: 3px;
   }
   .article > div {
-    color: rgb(2, 7, 21);
+    color: rgb(218, 221, 228);
     font-family: 'Jeju Gothic', sans-serif;
     font-size: small;
   }
   .subcontent {
-    color: rgb(117, 126, 139);
+    color: rgb(143, 215, 241);
     font-family:'Jeju Gothic', sans-serif !important;
   }
   .likes {
@@ -91,7 +91,7 @@ export default {
     font-family:'Jeju Gothic', sans-serif !important;
   }
   .router__author {
-    color: rgb(2, 7, 21) !important;
+    color: rgb(15, 95, 125) !important;
     font-weight: bold;
   }
 

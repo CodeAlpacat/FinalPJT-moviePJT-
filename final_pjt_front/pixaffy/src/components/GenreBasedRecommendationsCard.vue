@@ -20,8 +20,8 @@
           <detail-dialog :movieModal="movie" :profile="profile"></detail-dialog>
           <v-card-actions>
             <v-spacer></v-spacer>
-            <v-btn color="primary" text @click="dialog = false">
-              I accept
+            <v-btn color="blue darken-1" dark text @click="dialog = false">
+              창 닫기
             </v-btn>
           </v-card-actions>
         </v-card>
