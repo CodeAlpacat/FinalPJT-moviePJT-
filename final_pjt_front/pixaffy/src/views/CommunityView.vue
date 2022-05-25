@@ -79,7 +79,7 @@ export default {
     text-align: center;
     font-family:'Jeju Gothic', sans-serif !important;
     font-size: 48px;
-    color: rgb(27, 45, 71);
+    color: rgb(28, 165, 220);
     font-weight: bolder;
   }
   .body {

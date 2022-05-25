@@ -87,14 +87,16 @@ export default {
     border-right: 3px solid rgb(61, 98, 152);
     align-items: center;
     border-radius: 3px;
+    color: rgb(27, 28, 49);
   }
   .none-best {
     display: flex;
     height: 75px;
     margin-top: 5px;
-    background-color: rgb(212,207,220);
-    border-bottom: 4px solid rgb(141, 138, 146);
-    border-right: 3px solid rgb(141, 138, 146);
+    background-color: rgb(51,56,66);
+    color: rgb(218,221,228);
+    border-bottom: 4px solid rgb(26, 28, 32);
+    border-right: 3px solid rgb(26, 28, 32);
     align-items: center;
     border-radius: 3px;
   }
@@ -102,11 +104,9 @@ export default {
     padding-left: 20px;
     font-size: 24px;
     font-weight: bold;
-    color: rgb(27, 28, 49);
   }
   .review-content {
     font-size: 20px;
-    color: rgb(27, 28, 49);
   }
   .likes-count {
     display: flex;

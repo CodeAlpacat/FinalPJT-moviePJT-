@@ -209,6 +209,7 @@ window.addEventListener("fetch", (event) => {
   );
 });
 
+
 import { mapActions, mapGetters } from "vuex";
 
 export default {

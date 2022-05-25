@@ -1,9 +1,12 @@
 <template>
-  <div>
+  <div class="animate__fadeOut">
   <v-sheet
     class="mx-auto"
     elevation="8"
     max-width="800"
+    style="
+      background-color: rgb(51,56,66)
+    "
   >
     <v-slide-group
       v-model="model"
@@ -11,11 +14,12 @@
       show-arrows
     >
       <v-slide-item
-        v-for="i in 15"
-        :key="i"
+        v-for="movie in movies"
+        :key="movie.id"
         v-slot="{ active, toggle }"
       >
         <v-card
+          :img="`https://image.tmdb.org/t/p/w780/${movie.poster_path}`"
           :color="active ? 'rgb(128, 128, 128)' : 'rgb(128, 128, 128)'"
           class="ma-4"
           height="400"
@@ -50,7 +54,7 @@ export default {
     model: null,
   }),
   props: {
-    movie: Object
+    movies: Array
   },
 
 }

@@ -32,7 +32,7 @@
               style="
                 margin: 5px;
                 padding: 10px;
-                border-left: 3px solid rgb(218,221,228);
+                border-left: 3px solid rgb(41,46,54);
               "
             >
               <div 
@@ -40,6 +40,7 @@
                 font-size: 40px;
                 font-weight: bold;
                 margin: 5px 0;
+                color:rgb(218,221,228);
                 "
                 >{{ movie.title }}
               </div>
@@ -50,7 +51,7 @@
                   font-size: 24px;
                   font-weight: bold;
                   margin: 5px 0;
-                  color: rgb(90, 96, 120);
+                  color: rgb(152, 157, 177);
                 "
               >
                 <div 
@@ -75,7 +76,11 @@
                   >
                 </v-rating>
               </div>
-              <h4>{{ movie.overview }}</h4>
+              <h4
+                style="
+                  color: rgb(218,221,228);
+                "
+              >{{ movie.overview }}</h4>
             </div>
           </v-col>
         </v-row>
@@ -85,6 +90,9 @@
     class="mx-auto"
     elevation="8"
     max-width="800"
+    style="
+      background-color: rgb(51,56,66);
+    "
   >
     <v-slide-group
       v-model="model"
@@ -183,5 +191,8 @@ export default {
 <style>
   .col.col-4 > div {
     margin: auto 3px auto;
+  }
+  .v-card.v-sheet.theme--light {
+    background-color: rgb(51,56,66);
   }
 </style>

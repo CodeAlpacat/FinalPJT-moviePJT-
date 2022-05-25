@@ -1,5 +1,9 @@
 <template>
-  <div>
+  <div
+    style="
+      background-color: rgb(75,82,97);
+    "
+  >
     <movie-trailer :movie="movieModal"></movie-trailer>
     <div class="d-block mb-6 mt-6 py-6">
       <v-row justify="space-between">
@@ -11,6 +15,7 @@
           >
             <div
               style="
+                color: rgb(223,220,221);
                 padding: 10px;
                 margin: 5px 10px;
                 border-radius: 40%;
@@ -21,10 +26,11 @@
                 "
               @click="toggleOverview"
             >
-              OVERVIEW
+              RELATED MOVIE
             </div>
             <div
               style="
+                color: rgb(223,220,221);
                 padding: 10px;
                 margin: 5px 10px;
                 border-radius: 40%;
@@ -39,6 +45,7 @@
             </div>
             <div
               style="
+                color: rgb(223,220,221);
                 padding: 10px;
                 margin: 5px 10px;
                 border-radius: 40%;
@@ -66,17 +73,33 @@
         </div>
       </v-row>
     </div>
-    <div>
-      <div v-show="overviewShow">
-        <overview-detail :movie="movieModal"></overview-detail>
+    <transition
+      mode="out-in"
+      enter-active-class="animate__animated animate__fadeIn animate__faster animate__delay-1s"
+      leave-active-class="animate__animated animate__fadeOut animate__faster"
+    >
+      <div v-if="overviewShow">
+        <overview-detail :movies="recommendMovie"></overview-detail>
       </div>
-      <div v-show="reviewShow">
+    </transition>
+    <transition
+      mode="out-in"
+      enter-active-class="animate__animated animate__fadeIn animate__faster animate__delay-1s"
+      leave-active-class="animate__animated animate__fadeOut animate__faster"
+    >
+      <div v-if="reviewShow">
         <review-detail :movie="movieModal"></review-detail>
       </div>
-      <div v-show="descriptionShow">
+    </transition>
+    <transition
+      mode="out-in"
+      enter-active-class="animate__animated animate__fadeIn animate__faster animate__delay-1s"
+      leave-active-class="animate__animated animate__fadeOut animate__faster"
+    >
+      <div v-if="descriptionShow">
         <description-detail :movie="movieModal"></description-detail>
       </div>
-    </div>
+    </transition>
   </div>
 </template>
 
@@ -114,6 +137,7 @@ export default {
       unFollowButton: true,
       userInfo: null,
       trailer: null,
+      recommendMovie: null,
     };
   },
   created() {
@@ -126,6 +150,15 @@ export default {
         .catch(error => {
           console.log(error)
         })
+    axios({
+      url: `https://api.themoviedb.org/3/movie/${this.movieModal.id}/recommendations?api_key=c0ea5b6535679915d16aada2f7427157&language=ko-KR&page=1`
+    })
+      .then(res => {
+        this.recommendMovie = res.data.results
+      })
+      .catch(error => {
+        console.log(error)
+      })
     this.userInfo = JSON.parse(localStorage.getItem("currentUser")).pk;
     for (let i = 0; i < this.profile.keep_movies; i++) {
       for (
@@ -184,13 +217,14 @@ export default {
 </script>
 
 <style>
+@import "https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css";
 .profile__div1__follow_btn {
   width: 180px;
   height: 40px;
   border-radius: 30px;
   border: none;
   color: white;
-  background-color: rgb(23, 146, 195);
+  background-color: rgb(30, 136, 229);
   text-align: center;
   opacity: 1.3;
   cursor: pointer;

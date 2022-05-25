@@ -33,8 +33,15 @@
         movieProps.title
       }}</v-btn>
         </template>
-        <v-card>
-          <detail-dialog :movieModal="movieProps" :profile="profile"></detail-dialog>
+        <v-card
+          style="
+            background-color: rgb(75,82,97) ;
+          "
+        >
+          <detail-dialog
+            :movieModal="movieProps"
+            :profile="profile"
+          ></detail-dialog>
           <v-card-actions>
             <v-spacer></v-spacer>
             <v-btn color="primary" text @click="dialog = false">
@@ -98,4 +105,7 @@ export default {
 </script>
 
 <style>
+.v-card__actions {
+  background-color: rgb(75,82,97) !important;
+}
 </style>

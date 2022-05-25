@@ -1,12 +1,24 @@
 <template>
-  <div>
-    <div style="display: flex; flex-direction: column; width:90%; margin: 50px auto 0;">
-      <div v-if="movie.reviews">
+  <div class="animate__fadeOut" style="height:900px">
+    <div v-show="true" style="display: flex; flex-direction: column; height:850px; width:90%; margin: 50px auto 0;">
+      <div v-show="movie.reviews">
         <div v-for="review in (page===1 ? sortedReviews.slice(0,3) : [])" :key="review.pk">
+          <transition
+            mode="out-in"
+            enter-active-class="animate__animated animate__fadeIn animate__faster"
+            leave-active-class="animate__animated animate__fadeOut animate__faster"
+          >
           <review-view :review="review" :movie="movie" :best="true"></review-view>
+          </transition>
         </div>
         <div v-for="review in (page!==1 ? sortedReviews.slice((page - 1)*10,(page*10)) : sortedReviews.slice(3,10))" :key="review.pk">
-          <review-view :review="review" :movie="movie" :best="false"></review-view>
+          <transition
+            mode="out-in"
+            enter-active-class="animate__animated animate__fadeIn animate__faster"
+            leave-active-class="animate__animated animate__fadeOut animate__faster"
+          >
+            <review-view :review="review" :movie="movie" :best="false"></review-view>
+          </transition>
         </div>
         <!-- <div v-for="review in getReverse.slice((page - 1)*10,(page*10))" :key="review.pk">
           <review-view :review="review" :movie="movie"></review-view>
@@ -28,7 +40,7 @@
                     dark
                     small
                     fab
-                    color="indigo darken-3"
+                    color="blue darken-1"
                     v-bind="attrs"
                     v-on="on"
                   >
@@ -66,7 +78,7 @@
                   <v-btn
                     color="blue darken-1"
                     text
-                    @click="dialog=false; createReview({'moviePk': movie.id ? movie.id : movie.pk, 'content':content}); content=''"
+                    @click="dialog=false; createReview({'moviePk': movie.id ? movie.id : movie.pk, 'content':content}); content=''; toggleView()"
                   >
                     완료
                   </v-btn>
@@ -99,6 +111,7 @@
 import ReviewView from './ReviewView.vue'
 import { mapActions } from 'vuex'
 
+
 export default {
   name: 'reviewDetail',
   components: {
@@ -109,6 +122,7 @@ export default {
         page: 1,
         dialog: false,
         content: '',
+        view: true,
       }
     },
   props: {
@@ -116,6 +130,15 @@ export default {
   },
   methods: {
     ...mapActions(['createReview','movieSelect']),
+    toggleView() {
+      this.view = false;
+      setTimeout(()=>{
+        //pass
+      }, 1020)
+        .then(() =>
+          this.view = true
+        );
+    }
   },
   computed: {
     getReverse() {
@@ -217,12 +240,10 @@ export default {
     font-size: 24px;
     font-weight: bold;
     font-family:'Jeju Gothic', sans-serif !important;
-    color: rgb(27, 28, 49);
   }
   .review-content {
     font-size: 20px;
     font-family:'Jeju Gothic', sans-serif !important;
-    color: rgb(27, 28, 49);
   }
   .likes-count {
     display: flex;
@@ -239,4 +260,15 @@ export default {
     color: rgb(2, 7, 21);
     font-size: 24px !important;
   }
+  .theme--light.v-pagination .v-pagination__item {
+    background-color: rgb(26, 28, 32) !important;
+    color: rgb(218,221,228) !important;
+  }
+  .theme--light.v-pagination .v-pagination__navigation {
+    background-color: rgb(26, 28, 32) !important;
+  }
+  .theme--light.v-icon {
+    color: rgb(218,221,228) !important;
+  }
+  
 </style>

@@ -4,9 +4,15 @@
       <div style="flex-grow: 1">
         <div class="comment-body">
           <div>
-            <router-link :to="{ name: 'profileCommunity', params: { username:payload.username }}" class="router__author">{{ payload.username }}</router-link>
+            <router-link :to="{ name: 'profileCommunity', params: { username:payload.username }}" class="router__author"
+            >
+            <span style="color:rgb(223, 214, 210);">
+              {{ payload.username }}
+            </span>
+            </router-link>
           </div>
-          <span style="font-family:'Jeju Gothic', sans-serif !important;">
+          <span style="font-family:'Jeju Gothic', sans-serif !important;
+          ">
             {{ payload.content }}
           </span>
         </div>
@@ -71,7 +77,8 @@ export default {
     font-size: 16px;
   }
   .comment-body > div {
-    background-color: rgb(173,192,221);
+    background-color: rgb(33,48,77);
+    color: rgb(223, 214, 210) !important;
     font-weight: bold;
     border-radius: 2px;
     font-family:'Jeju Gothic', sans-serif !important;
