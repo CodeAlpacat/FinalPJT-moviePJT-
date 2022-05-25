@@ -68,22 +68,27 @@ export default {
         },
         2400: {
           slideRatio: 1 / 5,
+          visibleSlides: 6,
+        },
+        2200: {
+          slideRatio: 1 / 4,
+          visibleSlides: 5,
+        },
+        1900: {
+          slideRatio: 1 / 3,
           visibleSlides: 4,
         },
-        2000: {
-          slideRatio: 1 / 4,
+        1600: {
+          slideRatio: 1 / 2,
           visibleSlides: 3,
         },
-        1600: {
-          slideRatio: 1 / 3,
+        1300: {
+          slideRatio: 1 / 2, 
           visibleSlides: 2,
         },
         1000: {
-          slideRatio: 1 / 2,
-          arrows: false,
-          bulletsOutside: true,
           visibleSlides: 1,
-        },
+        }
         // The order you list breakpoints does not matter, Vueper Slides will sort them for you.
       },
     };

@@ -31,7 +31,7 @@ export default {
     CardMovieViewItem,
   },
   async created() {
-    const response = await fetch("http://127.0.0.1:8000/movies/nowplaying/");
+    const response = await fetch(`http://127.0.0.1:8000/movies/${this.page}/more/`);
     this.movieDatas = await response.json();
   },
   computed: {
@@ -40,6 +40,7 @@ export default {
   data() {
     return {
       movieDatas: null,
+      page: 0
     };
   },
 };

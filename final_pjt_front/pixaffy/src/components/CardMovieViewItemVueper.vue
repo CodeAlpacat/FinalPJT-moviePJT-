@@ -39,8 +39,9 @@
                 <v-rating
                   :value="movie.vote_average / 2"
                   dense
-                  color="orange"
-                  background-color="orange"
+                  style="yellow !important; yellow !important;"
+                  color=""
+                  
                   hover
                   size="18"
                   class="mr-2 hidden-md-and-down"
