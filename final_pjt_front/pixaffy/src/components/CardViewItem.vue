@@ -37,7 +37,11 @@
             Detail
           </v-btn>
         </template>
-        <v-card>
+        <v-card
+          style="
+            background-color: rgb(75,82,97) ;
+          "
+        >
           <detail-dialog
             :movieModal="movieProps"
             :profile="profile"
@@ -105,4 +109,7 @@ export default {
 </script>
 
 <style>
+.v-card__actions {
+  background-color: rgb(75,82,97) !important;
+}
 </style>

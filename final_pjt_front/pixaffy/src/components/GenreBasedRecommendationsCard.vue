@@ -6,11 +6,15 @@
       
       <v-dialog v-model="dialog" width="800" scrollable>
         <template v-slot:activator="{ on, attrs }">
-          <v-btn text color="white" style="height: 70px; font-size: 20px" v-bind="attrs"
+          <v-btn text color="white" style="height: 70px; font-size: 20px " v-bind="attrs"
             v-on="on"
-            @click="dialog = true">{{
-        movie.title
-      }}</v-btn>
+            @click="dialog = true">
+              <span 
+                style="font-family: 'Jeju Gothic', sans-serif !important;"
+              >
+                {{movie.title}}
+              </span>
+            </v-btn>
         </template>
         <v-card>
           <detail-dialog :movieModal="movie" :profile="profile"></detail-dialog>

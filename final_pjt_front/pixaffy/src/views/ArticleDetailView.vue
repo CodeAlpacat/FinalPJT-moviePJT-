@@ -1,12 +1,16 @@
 <template>
   <div>
     <div class="article-frame">
-      <div class="title">
+      <div class="title"
+        style="
+          background-color: rgb(27, 45, 71);
+        "
+      >
         <div>
           <h3
             style="
               font-family: 'Jeju Gothic', sans-serif !important;
-              color: rgb(27, 45, 71);
+              color: rgb(203,206,213);
               font-size: 28px;
             "
           >
@@ -16,11 +20,11 @@
         <div>
           <v-menu bottom left :disabled="!isAuthor">
             <template v-slot:activator="{ on, attrs }">
-              <v-btn icon v-bind="attrs" v-on="on">
+              <v-btn icon v-bind="attrs" v-on="on" dark>
                 <v-icon>mdi-dots-vertical</v-icon>
               </v-btn>
             </template>
-            <v-list>
+            <v-list>  
               <v-list-item>
                 <v-list-item-title
                   @click="
@@ -212,15 +216,17 @@ export default {
   width: 900px;
   border: 2px solid rgb(40, 129, 221);
   border-radius: 5px;
+  background-color: rgb(179, 196, 229);
 }
 .title {
   font-family: "Jeju Gothic", sans-serif !important;
   display: flex;
-  margin-bottom: 30px;
+  margin: 3px 3px 30px 3px;
   padding-top: 10px;
   padding-left: 20px;
   padding-right: 10px;
   justify-content: space-between;
+  border-radius: 4px;
   font-size: 24px;
 }
 .subtitle {

@@ -22,7 +22,8 @@
     :gap="2"
     :dragging-distance="50"
     prevent-y-scroll
-    style="margin-left: 100px; margin-right: 100px; margin-top: 150px;"
+    style="margin-left: 100px; margin-right: 100px; margin-top: 150px;
+      font-family: 'Jeju Gothic', sans-serif !important;"
   >
     <vueper-slide v-for="movie in movieDatas" :key="movie.id"
       ><template v-slot:content

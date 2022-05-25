@@ -9,7 +9,7 @@
         @click="dialog = true"
       ></v-img>
 
-      <v-card-title class="sutitle-2" @click="dialog=true" style="cursor: pointer;">{{ movieProps.title }}</v-card-title>
+      <v-card-title class="sutitle-2" @click="dialog=true" style="cursor: pointer;font-family: 'Jeju Gothic', sans-serif !important;">{{ movieProps.title }}</v-card-title>
       <v-card-text>
         <v-row align="center" class="mx-0">
           <v-rating
@@ -21,12 +21,12 @@
             size="14"
           >
           </v-rating>
-          <div class="ml-4">
+          <div class="ml-4" style="font-family: 'Jeju Gothic', sans-serif !important;">
             {{ movieProps.vote_average * 10 }} % | {{ movieProps.release_date }}
           </div>
         </v-row>
-        <div class="my-4 subtitle-2">
-          <span v-for="(genre, index) in movieProps.genres" :key="genre">
+        <div class="my-4 subtitle-2" >
+          <span v-for="(genre, index) in movieProps.genres" :key="genre" style="font-family: 'Jeju Gothic', sans-serif !important;">
             {{ genretypeName(genre, index) }}
           </span>
         </div>
