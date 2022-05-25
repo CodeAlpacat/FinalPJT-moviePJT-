@@ -6,12 +6,13 @@
           <div>
             <router-link :to="{ name: 'profileCommunity', params: { username:payload.username }}" class="router__author"
             >
-            <span style="color:rgb(223, 214, 210);">
+            <span style="color:rgb(159, 219, 243);">
               {{ payload.username }}
             </span>
             </router-link>
           </div>
           <span style="font-family:'Jeju Gothic', sans-serif !important;
+            color: rgb(223, 214, 210);
           ">
             {{ payload.content }}
           </span>
@@ -77,8 +78,8 @@ export default {
     font-size: 16px;
   }
   .comment-body > div {
-    background-color: rgb(33,48,77);
-    color: rgb(223, 214, 210) !important;
+    background-color: rgb(75,82,97);
+    color: rgb(159, 219, 243) !important;
     font-weight: bold;
     border-radius: 2px;
     font-family:'Jeju Gothic', sans-serif !important;
@@ -88,7 +89,7 @@ export default {
   }
 
     .router__author {
-    color: rgb(2, 7, 21) !important;
+    color: rgb(15, 95, 125) !important;
     font-weight: bold;
   }
 </style>
