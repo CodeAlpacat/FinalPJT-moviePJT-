@@ -277,10 +277,10 @@ export default {
 
 .theme--light.v-list {
   background-color: rgb(75, 82, 97);
-  color: rgba(255,255,255,0.87);
+  /* color: rgba(255,255,255,0.87); */
 }
 
 .theme--light.v-list-item:not(.v-list-item--active):not(.v-list-item--disabled) {
-  color: rgba(255,255,255,0.87);
+  /* color: rgba(255,255,255,0.87); */
 }
 </style>

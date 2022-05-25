@@ -8,7 +8,11 @@
           src="https://img.freepik.com/free-photo/white-brick-wall-texture-design-empty-white-brick-background-for-presentations_1962-1075.jpg?w=1800"
           height="450px"
           width="350px"
-        ></v-img>
+        >
+        <v-img
+            style="margin-top: 130px"
+            src="https://user-images.githubusercontent.com/90893428/170347769-b6d9286e-a86b-42fd-8f52-1f5fc18fa6e8.png"
+          ></v-img></v-img>
       </div>
       <!-- div와 div로 grid를 이용해 반으로 분할 -->
       <form @submit.prevent="login(credentials)" class="login-card__div__form">
@@ -84,6 +88,7 @@ export default {
 .login-card {
   margin: 0 auto;
   margin-top: 150px;
+  height: 100vh;
 }
 
 .login-card__div {
@@ -113,12 +118,12 @@ export default {
 }
 
 .login-card__div__form__btn {
-  width: 260px;
+  width: 200px;
   height: 35px;
   border-radius: 30px;
   border: none;
   color: white;
-  background-color: #999d9e;
+  background-color: #2b54c4;
   text-align: center;
   opacity: 1;
   cursor: pointer;
@@ -126,6 +131,7 @@ export default {
 }
 .login-card__div__form__btn:hover {
   opacity: 0.7;
+  width: 260px;
 }
 
 .login-card__div__form__btn span {
@@ -161,5 +167,21 @@ export default {
 }
 .login-card__div__img {
   border-radius:10px;
+}
+
+.input-file-button{
+  margin-top: 10px;
+  padding: 6px 25px;
+  background-color:#3d46c8;
+  border-radius: 10px;
+  color: white;
+  cursor: pointer;
+  transition: 0.7s;
+  opacity: 1;
+}
+
+.input-file-button:hover {
+  opacity: 0.7;
+  background-color: #305c9f;
 }
 </style>

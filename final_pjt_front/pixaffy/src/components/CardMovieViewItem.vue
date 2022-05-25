@@ -14,16 +14,11 @@
                 :movieModal="movie"
                 :profile="profile"
               ></detail-dialog>
-              <v-card-actions>
-                
-                <v-btn
-                  class="close_button"
-                  dark
-                  text
-                  @click="dialog = false"
-                >
-                  X
-                </v-btn>
+              <v-card-actions style="height: 60px">
+                <v-spacer></v-spacer>
+                <button class="dialog-close" @click="dialog = false">
+                  <span>Close</span>
+                </button>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -119,5 +114,50 @@ export default {
 .back-color {
   height: 200px;
   border-radius: 15px;
+}
+
+.dialog-close {
+  width: 120px;
+  height: 50px;
+  border-radius: 30px;
+  border: none;
+  color: white;
+  background-color: #892626;
+  text-align: center;
+  opacity: 1;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.dialog-close:hover {
+  opacity: 0.8;
+}
+
+.dialog-close span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+  font-size: 20px;
+}
+
+.dialog-close span:after {
+  content: "\f55a";
+   font-family: "Font Awesome 5 Free";
+   font-weight: 600;
+  font-size: 20px;
+  position: absolute;
+  opacity: 0;
+  bottom: -2px;
+  right: -40px;
+  transition: 0.5s;
+}
+
+.dialog-close:hover span {
+  padding-right: 25px;
+}
+
+.dialog-close:hover span:after {
+  opacity: 1;
+  right: 0;
 }
 </style>

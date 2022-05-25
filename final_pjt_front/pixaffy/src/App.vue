@@ -1,5 +1,5 @@
 <template>
-  <v-app style="margin-top: 113px; background-color: #1f293c">
+  <v-app style="margin-top: 113px; background-color: #1f293c; height:100vh !important;">
     <v-app-bar
       fixed
       color="#252527"
@@ -68,6 +68,14 @@
             <i class="fa-solid fa-film"></i>
             <span v-text="item.title"></span>
           </v-chip>
+          <!-- 영화 다이얼로그 띄우기 -->
+          <!-- <div style="height: 2000px; position: absolute;">
+            <card-movie-view-item
+              :movie="item"
+              :profile="profile"
+              style="background-color: #1f293c !important margin-top:500px;"
+            ></card-movie-view-item>
+          </div> -->
         </template>
         <template v-slot:item="{ item }">
           <v-list-item-avatar
@@ -81,31 +89,6 @@
             <v-list-item-subtitle
               v-text="item.release_date"
             ></v-list-item-subtitle>
-            <!-- <v-dialog v-model="dialog" width="1700">
-              <template v-slot:activator="{ on, attrs }">
-                <v-btn
-                  color="red lighten-2"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
-                  @click="dialog = true"
-                >
-                  Detail
-                </v-btn>
-              </template>
-              <v-card>
-                <detail-dialog
-                  :movieModal="movieProps"
-                  :profile="profile"
-                ></detail-dialog>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn color="primary" text @click="dialog = false">
-                    I accept
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog> -->
           </v-list-item-content>
           <v-list-item-action>
             <i class="fa-solid fa-circle-info"></i>
@@ -173,7 +156,6 @@
       </v-menu>
     </v-app-bar>
     <transition
-      
       mode="out-in"
       enter-active-class="animate__animated animate__fadeIn animate__faster"
       leave-active-class="animate__animated animate__fadeOut animate__faster"
@@ -209,12 +191,13 @@ window.addEventListener("fetch", (event) => {
   );
 });
 
-
 import { mapActions, mapGetters } from "vuex";
-
+// import CardMovieViewItem from "@/components/CardMovieViewItem.vue";
 export default {
   name: "App",
-  components: {},
+  components: {
+    // CardMovieViewItem,
+  },
   data: () => ({
     collapseOnScroll: true,
     isLoading: false,
@@ -319,5 +302,7 @@ nav {
   background-color: rgba(244, 88, 88, 0.5);
 }
 
-.v-application--wrap {   min-height: 100% !important; }
+.v-application--wrap {
+  min-height: 100% !important;
+}
 </style>
