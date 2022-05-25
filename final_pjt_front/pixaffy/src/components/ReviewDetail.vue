@@ -262,13 +262,13 @@ export default {
   }
   .theme--light.v-pagination .v-pagination__item {
     background-color: rgb(26, 28, 32) !important;
-    color: rgb(218,221,228) !important;
+    color: rgb(218,221,228);
   }
   .theme--light.v-pagination .v-pagination__navigation {
     background-color: rgb(26, 28, 32) !important;
   }
   .theme--light.v-icon {
-    color: rgb(218,221,228) !important;
+    color: rgb(218,221,228);
   }
   
 </style>

@@ -113,4 +113,8 @@ export default {
     flex-direction: column;
     align-items: center;
   }
+  .v-application .amber--text.text--lighten-1 {
+    color: #ffca28 !important;
+    caret-color: #ffca28 !important;
+  }
 </style>
