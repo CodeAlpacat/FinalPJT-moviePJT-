@@ -82,9 +82,9 @@ export default {
     display: flex;
     height: 75px;
     margin-top: 5px;
-    background-color: rgb(91, 146, 230);
-    border-bottom: 4px solid rgb(61, 98, 152);
-    border-right: 3px solid rgb(61, 98, 152);
+    background-color: rgb(23, 146, 195);
+    border-bottom: 4px solid rgb(15, 95, 125);
+    border-right: 3px solid rgb(15, 95, 125);
     align-items: center;
     border-radius: 3px;
     color: rgb(27, 28, 49);
