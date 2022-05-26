@@ -46,7 +46,7 @@
           </div>
 
           <div class="profile__position__button">
-            <button v-if="$route.params.username === nowUserProfile.username" class="profile__div1__follow_btn">
+            <button class="profile__div1__follow_btn">
               <router-link
                 :to="{
                   name: 'profileEdit',
@@ -54,17 +54,6 @@
                 }"
                 ><span class="span_edit">회원정보수정</span></router-link
               >
-            </button>
-            <button
-              v-if="!($route.params.username === nowUserProfile.username)"
-              @click="
-                followProfile(profile.pk);
-                followOrUnfollow();
-              "
-              class="profile__div1__follow_btn"
-            >
-              <span v-if="unFollowButton">팔로우</span>
-              <span v-if="!unFollowButton">언팔로우</span>
             </button>
           </div>
         </div>
