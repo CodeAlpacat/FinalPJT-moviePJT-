@@ -7,13 +7,17 @@ import '@fortawesome/fontawesome-free/js/all.js'
 import 'animate.css';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 Vue.component('font-awesome-icon', FontAwesomeIcon)
-import Vuebar from 'vuebar';
-Vue.use(Vuebar);
 Vue.config.productionTip = false
+
+import AOS from 'aos';
+import "aos/dist/aos.css";
 
 new Vue({
   store,
   router,
   vuetify,
+  created() {
+    AOS.init();
+},
   render: h => h(App)
 }).$mount('#app')

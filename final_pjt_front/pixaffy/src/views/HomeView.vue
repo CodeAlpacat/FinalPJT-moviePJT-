@@ -19,7 +19,7 @@
       style="position: fixed !important; width: 271vmax; height: 100vmax"
     ></div>
     <genre-based-recommendation></genre-based-recommendation>
-    <div style="margin-top: 80px">
+    <div style="margin-top: 80px" data-aos="fade-left">
       <div class="now-playing-text-div d-flex justify-center mb-0">
         <div
           style="
@@ -36,7 +36,7 @@
       <card-view :keyword="'nowplaying/'"></card-view>
     </div>
     <!-- <card-view :keyword="'recommend/' + String(user.pk)"></card-view> -->
-    <div style="margin-top: 80px">
+    <div style="margin-top: 80px" data-aos="fade-left">
       <div class="now-playing-text-div d-flex justify-center mb-0">
         <div
           style="
@@ -76,9 +76,8 @@ export default {
       // eslint-disable-next-line
       jQuery("#Live").YTPlayer();
     });
-    this.user = JSON.parse(localStorage.getItem('currentUser'))
+    this.user = JSON.parse(localStorage.getItem("currentUser"));
   },
-
 };
 </script>
 
