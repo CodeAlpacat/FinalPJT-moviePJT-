@@ -8,7 +8,7 @@
           mute: true,
           showControls: false,
           useOnMobile: true,
-          quality: 'highres',
+          quality: 'hd2160',
           containment: 'self',
           loop: true,
           autoPlay: true,
@@ -92,7 +92,7 @@ export default {
   width: 2560px !important;
   height: 1440px !important;
   top: -200px;
-  left: -512px;
+  left: 0px;
 }
 
 .YTPOverlay {

@@ -13,10 +13,10 @@
           loop: true,
           autoPlay: true,
           stopMovieOnBlur: false, 
-          startAt: 24,
+          startAt: 26,
           opacity: 0.7
         }"
-      style="position: fixed !important; width: 271vmax; height: 100vmax"
+      style="position: fixed !important; width: 2560px; height: 1440px"
     ></div>
     <h1
       style="
