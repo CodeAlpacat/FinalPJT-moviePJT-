@@ -120,63 +120,6 @@
             <v-tab-item style="margin-top: 50px; margin-left: 10px; height: 600px;">
               <div v-for="(article, idx) in this.articleList" :key="idx">
                 <template>
-                  <!-- <v-card
-                    shaped
-                    hover
-                    color="#BBDEFB"
-                    height="200"
-                    @click="reveal2 = !reveal2"
-                    style="box-shadow: 2px -2px 10px"
-                  >
-                    <v-card-text>
-                      <p class="text-h4 text--primary">{{ article.title }}</p>
-                      <div class="text-h6">
-                        작성 시각: {{ new Date(article.created_at) }}
-                      </div>
-                      <div class="text-h6">
-                        수정 시각: {{ new Date(article.updated_at) }}
-                      </div>
-                      <div class="text-h6">
-                        좋아요 수: {{ article.liked_users.length }}
-                      </div>
-                    </v-card-text>
-
-                    <v-expand-transition>
-                      <v-card
-                        v-if="reveal2"
-                        color="#BBDEFB"
-                        class="transition-fast-in-fast-out v-card--reveal"
-                        style="height: 100%"
-                      >
-                        <v-card-text class="pb-0 text-absolute-card">
-                          <p class="text-h4 text--primary">
-                            {{ article.title }}
-                          </p>
-                          <p class="text-h6">
-                            {{ article.content }}
-                          </p>
-                          <button class="profile__div1__follow_btn">
-                            <router-link
-                              :to="{
-                                name: 'article',
-                                params: {
-                                  article: article,
-                                  articlePk: article.pk,
-                                  isLiked: !!likedArticleList.includes(
-                                    article.pk
-                                  ),
-                                  articleComments: article.comments,
-                                  user: article.user,
-                                },
-                              }"
-                            >
-                              <span>바로가기</span></router-link
-                            >
-                          </button>
-                        </v-card-text>
-                      </v-card>
-                    </v-expand-transition>
-                  </v-card> -->
                   <user-posted-articles :article="article"></user-posted-articles>
                 </template>
               </div>
@@ -184,7 +127,7 @@
             <v-tab-item style="margin-top: 50px; margin-left: 10px; height: 600px;">
               <div v-for="(article, idx) in this.articleLikeList" :key="idx">
                 <template>
-                  <user-posted-articles :article="article"></user-posted-articles>
+                  <user-liked-articles :article="article"></user-liked-articles>
                 </template>
               </div>
             </v-tab-item>
@@ -199,11 +142,13 @@
 import { mapGetters, mapActions } from "vuex";
 import CardMovieViewItem from "@/components/CardMovieViewItem.vue";
 import UserPostedArticles from "@/components/UserPostedArticles.vue";
+import UserLikedArticles from "@/components/UserLikedArticles.vue";
 export default {
   name: "ProfileCommunityView",
   components: {
     CardMovieViewItem,
-    UserPostedArticles
+    UserPostedArticles,
+    UserLikedArticles
   },
   computed: {
     ...mapGetters(["profile", "currentUser", "nowUserProfile", "articles", "likedArticleList",]),
@@ -230,6 +175,11 @@ export default {
         this.unFollowButton = false;
       }
     },
+    computed: {
+      articleListGetters() {
+        return this.articleList
+      }
+    }
   },
   data() {
     return {
@@ -248,9 +198,7 @@ export default {
   async created() {
     const payload = { username: this.$route.params.username };
     this.fetchNowUserProfile(payload);
-
-
-    await this.fetchArticles();
+    this.fetchArticles();
 
     for (let i = 0; i < this.articles.length; i++) {
       if (this.nowUserProfile.pk == this.articles[i].user.pk) {

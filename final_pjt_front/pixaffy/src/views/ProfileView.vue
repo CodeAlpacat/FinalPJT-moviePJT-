@@ -97,126 +97,14 @@
             <v-tab-item style="margin-top: 50px; margin-left: 10px; height: 600px;">
               <div v-for="(article, idx) in this.articleList" :key="idx">
                 <template>
-                  <v-card
-                    shaped
-                    hover
-                    color="#BBDEFB"
-                    height="200"
-                    @click="reveal2 = !reveal2"
-                    style="box-shadow: 2px -2px 10px"
-                  >
-                    <v-card-text>
-                      <p class="text-h4 text--primary">{{ article.title }}</p>
-                      <div class="text-h6">
-                        작성 시각: {{ new Date(article.created_at) }}
-                      </div>
-                      <div class="text-h6">
-                        수정 시각: {{ new Date(article.updated_at) }}
-                      </div>
-                      <div class="text-h6">
-                        좋아요 수: {{ article.liked_users.length }}
-                      </div>
-                    </v-card-text>
-
-                    <v-expand-transition>
-                      <v-card
-                        v-if="reveal2"
-                        color="#BBDEFB"
-                        class="transition-fast-in-fast-out v-card--reveal"
-                        style="height: 100%"
-                      >
-                        <v-card-text class="pb-0 text-absolute-card">
-                          <p class="text-h4 text--primary">
-                            {{ article.title }}
-                          </p>
-                          <p class="text-h6">
-                            {{ article.content }}
-                          </p>
-                          <button class="profile__div1__follow_btn">
-                            <router-link
-                              :to="{
-                                name: 'article',
-                                params: {
-                                  article: article,
-                                  articlePk: article.pk,
-                                  isLiked: !!likedArticleList.includes(
-                                    article.pk
-                                  ),
-                                  articleComments: article.comments,
-                                  user: article.user,
-                                },
-                              }"
-                            >
-                              <span>바로가기</span></router-link
-                            >
-                          </button>
-                        </v-card-text>
-                      </v-card>
-                    </v-expand-transition>
-                  </v-card>
+                  <user-posted-articles :article="article"></user-posted-articles>
                 </template>
               </div>
             </v-tab-item>
             <v-tab-item style="margin-top: 50px; margin-left: 10px; height: 600px;" >
               <div v-for="(article, idx) in this.articleLikeList" :key="idx">
                 <template>
-                  <v-card
-                    shaped
-                    hover
-                    color="#BBDEFB"
-                    height="200"
-                    @click="reveal = !reveal"
-                    style="box-shadow: 2px -2px 10px"
-                  >
-                    <v-card-text>
-                      <p class="text-h4 text--primary">{{ article.title }}</p>
-                      <div class="text-h6">
-                        작성 시각: {{ new Date(article.created_at) }}
-                      </div>
-                      <div class="text-h6">
-                        수정 시각: {{ new Date(article.updated_at) }}
-                      </div>
-                      <div class="text-h6">
-                        좋아요 수: {{ article.liked_users.length }}
-                      </div>
-                    </v-card-text>
-
-                    <v-expand-transition>
-                      <v-card
-                        v-if="reveal"
-                        color="#BBDEFB"
-                        class="transition-fast-in-fast-out v-card--reveal"
-                        style="height: 100%"
-                      >
-                        <v-card-text class="pb-0 text-absolute-card">
-                          <p class="text-h4 text--primary">
-                            {{ article.title }}
-                          </p>
-                          <p class="text-h6">
-                            {{ article.content }}
-                          </p>
-                          <button class="profile__div1__follow_btn">
-                            <router-link
-                              :to="{
-                                name: 'article',
-                                params: {
-                                  article: article,
-                                  articlePk: article.pk,
-                                  isLiked: !!likedArticleList.includes(
-                                    article.pk
-                                  ),
-                                  articleComments: article.comments,
-                                  user: article.user,
-                                },
-                              }"
-                            >
-                              <span>바로가기</span></router-link
-                            >
-                          </button>
-                        </v-card-text>
-                      </v-card>
-                    </v-expand-transition>
-                  </v-card>
+                  <user-liked-articles :article="article"></user-liked-articles>
                 </template>
               </div>
             </v-tab-item>
@@ -230,10 +118,14 @@
 <script>
 import { mapGetters, mapActions } from "vuex";
 import CardMovieViewItem from "@/components/CardMovieViewItem.vue";
+import UserPostedArticles from "@/components/UserPostedArticles.vue";
+import UserLikedArticles from "@/components/UserLikedArticles.vue";
 export default {
   name: "ProfileView",
   components: {
     CardMovieViewItem,
+    UserPostedArticles,
+    UserLikedArticles
   },
   computed: {
     ...mapGetters([
@@ -278,18 +170,16 @@ export default {
   },
 
   async created() {
-    await this.fetchArticles();
 
     const payload = { username: this.$route.params.username };
     this.fetchProfile(payload);
-    this.fetchNowUserProfile({ username: this.currentUser.username });
 
     for (let i = 0; i < this.articles.length; i++) {
-      if (this.profile.pk == this.articles[i].user.pk) {
+      if (this.nowUserProfile.pk == this.articles[i].user.pk) {
         this.articleList.push(this.articles[i]);
       }
-      for (let j = 0; j < this.profile.like_articles.length; j++) {
-        if (this.profile.like_articles[j].id == this.articles[i].pk) {
+      for (let j = 0; j < this.nowUserProfile.like_articles.length; j++) {
+        if (this.nowUserProfile.like_articles[j].id == this.articles[i].pk) {
           this.articleLikeList.push(this.articles[i]);
         }
       }
