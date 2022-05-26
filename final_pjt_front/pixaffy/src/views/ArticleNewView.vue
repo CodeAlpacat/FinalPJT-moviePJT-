@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100vh;">
     <div class="new-article-title">
       <div>
         <div style="font-family:'Jeju Gothic', sans-serif !important;">새 게시글 작성</div>

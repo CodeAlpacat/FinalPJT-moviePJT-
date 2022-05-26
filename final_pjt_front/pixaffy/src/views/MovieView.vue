@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="height: 100vh;">
     <div
       id="MovieLive"
       class="player"

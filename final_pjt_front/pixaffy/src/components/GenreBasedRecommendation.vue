@@ -1,6 +1,6 @@
 <template>
-  <div id="carouselMovie">
-    <div class="d-flex justify-center" style="margin-top:50px;">
+  <div id="carouselMovie" data-aos="fade-up" data-aos-duration="3000">
+    <div class="d-flex justify-center" style="margin-top: 50px">
       <div
         class="home-text"
         style="
@@ -10,11 +10,11 @@
           font-size: 64px;
           top: 20px;
           margin-bottom: 100px;
-          width: 610px;
+          width: 680px;
           text-align: center;
         "
       >
-        좋아하는 장르가 있어?
+        좋아하는 장르가 있나요?
       </div>
     </div>
     <carousel-3d

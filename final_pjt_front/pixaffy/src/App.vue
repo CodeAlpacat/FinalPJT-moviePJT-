@@ -159,7 +159,7 @@
                   v-if="isLoggedIn"
                   :to="{
                     name: 'profileEdit',
-                    params: { username: currentUser.username, userInfo: profile },
+                    params: { username: profile.username, userInfo: profile },
                   }"
                   ><v-btn depressed rounded text dark>Edit Profile</v-btn></router-link
                 >
@@ -270,7 +270,6 @@ export default {
     },
   },
   created() {
-    this.fetchArticls();
 
     this.fetchCurrentUser();
     this.username = JSON.parse(localStorage.getItem("currentUser")).username;

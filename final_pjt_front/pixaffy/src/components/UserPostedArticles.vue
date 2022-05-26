@@ -34,9 +34,9 @@
                 name: 'article',
                 params: {
                   article: article,
-                  articlePk: article.pk,
-                  isLiked: !!likedArticleList.includes(article.pk),
-                  articleComments: article.comments,
+                  articlePk: article.id,
+                  isLiked: !!likedArticleList.includes(article.id),
+                  articleComments: [],
                   user: article.user,
                 },
               }"
@@ -60,7 +60,8 @@ export default {
   props:{
     article: {
       required: true
-    }
+    },
+
   },
   data() {
     return {

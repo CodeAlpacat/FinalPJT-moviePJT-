@@ -118,14 +118,14 @@
               </v-row>
             </v-tab-item>
             <v-tab-item style="margin-top: 50px; margin-left: 10px; height: 600px;">
-              <div v-for="(article, idx) in this.articleList" :key="idx">
+              <div v-for="(article, idx) in nowUserProfile.articles" :key="idx">
                 <template>
                   <user-posted-articles :article="article"></user-posted-articles>
                 </template>
               </div>
             </v-tab-item>
             <v-tab-item style="margin-top: 50px; margin-left: 10px; height: 600px;">
-              <div v-for="(article, idx) in this.articleLikeList" :key="idx">
+              <div v-for="(article, idx) in nowUserProfile.like_articles" :key="idx">
                 <template>
                   <user-liked-articles :article="article"></user-liked-articles>
                 </template>
@@ -175,11 +175,7 @@ export default {
         this.unFollowButton = false;
       }
     },
-    computed: {
-      articleListGetters() {
-        return this.articleList
-      }
-    }
+    
   },
   data() {
     return {
@@ -190,26 +186,12 @@ export default {
       reveal: false,
       reveal2: false,
       profileLoaded: null,
-      articleList: [],
-      articleLikeList: [],
     };
   },
 
   async created() {
     const payload = { username: this.$route.params.username };
     this.fetchNowUserProfile(payload);
-    this.fetchArticles();
-
-    for (let i = 0; i < this.articles.length; i++) {
-      if (this.nowUserProfile.pk == this.articles[i].user.pk) {
-        this.articleList.push(this.articles[i]);
-      }
-      for (let j = 0; j < this.nowUserProfile.like_articles.length; j++) {
-        if (this.nowUserProfile.like_articles[j].id == this.articles[i].pk) {
-          this.articleLikeList.push(this.articles[i]);
-        }
-      }
-    }
 
     const res = await fetch("http://127.0.0.1:8000/movies/genres/");
     const save_genres = await res.json();

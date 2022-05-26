@@ -19,7 +19,7 @@
       style="position: fixed !important; width: 2560px; height: 1440px"
     ></div>
     <genre-based-recommendation></genre-based-recommendation>
-    <div style="margin-top: 80px" data-aos="fade-left">
+    <div style="margin-top: 80px" data-aos="fade-left" data-aos-duration="2000">
       <div class="now-playing-text-div d-flex justify-center mb-0">
         <div
           style="
@@ -33,9 +33,12 @@
           지금 볼 수 있는 영화는?
         </div>
       </div>
-      <card-view :keyword="'http://127.0.0.1:8000/movies/nowplaying/'" :is_api="false"></card-view>
+      <card-view
+        :keyword="'http://127.0.0.1:8000/movies/nowplaying/'"
+        :is_api="false"
+      ></card-view>
     </div>
-    <div style="margin-top: 80px" data-aos="fade-left">
+    <div style="margin-top: 80px" data-aos="fade-left" data-aos-duration="2000">
       <div class="now-playing-text-div d-flex justify-center mb-0">
         <div
           style="
@@ -49,9 +52,12 @@
           이런 영화들이 유명해요!
         </div>
       </div>
-      <card-view :keyword="'https://api.themoviedb.org/3/movie/popular?api_key=c0ea5b6535679915d16aada2f7427157&language=ko-KR&page=1'" :is_api="true"></card-view>
+      <card-view
+        :keyword="'https://api.themoviedb.org/3/movie/popular?api_key=c0ea5b6535679915d16aada2f7427157&language=ko-KR&page=1'"
+        :is_api="true"
+      ></card-view>
     </div>
-    <div style="margin-top: 80px" data-aos="fade-left">
+    <div style="margin-top: 80px" data-aos="fade-left" data-aos-duration="2000">
       <div class="now-playing-text-div d-flex justify-center mb-0">
         <div
           style="
@@ -65,8 +71,11 @@
           평점 높은건 어떠세요?
         </div>
       </div>
-      <card-view :keyword="'https://api.themoviedb.org/3/movie/popular?api_key=c0ea5b6535679915d16aada2f7427157&language=ko-KR&page=1'" :is_api="true"></card-view>
-    </div>  
+      <card-view
+        :keyword="'https://api.themoviedb.org/3/movie/popular?api_key=c0ea5b6535679915d16aada2f7427157&language=ko-KR&page=1'"
+        :is_api="true"
+      ></card-view>
+    </div>
     <div style="margin-top: 80px" data-aos="fade-left">
       <div class="now-playing-text-div d-flex justify-center mb-0">
         <div
@@ -82,7 +91,11 @@
           이제 곧 상영 한다구요!
         </div>
       </div>
-      <card-view :keyword="'http://127.0.0.1:8000/movies/upcoming/'" :is_api="false"> </card-view>
+      <card-view
+        :keyword="'http://127.0.0.1:8000/movies/upcoming/'"
+        :is_api="false"
+      >
+      </card-view>
     </div>
   </div>
 </template>

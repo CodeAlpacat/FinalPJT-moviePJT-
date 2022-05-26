@@ -84,7 +84,6 @@ import { mapActions } from 'vuex'
       onSubmit() {
         if (this.action === 'create') {
           this.createArticle(this.newArticle)
-          this.fetchProfile()
         } else if (this.action === 'update') {
           const payload = {
             pk: this.article.pk,

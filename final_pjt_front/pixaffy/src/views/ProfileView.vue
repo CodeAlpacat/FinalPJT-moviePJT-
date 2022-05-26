@@ -46,7 +46,7 @@
           </div>
 
           <div class="profile__position__button">
-            <button v-if="follow_bool" class="profile__div1__follow_btn">
+            <button class="profile__div1__follow_btn">
               <router-link
                 :to="{
                   name: 'profileEdit',
@@ -54,17 +54,6 @@
                 }"
                 ><span class="span_edit">회원정보수정</span></router-link
               >
-            </button>
-            <button
-              v-if="!follow_bool"
-              @click="
-                followProfile(profile.pk);
-                followOrUnfollow();
-              "
-              class="profile__div1__follow_btn"
-            >
-              <span v-if="unFollowButton">팔로우</span>
-              <span v-if="!unFollowButton">언팔로우</span>
             </button>
           </div>
         </div>
@@ -95,14 +84,14 @@
               </v-row>
             </v-tab-item>
             <v-tab-item style="margin-top: 50px; margin-left: 10px; height: 600px;">
-              <div v-for="(article, idx) in this.articleList" :key="idx">
+              <div v-for="(article, idx) in profile.articles" :key="idx">
                 <template>
                   <user-posted-articles :article="article"></user-posted-articles>
                 </template>
               </div>
             </v-tab-item>
             <v-tab-item style="margin-top: 50px; margin-left: 10px; height: 600px;" >
-              <div v-for="(article, idx) in this.articleLikeList" :key="idx">
+              <div v-for="(article, idx) in profile.like_articles" :key="idx">
                 <template>
                   <user-liked-articles :article="article"></user-liked-articles>
                 </template>
@@ -120,6 +109,7 @@ import { mapGetters, mapActions } from "vuex";
 import CardMovieViewItem from "@/components/CardMovieViewItem.vue";
 import UserPostedArticles from "@/components/UserPostedArticles.vue";
 import UserLikedArticles from "@/components/UserLikedArticles.vue";
+import axios from 'axios';
 export default {
   name: "ProfileView",
   components: {
@@ -164,44 +154,37 @@ export default {
       posterPath: null,
       reveal: false,
       reveal2: false,
-      articleList: [],
-      articleLikeList: [],
+      genre_save: null,
     };
   },
 
-  async created() {
-
+created() {
     const payload = { username: this.$route.params.username };
     this.fetchProfile(payload);
 
-    for (let i = 0; i < this.articles.length; i++) {
-      if (this.nowUserProfile.pk == this.articles[i].user.pk) {
-        this.articleList.push(this.articles[i]);
-      }
-      for (let j = 0; j < this.nowUserProfile.like_articles.length; j++) {
-        if (this.nowUserProfile.like_articles[j].id == this.articles[i].pk) {
-          this.articleLikeList.push(this.articles[i]);
+    this.fetchArticles()
+    
+    axios({
+      url: "http://127.0.0.1:8000/movies/genres/"
+    }).
+    then((res) => {
+      this.genre_save = res.data
+      const list_gen = JSON.parse(this.profile.genre_likes);
+      this.genres_list = list_gen.genre_likes.map((item) => {
+        for (let i = 0; i < this.genre_save.length; i++) {
+          if (parseInt(item) === this.genre_save[i].id) {
+            return this.genre_save[i].name;
+          }
         }
-      }
-    }
+      });
+    })
 
-    const res = await fetch("http://127.0.0.1:8000/movies/genres/");
-    const save_genres = await res.json();
+    this.items = this.profile.keep_movies;
+
     for (let i = 0; i < this.profile.followers.length; i++) {
       if (this.currentUser.pk === this.profile.followers[i]) {
         this.unFollowButton = false;
       }
-    }
-    this.items = this.profile.keep_movies;
-    const list_gen = JSON.parse(this.profile.genre_likes);
-    if (save_genres) {
-      this.genres_list = list_gen.genre_likes.map((item) => {
-        for (let i = 0; i < save_genres.length; i++) {
-          if (parseInt(item) === save_genres[i].id) {
-            return save_genres[i].name;
-          }
-        }
-      });
     }
   },
 };
