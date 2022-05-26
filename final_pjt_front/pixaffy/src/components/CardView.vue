@@ -26,7 +26,7 @@
       margin-right: 100px;
       margin-top: 150px;
       font-family: 'Jeju Gothic', sans-serif !important;
-      background-color: #1f293c !important;
+      background-color: rgba(31, 41, 60, 0) !important;
     "
   >
     <vueper-slide
@@ -37,7 +37,7 @@
         ><card-movie-view-item-vueper
           :movie="movie"
           :profile="profile"
-          style="background-color: #1f293c !important"
+          style="background-color: rgba(31, 41, 60, 0.75) !important"
         ></card-movie-view-item-vueper> </template
     ></vueper-slide>
   </vueper-slides>
@@ -57,6 +57,9 @@ export default {
     VueperSlide,
     // CardViewItem,
     CardMovieViewItemVueper,
+  },
+  props: {
+    keyword: String,
   },
   data() {
     return {
@@ -95,7 +98,7 @@ export default {
   },
   methods: {},
   async created() {
-    const response = await fetch("http://127.0.0.1:8000/movies/nowplaying/");
+    const response = await fetch(`http://127.0.0.1:8000/movies/${this.keyword}`);
     this.movieDatas = await response.json();
   },
   computed: {
@@ -104,4 +107,8 @@ export default {
 };
 </script>
 
-<style></style>
+<style>
+.vueperslides.vueperslides--ready.vueperslides--touchable .vueperslides--bullets-outside {
+  background-color: rgba(31, 41, 60, 0.75) !important;
+}
+</style>  

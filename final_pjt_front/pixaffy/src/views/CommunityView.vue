@@ -18,12 +18,12 @@
           날짜
         </div>
       </div>
-      <div v-for="article in articles.slice((page - 1)*10,(page*10))" :key="article.pk">
+      <div v-for="article in articles.slice((page - 1)*15,(page*15))" :key="article.pk">
         <article-view :article="article"></article-view>
       </div>
     </div>
     <div 
-      style="text-align:right; width:1350px; margin:10px auto 0; text-align: right;"
+      class="createArticle"
     >
       <v-btn
         rounded
@@ -39,7 +39,7 @@
     <div class="text-center">
       <v-pagination
         v-model="page"
-        :length="parseInt(Math.ceil(articles.length/10))"
+        :length="parseInt(Math.ceil(articles.length/15))"
       ></v-pagination>
     </div>
   </div>
@@ -79,7 +79,7 @@ export default {
     text-align: center;
     font-family:'Jeju Gothic', sans-serif !important;
     font-size: 48px;
-    color: rgb(23, 146, 195);
+    color: rgb(221, 147, 48);
     font-weight: bolder;
   }
   .body {
@@ -103,6 +103,32 @@ export default {
     color: rgb(223, 214, 210);
     font-family: 'Jeju Gothic', sans-serif;
     font-size: medium;
+  }
+  .createArticle {
+    text-align:right;
+    width:1350px;
+    margin:10px auto 0;
+    text-align: right;
+  }
+  @media screen and (max-width: 1349px) {
+    .body {
+      width: 850px;
+    }
+    .createArticle {
+      width: 850px;
+    }
+  }
+
+  @media screen and (max-width: 899px) {
+    .body {
+      width: 590px;
+    }
+    .createArticle {
+      width: 590px;
+    }
+    .articleTable > div {
+      font-size: small;
+    }
   }
   
 </style>

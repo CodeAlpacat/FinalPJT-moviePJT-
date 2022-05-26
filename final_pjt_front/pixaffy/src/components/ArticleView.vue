@@ -91,8 +91,14 @@ export default {
     font-family:'Jeju Gothic', sans-serif !important;
   }
   .router__author {
-    color: rgb(15, 95, 125) !important;
+    color: rgb(23, 146, 195) !important;
     font-weight: bold;
+  }
+
+  @media screen and (max-width: 899px) {
+    .article > div {
+      font-size: smaller
+    }
   }
 
 </style>
