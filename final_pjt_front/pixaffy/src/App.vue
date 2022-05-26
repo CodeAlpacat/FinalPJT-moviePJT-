@@ -278,7 +278,7 @@ export default {
 };
 </script>
 <style lang="scss">
-@import url(//fonts.googleapis.com/earlyaccess/jejogothic.css);
+@import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
 nav {
   padding: 10px;
 }

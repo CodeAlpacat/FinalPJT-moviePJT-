@@ -16,7 +16,7 @@
           startAt: 0,
           opacity: 0.7
         }"
-      style="position: fixed !important; width: 271vmax; height: 100vmax"
+      style="position: fixed !important; width: 2560px; height: 1440px"
     ></div>
     <genre-based-recommendation></genre-based-recommendation>
     <div style="margin-top: 80px">
@@ -89,14 +89,15 @@ export default {
 
 .inline-YTPlayer {
   position: fixed !important;
-  width: 271vmax !important;
-  height: 100vmax !important;
-  top: -50vmax;
+  width: 2560px !important;
+  height: 1440px !important;
+  top: -200px;
+  left: -512px;
 }
 
 .YTPOverlay {
-  width: 271vmax !important;
-  height: 100vmax !important;
+  width: 2560px !important;
+  height: 1440px !important;
 }
 
 .recommend-text-div {

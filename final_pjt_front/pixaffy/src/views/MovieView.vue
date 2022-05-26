@@ -1,5 +1,23 @@
 <template>
   <div>
+    <div
+      id="MovieLive"
+      class="player"
+      data-property="{
+          videoURL: 'https://youtu.be/_kvjKaTqX4c',
+          mute: true,
+          showControls: false,
+          useOnMobile: true,
+          quality: 'highres',
+          containment: 'self',
+          loop: true,
+          autoPlay: true,
+          stopMovieOnBlur: false, 
+          startAt: 24,
+          opacity: 0.7
+        }"
+      style="position: fixed !important; width: 271vmax; height: 100vmax"
+    ></div>
     <h1
       style="
         color: rgb(218, 221, 228);
@@ -37,6 +55,7 @@
         <span>더보기</span>
       </button>
     </v-container>
+  
   </div>
 </template>
 
@@ -61,6 +80,13 @@ export default {
       return this.movieDatas;
     },
   },
+  mounted() {
+    // eslint-disable-next-line
+    jQuery(function () {
+      // eslint-disable-next-line
+      jQuery("#MovieLive").YTPlayer();
+    });
+  },
   methods: {
     more() {
       axios
@@ -83,6 +109,9 @@ export default {
 </script>
 
 <style>
+#MovieLive {
+  z-index: -5;
+}
 .btn_fixed {
   position: fixed;
   right: 0;
