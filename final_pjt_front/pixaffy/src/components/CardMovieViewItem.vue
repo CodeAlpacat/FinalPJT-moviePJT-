@@ -13,7 +13,8 @@
               <detail-dialog
                 :movieModal="movie"
                 :profile="profile"
-              ></detail-dialog>
+              >
+              </detail-dialog>
               <v-card-actions style="height: 60px">
                 <v-spacer></v-spacer>
                 <button class="dialog-close" @click="dialog = false">

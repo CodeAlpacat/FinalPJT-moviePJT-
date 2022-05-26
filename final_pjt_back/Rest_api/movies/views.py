@@ -89,6 +89,7 @@ def recommend_movie_list(request, user_pk):
     recommend_check = [] # 중복 확인 리스트
     lottery_list = [] # 로또 리스트
     number_list = [] # 추첨번호 리스트
+
     
     user_likes_genre = json.loads(user.genre_likes).get("genre_likes") or []  # 유저가 좋아하는 장르 id 값
     total_range = 0 # range 변수
@@ -100,7 +101,7 @@ def recommend_movie_list(request, user_pk):
 
         for genre in genres: # 영화 보유 장르에 대해
             if str(genre) in user_likes_genre: # 유저가 좋아하는 장르 id 값이 일치할때마다 4배 적용
-                count = count << 4 # 0개 일치: 1 1개 일치: 16 2개 일치: 256 3개 일치: 4096
+                count = count << 2 # 0개 일치: 1 1개 일치: 4 2개 일치: 16 3개 일치: 64
         lottery_list.append((total_range, total_range + count - 1, movie)) # total range 값, movie 튜플로 append
         total_range += count # total_range값 증가
     
