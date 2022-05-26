@@ -195,14 +195,16 @@ export default {
       "deleteArticle",
       "createComment",
       "fetchProfile",
+      "fetchCurrentUser"
     ]),
   },
   computed: {
     ...mapGetters(["isAuthor", "isCommentLiked", "article", "profile"]),
   },
-  async created() {
+async created() {
+    await this.fetchCurrentUser()
     await this.fetchArticle(this.articlePk);
-
+    
     const payload = { username: this.$route.params.username };
     this.fetchProfile(payload);
   },

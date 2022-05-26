@@ -4,7 +4,7 @@
     hover
     color="#BBDEFB"
     height="200"
-    @click="reveal2 = !reveal2"
+    @click="reveal = !reveal"
     style="box-shadow: 2px -2px 10px"
   >
     <v-card-text>
@@ -16,7 +16,7 @@
 
     <v-expand-transition>
       <v-card
-        v-if="reveal2"
+        v-if="reveal"
         color="#BBDEFB"
         class="transition-fast-in-fast-out v-card--reveal"
         style="height: 100%"
@@ -51,9 +51,9 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters } from 'vuex';
 export default {
-  name: "UserPostedArticles",
+  name: 'UserLikedArticles',
   computed: {
     ...mapGetters(["articles", "likedArticleList"]),
   },

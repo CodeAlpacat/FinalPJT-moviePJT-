@@ -80,10 +80,11 @@ import { mapActions } from 'vuex'
     },
 
     methods: {
-      ...mapActions(['createArticle', 'updateArticle']),
+      ...mapActions(['createArticle', 'updateArticle', 'fetchProfile']),
       onSubmit() {
         if (this.action === 'create') {
           this.createArticle(this.newArticle)
+          this.fetchProfile()
         } else if (this.action === 'update') {
           const payload = {
             pk: this.article.pk,

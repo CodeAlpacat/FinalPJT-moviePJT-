@@ -241,10 +241,10 @@ export default {
     username: null,
   }),
   computed: {
-    ...mapGetters(["isLoggedIn", "currentUser", "profile", "isLoggedIn"]),
+    ...mapGetters(["isLoggedIn", "currentUser", "profile", "isLoggedIn",]),
   },
   methods: {
-    ...mapActions(["fetchCurrentUser", "fetchProfile"]),
+    ...mapActions(["fetchCurrentUser", "fetchProfile", "fetchArticles"]),
   },
   watch: {
     model(val) {
@@ -270,6 +270,8 @@ export default {
     },
   },
   created() {
+    this.fetchArticls();
+
     this.fetchCurrentUser();
     this.username = JSON.parse(localStorage.getItem("currentUser")).username;
     const payload = { username: this.username };
