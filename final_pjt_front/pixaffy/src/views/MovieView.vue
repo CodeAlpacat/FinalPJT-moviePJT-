@@ -20,7 +20,7 @@
     ></div>
     <h1
       style="
-        color: rgb(218, 221, 228);
+        color: rgb(218, 221, 228) !important;
         font-family: 'Jeju Gothic', sans-serif !important;
         font-size: 64px;
         text-align: center;
