@@ -73,7 +73,7 @@ export default {
 </script>
 
 <style scoped>
-  @import url(//fonts.googleapis.com/earlyaccess/jejogothic.css);
+  @import url(//fonts.googleapis.com/earlyaccess/jejugothic.css);
   .community-title{
     margin: 60px auto 0;
     text-align: center;
