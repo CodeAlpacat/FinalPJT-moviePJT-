@@ -17,3 +17,46 @@
 - 회원가입 로그인 페이지, edit 페이지 UI 및 사진 변경
 - 프로필 페이지 카드 개선
 - 다이얼로그 페이지 UI 및 카드 교체, 기능 개선
+
+
+
+### # 전면적인 UI 다크모드로 수정 (박재현)
+
+> 더 나은 디자인을 위하여 홈 및 커뮤니티 창의 색상을 통일하였다.
+
+
+
+### 결과 사진
+
+* 홈 뷰
+
+![image](https://user-images.githubusercontent.com/97648026/170360823-d78f4fb1-fd13-49b2-b1ac-465c11b2058c.png)
+
+
+
+* 커뮤니티 뷰
+
+![image](https://user-images.githubusercontent.com/97648026/170360875-0b74248c-f49e-4b3e-af9d-700ff192a310.png)
+
+
+
+* 게시글 상세 뷰
+
+![image](https://user-images.githubusercontent.com/97648026/170360898-4aa69ee8-84ba-41a4-b90f-b4c2819264ad.png)
+
+
+
+### # 홈 뷰 배경에 영화 트레일러 재생(박재현)
+
+> Jquery 라이브러리를 사용하여, 배경에서 영상이 재생 되도록 수정하였다.
+
+
+
+![ezgif com-gif-maker (1)](https://user-images.githubusercontent.com/97648026/170363980-df3d53b6-3483-4aa1-865e-e224e0761434.gif)
+
+
+
+#### 주요 사항
+
+* 페이지 진입시 자동 재생
+* 뷰포트 줄어들어도 영상 깨짐 없이 위치 고정
