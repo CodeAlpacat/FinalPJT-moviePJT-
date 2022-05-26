@@ -70,14 +70,15 @@ export default {
     CardView,
     GenreBasedRecommendation,
   },
-  created() {
+  mounted() {
     // eslint-disable-next-line
     jQuery(function () {
       // eslint-disable-next-line
       jQuery("#Live").YTPlayer();
     });
-    this.user = JSON.parse(localStorage.getItem["currentUser"]);
+    this.user = JSON.parse(localStorage.getItem('currentUser'))
   },
+
 };
 </script>
 
