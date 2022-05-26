@@ -112,12 +112,12 @@
 
               <v-card>
                 <v-card-title>
-                  <span class="comment-title">댓글 작성하기</span>
+                  <span class="comment-title" style="color:rgb(203,206,213)">댓글 작성하기</span>
                 </v-card-title>
                 <div class="textarea">
                   <v-textarea v-model="content" color="amber darken-4">
                     <template v-slot:label>
-                      <div>댓글 내용을 작성해주세요 <small></small></div>
+                      <div style="color:rgb(203,206,213)">댓글 내용을 작성해주세요 <small></small></div>
                     </template>
                   </v-textarea>
                 </div>
