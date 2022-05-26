@@ -1,6 +1,24 @@
 <template>
   <div id="carouselMovie">
-    <!-- <h2 class="mx-3" style="color:#E5EAEE; font-family: 'Jeju Gothic', sans-serif !important;">좋아하는 장르가 있어? 옜다~</h2> -->
+    <div class="recommend-text-div">
+      <div
+        class="home-text"
+        style="
+          z-index: 100;
+          color: rgb(221, 147, 48);
+          font-family: 'Jeju Gothic', sans-serif !important;
+          font-size: 64px;
+          position: absolute;
+          top: 20px;
+          margin-left: 800px;
+          margin-bottom: 100px;
+          width: 610px;
+          text-align: center;
+        "
+      >
+        좋아하는 장르가 있어?
+      </div>
+    </div>
     <carousel-3d
       :controls-visible="true"
       :clickable="false"
@@ -10,7 +28,10 @@
       :width="550"
     >
       <Slide :index="i" v-for="(movie, i) in this.algoBasedMovies" :key="i">
-        <genre-based-recommendations-card :movie="movie" :profile="profile"></genre-based-recommendations-card>
+        <genre-based-recommendations-card
+          :movie="movie"
+          :profile="profile"
+        ></genre-based-recommendations-card>
       </Slide>
     </carousel-3d>
   </div>
@@ -84,5 +105,4 @@ export default {
 #carouselMovie {
   z-index: 1;
 }
-
 </style>
