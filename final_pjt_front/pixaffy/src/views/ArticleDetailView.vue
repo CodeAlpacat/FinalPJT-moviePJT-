@@ -35,12 +35,24 @@
                   "
                   style="cursor: pointer"
                 >
-                  게시글 수정
+                  <span style="
+                    font-family: 'Jeju Gothic', sans-serif !important;
+                    color: rgb(203,206,213);
+                    font-size: 16px;
+                  ">
+                    게시글 수정
+                  </span>
                 </v-list-item-title>
               </v-list-item>
               <v-list-item>
                 <v-list-item-title @click="deleteArticle(article.pk)" style="cursor: pointer">
-                  게시글 삭제
+                  <span style="
+                    font-family: 'Jeju Gothic', sans-serif !important;
+                    color: rgb(203,206,213);
+                    font-size: 16px;
+                  ">
+                    게시글 삭제
+                  </span>
                 </v-list-item-title>
               </v-list-item>
             </v-list>
