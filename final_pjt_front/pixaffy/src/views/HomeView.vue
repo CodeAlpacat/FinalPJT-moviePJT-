@@ -18,8 +18,8 @@
         }"
         style="
           position: fixed !important;
-          width: 3840px;
-          height: 2160px;
+          width: 271vmax;
+          height: 100vmax;
         "
       >
       </div>
@@ -99,14 +99,14 @@ export default {
 
   .inline-YTPlayer {
     position: fixed !important;
-    height: 3840px !important;
-    width: 2160px !important;
-    top: -20vh;
+    width: 271vmax !important;
+    height: 100vmax !important;
+    top: -50vmax;
   }
 
   .YTPOverlay {
-    height: 3840px !important;
-    width: 2160px !important;
+    width: 271vmax !important;
+    height: 100vmax !important;
   }
 
   .recommend-text-div {
