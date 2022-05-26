@@ -2,8 +2,18 @@
   <v-hover v-slot="{ hover }" open-delay="100">
     <v-card :elevation="hover ? 16 : 2" :class="{ 'on-hover': hover }">
       <!-- 나중에 url을 디테일 페이지로 or 모달 -->
-        <v-img :src="posterPath" alt="포스터가 없습니다" class="" @click="dialog = true"></v-img>
-      <v-card-title class="sutitle-2" @click="dialog=true" style="cursor: pointer;">{{ movieProps.title }}</v-card-title>
+      <v-img
+        :src="posterPath"
+        alt="포스터가 없습니다"
+        class=""
+        @click="dialog = true"
+      ></v-img>
+      <v-card-title
+        class="sutitle-2"
+        @click="dialog = true"
+        style="cursor: pointer"
+        >{{ movieProps.title }}</v-card-title
+      >
       <v-card-text>
         <v-row align="center" class="mx-0">
           <v-rating
@@ -27,26 +37,26 @@
       </v-card-text>
       <v-dialog v-model="dialog" width="1700">
         <template v-slot:activator="{ on, attrs }">
-          <v-btn text color="white" style="height: 70px; font-size: 20px" v-bind="attrs"
+          <v-btn
+            text
+            color="white"
+            style="height: 70px; font-size: 20px"
+            v-bind="attrs"
             v-on="on"
-            @click="dialog = true">{{
-        movieProps.title
-      }}</v-btn>
+            @click="dialog = true"
+            >{{ movieProps.title }}</v-btn
+          >
         </template>
-        <v-card
-          style="
-            background-color: rgb(75,82,97) ;
-          "
-        >
+        <v-card style="background-color: rgb(75, 82, 97)">
           <detail-dialog
             :movieModal="movieProps"
             :profile="profile"
           ></detail-dialog>
-          <v-card-actions>
+          <v-card-actions style="height: 60px">
             <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" dark text @click="dialog = false">
-              창 닫기
-            </v-btn>
+            <button class="dialog-close" @click="dialog = false">
+              <span>Close</span>
+            </button>
           </v-card-actions>
         </v-card>
       </v-dialog>
@@ -56,7 +66,7 @@
 
 <script>
 import DetailDialog from "@/components/DetailDialog.vue";
-import { mapActions, mapGetters} from "vuex";
+import { mapActions, mapGetters } from "vuex";
 export default {
   name: "CardViewItem",
   components: {
@@ -83,12 +93,13 @@ export default {
   async created() {
     const response = await fetch("http://127.0.0.1:8000/movies/genres/");
     this.genres_list = await response.json();
-    this.username = await JSON.parse(localStorage.getItem('currentUser')).username
+    this.username = await JSON.parse(localStorage.getItem("currentUser"))
+      .username;
     const payload = { username: this.username };
     await this.fetchProfile(payload);
   },
   methods: {
-    ...mapActions(["movieSelect", "fetchProfile","getMovieTrailer"]),
+    ...mapActions(["movieSelect", "fetchProfile", "getMovieTrailer"]),
     genretypeName(id, index) {
       for (const item of this.genres_list) {
         if (item.id == id) {
@@ -105,7 +116,49 @@ export default {
 </script>
 
 <style>
-.v-card__actions {
-  background-color: rgb(75,82,97) !important;
+
+.dialog-close {
+  width: 120px;
+  height: 50px;
+  border-radius: 30px;
+  border: none;
+  color: white;
+  background-color: #892626;
+  text-align: center;
+  opacity: 1;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.dialog-close:hover {
+  opacity: 0.8;
+}
+
+.dialog-close span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+  font-size: 20px;
+}
+
+.dialog-close span:after {
+  content: "\f55a";
+  font-family: "Font Awesome 5 Free";
+  font-weight: 600;
+  font-size: 20px;
+  position: absolute;
+  opacity: 0;
+  bottom: -2px;
+  right: -40px;
+  transition: 0.5s;
+}
+
+.dialog-close:hover span {
+  padding-right: 25px;
+}
+
+.dialog-close:hover span:after {
+  opacity: 1;
+  right: 0;
 }
 </style>

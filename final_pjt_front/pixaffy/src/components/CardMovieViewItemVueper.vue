@@ -14,11 +14,11 @@
                 :movieModal="movie"
                 :profile="profile"
               ></detail-dialog>
-              <v-card-actions>
+              <v-card-actions style="height: 60px">
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" dark text @click="dialog = false">
-                  창 닫기
-                </v-btn>
+                <button class="dialog-close" @click="dialog = false">
+                  <span>Close</span>
+                </button>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -76,7 +76,7 @@ export default {
       return `https://image.tmdb.org/t/p/w500/${this.movie.poster_path}`;
     },
   },
-  
+
   props: {
     movie: {
       required: true,
@@ -97,7 +97,7 @@ export default {
 <style>
 .border-rad {
   border-radius: 15px;
-  background-color: rgba( 255, 255, 255, 0.1 ) !important;
+  background-color: rgba(255, 255, 255, 0.1) !important;
   color: rgba(223, 220, 221, 0.8) !important;
 }
 .border-rad-img {
@@ -106,15 +106,58 @@ export default {
 }
 .shadow-card {
   transition: 0.5s;
-
 }
 .shadow-card div:hover {
   box-shadow: -4px 4px 10px rgb(233, 213, 109);
 }
 
-.back-color{
-   height: 200px;
-   border-radius: 15px;
+.back-color {
+  height: 200px;
+  border-radius: 15px;
 }
 
+.dialog-close {
+  width: 120px;
+  height: 50px;
+  border-radius: 30px;
+  border: none;
+  color: white;
+  background-color: #892626;
+  text-align: center;
+  opacity: 1;
+  cursor: pointer;
+  transition: 0.5s;
+}
+.dialog-close:hover {
+  opacity: 0.8;
+}
+
+.dialog-close span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+  font-size: 20px;
+}
+
+.dialog-close span:after {
+  content: "\f55a";
+   font-family: "Font Awesome 5 Free";
+   font-weight: 600;
+  font-size: 20px;
+  position: absolute;
+  opacity: 0;
+  bottom: -2px;
+  right: -40px;
+  transition: 0.5s;
+}
+
+.dialog-close:hover span {
+  padding-right: 25px;
+}
+
+.dialog-close:hover span:after {
+  opacity: 1;
+  right: 0;
+}
 </style>

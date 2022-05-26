@@ -1,7 +1,6 @@
 <template>
   <div>
-    <v-app style="margin-top: 113px; background-color: rgba(31,41,60,0.75)"
-    >
+    <v-app style="margin-top: 113px; background-color: rgba(31,41,60,0.75)">
       <v-app-bar
         fixed
         color="#252527"
@@ -225,13 +224,13 @@ window.addEventListener("fetch", (event) => {
   );
 });
 
-
-
 import { mapActions, mapGetters } from "vuex";
-
+// import CardMovieViewItem from "@/components/CardMovieViewItem.vue";
 export default {
   name: "App",
-  components: {},
+  components: {
+    // CardMovieViewItem,
+  },
   data: () => ({
     collapseOnScroll: true,
     isLoading: false,

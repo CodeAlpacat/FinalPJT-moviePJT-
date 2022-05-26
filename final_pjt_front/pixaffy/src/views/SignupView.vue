@@ -8,6 +8,10 @@
           src="https://img.freepik.com/free-photo/white-brick-wall-texture-design-empty-white-brick-background-for-presentations_1962-1075.jpg?w=1800"
           height="600px"
           width="500px"
+          ><v-img
+            style="margin-top: 130px"
+            src="https://user-images.githubusercontent.com/90893428/170347769-b6d9286e-a86b-42fd-8f52-1f5fc18fa6e8.png"
+          ></v-img
         ></v-img>
       </div>
       <!-- div와 div로 grid를 이용해 반으로 분할 -->
@@ -79,7 +83,14 @@
             persistent-hint
           ></v-select>
         </div>
-        <input type="file" ref="doc" @change="findImg"/>
+        <label for="input-file" class="input-file-button">프로필 사진</label>
+        <input
+          type="file"
+          ref="doc"
+          id="input-file"
+          @change="findImg"
+          style="display: none"
+        />
         <button class="login-card__div__form__btn"><span>Signup</span></button>
       </form>
     </div>
@@ -160,6 +171,7 @@ export default {
 .login-card {
   margin: 0 auto;
   margin-top: 110px;
+  height: 100vh;
 }
 
 .login-card__div {
@@ -189,12 +201,12 @@ export default {
 }
 
 .login-card__div__form__btn {
-  width: 260px;
+  width: 200px;
   height: 35px;
   border-radius: 30px;
   border: none;
   color: white;
-  background-color: #999d9e;
+  background-color: #2b54c4;
   text-align: center;
   opacity: 1;
   cursor: pointer;
@@ -203,6 +215,7 @@ export default {
 }
 .login-card__div__form__btn:hover {
   opacity: 0.7;
+  width: 260px;
 }
 
 .login-card__div__form__btn span {
@@ -241,5 +254,23 @@ export default {
 }
 .select-button {
   max-width: 300px;
+}
+
+.input-file-button {
+  width: 200px;
+  text-align: center;
+  border-radius: 20px;
+  padding: 6px 25px;
+  background-color: #dbaf5d;
+  color: white;
+  cursor: pointer;
+  transition: 0.5s;
+  opacity: 1;
+}
+
+.input-file-button:hover {
+  opacity: 0.7;
+  background-color: #dbb55c;
+  width: 260px;
 }
 </style>

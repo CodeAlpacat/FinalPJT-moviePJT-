@@ -1,5 +1,5 @@
 <template>
-  <div style="background-color: grey">
+  <div>
     <div class="profile">
       <div class="profile__gap">
         <div class="profile__div1__profile_img">
@@ -28,11 +28,23 @@
             <i class="fa-solid fa-users-line fa-lg"></i>
             <div>
               게시글:
-              {{ nowUserProfile.articles.length ? nowUserProfile.articles.length : 0 }}
+              {{
+                nowUserProfile.articles.length
+                  ? nowUserProfile.articles.length
+                  : 0
+              }}
               팔로워:
-              {{ nowUserProfile.followers.length ? nowUserProfile.followers.length : 0 }}
+              {{
+                nowUserProfile.followers.length
+                  ? nowUserProfile.followers.length
+                  : 0
+              }}
               팔로잉:
-              {{ nowUserProfile.followings.length ? nowUserProfile.followings.length : 0 }}
+              {{
+                nowUserProfile.followings.length
+                  ? nowUserProfile.followings.length
+                  : 0
+              }}
             </div>
           </div>
           <div class="profile__position__content">
@@ -46,14 +58,14 @@
           </div>
 
           <div class="profile__position__button">
-            <button
-              v-if="follow_bool"
-              class="profile__div1__follow_btn"
-            >
+            <button v-if="follow_bool" class="profile__div1__follow_btn">
               <router-link
                 :to="{
                   name: 'profileEdit',
-                  params: { username: nowUserProfile.username, userInfo: nowUserProfile },
+                  params: {
+                    username: nowUserProfile.username,
+                    userInfo: nowUserProfile,
+                  },
                 }"
                 ><span class="span_edit">회원정보수정</span></router-link
               >
@@ -69,9 +81,7 @@
               <span v-if="unFollowButton">팔로우</span>
               <span v-if="!unFollowButton">언팔로우</span>
             </button>
-            <button
-              class="profile__div1__follow_btn"
-            >
+            <button class="profile__div1__follow_btn">
               <router-link
                 :to="{
                   name: 'community',
@@ -99,73 +109,71 @@
                   v-for="movie in nowUserProfile.keep_movies"
                   :key="movie.id"
                 >
-                  <card-view-item :movieProps="movie"></card-view-item>
+                  <card-movie-view-item
+                    :movie="movie"
+                    :profile="profile"
+                    style="background-color: #1f293c !important"
+                  ></card-movie-view-item>
                 </v-col>
               </v-row>
             </v-tab-item>
             <v-tab-item style="margin-top: 50px; margin-left: 10px">
-              <div v-for="(article, idx) in nowUserProfile.articles" :key="idx">
+              <div v-for="(article, idx) in this.articleList" :key="idx">
                 <template>
-                  <v-card shaped hover color="#BBDEFB">
+                  <v-card
+                    shaped
+                    hover
+                    color="#BBDEFB"
+                    height="200"
+                    @click="reveal2 = !reveal2"
+                    style="box-shadow: 2px -2px 10px"
+                  >
                     <v-card-text>
                       <p class="text-h4 text--primary">{{ article.title }}</p>
                       <div class="text-h6">
-                        작성 시간: {{ new Date(article.created_at) }}
+                        작성 시각: {{ new Date(article.created_at) }}
                       </div>
                       <div class="text-h6">
-                        작성 시간: {{ new Date(article.updated_at) }}
+                        수정 시각: {{ new Date(article.updated_at) }}
                       </div>
                       <div class="text-h6">
                         좋아요 수: {{ article.liked_users.length }}
                       </div>
                     </v-card-text>
-                    <v-card-actions>
-                      <button
-                        style="margin-right: 20px"
-                        class="profile__div1__follow_btn"
-                        @click="reveal = true"
-                      >
-                        <span class="profile__div__follow_btn_content">
-                          내용</span
-                        >
-                      </button>
-                    </v-card-actions>
 
                     <v-expand-transition>
                       <v-card
-                        v-if="reveal"
+                        v-if="reveal2"
+                        color="#BBDEFB"
                         class="transition-fast-in-fast-out v-card--reveal"
                         style="height: 100%"
                       >
-                        <v-card-text class="pb-0">
+                        <v-card-text class="pb-0 text-absolute-card">
                           <p class="text-h4 text--primary">
                             {{ article.title }}
                           </p>
                           <p class="text-h6">
                             {{ article.content }}
                           </p>
-                        </v-card-text>
-                        <v-card-actions class="pt-0">
-                          <button
-                            style="margin-right: 20px"
-                            class="profile__div1__follow_btn"
-                            @click="reveal = false"
-                          >
-                            <span class="profile__div__follow_btn_span">
-                              Close</span
-                            >
-                          </button>
                           <button class="profile__div1__follow_btn">
                             <router-link
                               :to="{
                                 name: 'article',
-                                params: { articlePk: article.id },
+                                params: {
+                                  article: article,
+                                  articlePk: article.pk,
+                                  isLiked: !!likedArticleList.includes(
+                                    article.pk
+                                  ),
+                                  articleComments: article.comments,
+                                  user: article.user,
+                                },
                               }"
                             >
                               <span>바로가기</span></router-link
                             >
                           </button>
-                        </v-card-actions>
+                        </v-card-text>
                       </v-card>
                     </v-expand-transition>
                   </v-card>
@@ -173,7 +181,10 @@
               </div>
             </v-tab-item>
             <v-tab-item style="margin-top: 50px; margin-left: 10px">
-              <div v-for="(article, idx) in nowUserProfile.like_articles" :key="idx">
+              <div
+                v-for="(article, idx) in nowUserProfile.like_articles"
+                :key="idx"
+              >
                 <template>
                   <v-card shaped hover color="#BBDEFB">
                     <v-card-text>
@@ -250,22 +261,31 @@
 
 <script>
 import { mapGetters, mapActions } from "vuex";
-import CardViewItem from "@/components/CardViewItem.vue";
+import CardMovieViewItem from "@/components/CardMovieViewItem.vue";
 export default {
   name: "ProfileCommunityView",
   components: {
-    CardViewItem,
+    CardMovieViewItem,
   },
   computed: {
-    ...mapGetters(["profile", "currentUser", "nowUserProfile"]),
-     follow_bool() {
-      return (this.currentUser.username === this.nowUserProfile.username)
-    }
+    ...mapGetters(["profile", "currentUser", "nowUserProfile", "articles"]),
+    follow_bool() {
+      return this.currentUser.username === this.nowUserProfile.username;
+    },
   },
   methods: {
-    ...mapActions(["fetchProfile", "followProfile", "fetchNowUserProfile"]),
+    ...mapActions([
+      "fetchProfile",
+      "followProfile",
+      "fetchNowUserProfile",
+      "fetchArticles",
+    ]),
     followOrUnfollow() {
-      if (this.nowUserProfile.followers.some((item) => item == this.currentUser.pk)) {
+      if (
+        this.nowUserProfile.followers.some(
+          (item) => item == this.currentUser.pk
+        )
+      ) {
         this.unFollowButton = true;
       } else {
         this.unFollowButton = false;
@@ -278,14 +298,33 @@ export default {
       genres_list: [],
       unFollowButton: true,
       posterPath: null,
-      reveal: false,
-      profileLoaded:null
+      reveal1: false,
+      reveal2: false,
+      profileLoaded: null,
+      articleList: [],
+      articleLikeList: [],
     };
   },
 
   async created() {
     const payload = { username: this.$route.params.username };
-    this.fetchNowUserProfile(payload)
+    this.fetchNowUserProfile(payload);
+
+
+    await this.fetchArticles();
+
+    for (let i = 0; i < this.articles.length; i++) {
+      if (this.nowUserProfile.pk == this.articles[i].user.pk) {
+        this.articleList.push(this.articles[i]);
+      }
+      for (let j = 0; j < this.nowUserProfile.like_articles.length; j++) {
+        if (this.nowUserProfile.like_articles[j].id == this.articles[i].pk) {
+          this.articleLikeList.push(this.articles[i]);
+        }
+      }
+    }
+    console.log(this.nowUserProfile)
+    console.log(this.articles)
 
     const res = await fetch("http://127.0.0.1:8000/movies/genres/");
     const save_genres = await res.json();
@@ -295,18 +334,17 @@ export default {
       }
     }
     this.items = this.nowUserProfile.keep_movies;
-    const list_gen = JSON.parse(this.nowUserProfile.genre_likes)
-      if (save_genres) {
-        this.genres_list = list_gen.genre_likes.map((item) => {
-          for (let i = 0; i < save_genres.length; i++) {
-            if (parseInt(item) === save_genres[i].id) {
-              return save_genres[i].name;
-            }
+    const list_gen = JSON.parse(this.nowUserProfile.genre_likes);
+    if (save_genres) {
+      this.genres_list = list_gen.genre_likes.map((item) => {
+        for (let i = 0; i < save_genres.length; i++) {
+          if (parseInt(item) === save_genres[i].id) {
+            return save_genres[i].name;
           }
-        });
-      }
-
+        }
+      });
     }
+  },
 };
 </script>
 
