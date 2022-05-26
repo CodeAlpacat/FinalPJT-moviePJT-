@@ -24,7 +24,7 @@
     style="
       margin-left: 100px;
       margin-right: 100px;
-      margin-top: 150px;
+      margin-top: 120px;
       font-family: 'Jeju Gothic', sans-serif !important;
       background-color: rgba(31, 41, 60, 0) !important;
     "

@@ -16,80 +16,43 @@
           startAt: 0,
           opacity: 0.7
         }"
-      style="position: fixed !important; width: 3840px; height: 2160px"
+      style="position: fixed !important; width: 271vmax; height: 100vmax"
     ></div>
-    <!-- <div class="recommend-text-div">
-      <div class="home-text" style="
-        color:rgb(221, 147, 48); 
-        font-family: 'Jeju Gothic', sans-serif !important; 
-        font-size: 64px; 
-        position: absolute; 
-        top: 20px;
-        left: 50%;
-        width: 610px;
-        transform: translate(-50%, 0)
-      ">좋아하는 장르가 있어? </div>
-    </div> -->
     <genre-based-recommendation></genre-based-recommendation>
-    <div class="now-playing-text-div">
-      <div
-        style="
-          color: rgb(218, 221, 228);
-          font-family: 'Jeju Gothic', sans-serif !important;
-          font-size: 64px;
-          position: absolute;
-          top: 975px;
-          left: 50%;
-          width: 510px;
-          transform: translate(-50%, 0);
-        "
-      >
-        현재 상영중인 영화
-      </div>
-    </div>
-    <card-view :keyword="'nowplaying/'"></card-view>
-    <!-- <card-view :keyword="'recommend/' + String(user.pk)"></card-view> -->
-    <!-- <div class="now-playing-text-div">
-      <div style="
-        color:rgb(218,221, 228); 
-        font-family: 'Jeju Gothic', sans-serif !important; 
-        font-size: 64px; 
-        position: absolute; 
-        top: 1585px;
-        left: 50%;
-        width: 510px;
-        transform: translate(-50%, 0)
-      "> 상영 예정인 영화 </div>
-    </div> -->
-    <card-view :keyword="'upcoming/'">
-      <!-- <div class="now-playing-text-div">
+    <div style="margin-top: 80px">
+      <div class="now-playing-text-div d-flex justify-center mb-0">
         <div
           style="
             z-index: 99;
             color: rgb(218, 221, 228);
             font-family: 'Jeju Gothic', sans-serif !important;
             font-size: 64px;
-            position: absolute;
-            top: 1585px;
-            left: 50%;
             width: 510px;
-            transform: translate(-50%, 0);
           "
         >
-          상영 예정인 영화
+          현재 상영중인 영화
         </div>
-      </div> -->
-       <div class="now-playing-text-div">
-      <div style="
-        color:rgb(218,221, 228); 
-        font-family: 'Jeju Gothic', sans-serif !important; 
-        font-size: 64px; 
-        top: 1585px;
-        left: 50%;
-        width: 510px;
-      "> 상영 예정인 영화 </div>
+      </div>
+      <card-view :keyword="'nowplaying/'"></card-view>
     </div>
-    </card-view>
+    <!-- <card-view :keyword="'recommend/' + String(user.pk)"></card-view> -->
+    <div style="margin-top: 80px">
+      <div class="now-playing-text-div d-flex justify-center mb-0">
+        <div
+          style="
+            z-index: 99;
+            color: rgb(218, 221, 228);
+            font-family: 'Jeju Gothic', sans-serif !important;
+            font-size: 64px;
+            width: 510px;
+            padding-left: 50px;
+          "
+        >
+          상영 예정 영화
+        </div>
+      </div>
+      <card-view :keyword="'upcoming/'"> </card-view>
+    </div>
   </div>
 </template>
 
@@ -125,14 +88,14 @@ export default {
 
 .inline-YTPlayer {
   position: fixed !important;
-  height: 3840px !important;
-  width: 2160px !important;
-  top: -20vh;
+  width: 271vmax !important;
+  height: 100vmax !important;
+  top: -50vmax;
 }
 
 .YTPOverlay {
-  height: 3840px !important;
-  width: 2160px !important;
+  width: 271vmax !important;
+  height: 100vmax !important;
 }
 
 .recommend-text-div {

@@ -1,6 +1,6 @@
 <template>
   <div id="carouselMovie">
-    <div class="recommend-text-div">
+    <div class="d-flex justify-center" style="margin-top:50px;">
       <div
         class="home-text"
         style="
@@ -8,9 +8,7 @@
           color: rgb(221, 147, 48);
           font-family: 'Jeju Gothic', sans-serif !important;
           font-size: 64px;
-          position: absolute;
           top: 20px;
-          margin-left: 800px;
           margin-bottom: 100px;
           width: 610px;
           text-align: center;

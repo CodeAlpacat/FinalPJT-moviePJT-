@@ -2,9 +2,11 @@
   <div>
     <h1
       style="
-        color: white;
+        color: rgb(218, 221, 228);
+        font-family: 'Jeju Gothic', sans-serif !important;
+        font-size: 64px;
         text-align: center;
-        margin-bottom: 100px;
+        margin-bottom: 50px;
         margin-top: 100px;
         margin-right: 120px;
       "
