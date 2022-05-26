@@ -262,7 +262,7 @@ export default {
           commit('SET_EDIT_PROFILE', res.data)
           commit('SET_PROFILE', res.data)
           router.push({
-            name: 'profileCommunity',
+            name: 'profile',
             params: { username }
           })
         })

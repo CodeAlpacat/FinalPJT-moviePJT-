@@ -66,8 +66,7 @@ export default {
   },
   async created() {
     await this.fetchArticles();
-    const localuser = JSON.parse(window.localStorage.getItem('currentUser'))
-    this.fetchProfile({'username':localuser.username});
+    this.fetchProfile({ username: this.currentUser.username });
   }
 }
 </script>

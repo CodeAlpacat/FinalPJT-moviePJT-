@@ -1,20 +1,4 @@
 <template>
-  <!-- <div>
-    <h2 class="mt-2" style="color:#E5EAEE; font-family: 'Jeju Gothic', sans-serif !important;">Now Playing</h2>
-    <v-container fluid>
-      <v-row>
-        <v-col
-          cols="12"
-          sm="3"
-          lg="2"
-          v-for="movie in movieDatas"
-          :key="movie.id"
-        >
-          <card-view-item :movieProps="movie"></card-view-item>
-        </v-col>
-      </v-row>
-    </v-container>
-  </div> -->
   <vueper-slides
     :breakpoints="breakpoints"
     :touchable="true"
@@ -44,7 +28,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 import { VueperSlides, VueperSlide } from "vueperslides";
 import "vueperslides/dist/vueperslides.css";
 import { mapGetters } from "vuex";
@@ -88,41 +72,43 @@ export default {
           visibleSlides: 3,
         },
         1300: {
-          slideRatio: 1 / 2, 
+          slideRatio: 1 / 2,
           visibleSlides: 2,
         },
         1000: {
           visibleSlides: 1,
-        }
+        },
         // The order you list breakpoints does not matter, Vueper Slides will sort them for you.
       },
     };
   },
   methods: {},
   async created() {
-    if (this.is_api) { // api 요청일 경우
+    if (this.is_api) {
+      // api 요청일 경우
       axios({
-        url: this.keyword
+        url: this.keyword,
       })
-        .then(res => {
+        .then((res) => {
           this.movieDatas = res.data.results;
         })
         .catch((error) => {
-          console.log(error)
-        })
-    } else { // django 요청일 경우
+          console.log(error);
+        });
+    } else {
+      // django 요청일 경우
       // const response = await fetch(this.keyword);
       // this.movieDatas = await response.json();
       axios({
-        url: this.keyword
+        url: this.keyword,
       })
-        .then(res => {
-          console.log(res.data)
+        .then((res) => {
+          console.log(res.data);
           this.movieDatas = res.data;
         })
         .catch((error) => {
-          console.log(error)
-        })
+          console.log(error);
+        });
     }
   },
   computed: {
@@ -132,7 +118,8 @@ export default {
 </script>
 
 <style>
-.vueperslides.vueperslides--ready.vueperslides--touchable .vueperslides--bullets-outside {
+.vueperslides.vueperslides--ready.vueperslides--touchable
+  .vueperslides--bullets-outside {
   background-color: rgba(31, 41, 60, 0.75) !important;
 }
-</style>  
+</style>

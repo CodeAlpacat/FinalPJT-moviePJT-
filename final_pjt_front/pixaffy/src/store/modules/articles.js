@@ -187,8 +187,7 @@ export default {
           에러 메시지 표시
       */
       const comment = { content }
-      console.log(content)
-      console.log(articlePk)
+
       axios({
         url: drf.articles.comments(articlePk),
         method: 'post',
