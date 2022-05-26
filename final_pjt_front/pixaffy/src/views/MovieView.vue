@@ -18,22 +18,28 @@
         }"
       style="position: fixed !important; width: 2560px; height: 1440px"
     ></div>
-    <h1
-      style="
-        color: rgb(218, 221, 228) !important;
-        font-family: 'Jeju Gothic', sans-serif !important;
-        font-size: 64px;
-        text-align: center;
-        margin-bottom: 50px;
-        margin-top: 100px;
-        margin-right: 120px;
-      "
-    >
-      모든 영화를 한 눈에!
-    </h1>
+    <div>
+      <h1
+        style="
+          position: relative;
+          color: rgb(218, 221, 228);
+          font-family: 'Jeju Gothic', sans-serif !important;
+          font-size: 64px;
+          text-align: center;
+          margin-bottom: 50px;
+          margin-top: 100px;
+          margin-right: 120px;
+        "
+      >
+        모든 영화를 한 눈에!
+      </h1>
+    </div>
     <v-container>
       <v-row>
         <v-col
+     data-aos="flip-right"
+     data-aos-easing="ease-out-cubic"
+     data-aos-duration="1500"
           v-for="movie in movieList"
           :key="movie.title"
           cols="12"
@@ -55,7 +61,6 @@
         <span>더보기</span>
       </button>
     </v-container>
-  
   </div>
 </template>
 

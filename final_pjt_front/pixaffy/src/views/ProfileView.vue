@@ -77,7 +77,7 @@
             <v-tab>작성한 게시글</v-tab>
             <v-tab>좋아요한 게시글</v-tab>
 
-            <v-tab-item style="margin-top: 50px; margin-left: 10px">
+            <v-tab-item style="margin-top: 50px; margin-left: 10px; height: 600px;">
               <v-row justify="center">
                 <v-col
                   cols="3"
@@ -94,7 +94,7 @@
                 </v-col>
               </v-row>
             </v-tab-item>
-            <v-tab-item style="margin-top: 50px; margin-left: 10px">
+            <v-tab-item style="margin-top: 50px; margin-left: 10px; height: 600px;">
               <div v-for="(article, idx) in this.articleList" :key="idx">
                 <template>
                   <v-card
@@ -157,7 +157,7 @@
                 </template>
               </div>
             </v-tab-item>
-            <v-tab-item style="margin-top: 50px; margin-left: 10px">
+            <v-tab-item style="margin-top: 50px; margin-left: 10px; height: 600px;" >
               <div v-for="(article, idx) in this.articleLikeList" :key="idx">
                 <template>
                   <v-card

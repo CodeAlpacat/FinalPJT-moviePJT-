@@ -100,6 +100,7 @@ export default {
           dispatch('saveToken', token)
           dispatch('fetchCurrentUser')
           router.push({ name: 'home' })
+          commit('SET_PROFILE', res.data)
         })
         .catch(err => {
           console.error(err.response.data)
@@ -128,6 +129,7 @@ export default {
           dispatch('saveToken', token)
           dispatch('fetchCurrentUser')
           router.push({ name: 'home' })
+          commit('SET_PROFILE', res.data)
         })
         .catch(err => {
           console.error(err.response.data)
@@ -135,7 +137,7 @@ export default {
         })
     },
 
-    logout({ getters, dispatch }) {
+    logout({ getters, dispatch, commit }) {
       /* 
       POST: token을 logout URL로 보내기
         성공하면
@@ -151,10 +153,11 @@ export default {
         // data: {},
         headers: getters.authHeader,
       })
-        .then(() => {
+        .then((res) => {
           dispatch('removeToken')
           alert('성공적으로 logout!')
           router.push({ name: 'login' })
+          commit('SET_PROFILE', res.data)
         })
         .error(err => {
           console.error(err.response)

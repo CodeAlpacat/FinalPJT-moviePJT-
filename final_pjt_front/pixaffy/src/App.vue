@@ -2,6 +2,7 @@
   <div>
     <v-app style="margin-top: 113px; background-color: rgba(31,41,60,0.75)">
       <v-app-bar
+        style="z-index: 110;"
         fixed
         color="#252527"
         dark
@@ -146,7 +147,7 @@
   
                 <v-divider class="my-3"></v-divider>
   
-                <router-link :to="{ name: 'profile', params: { username } }">
+                <router-link :to="{ name: 'profile', params: { username:currentUser.username } }">
                   <v-btn depressed rounded text dark>Profile</v-btn>
                 </router-link>
                 <v-divider class="my-3"></v-divider>
@@ -158,7 +159,7 @@
                   v-if="isLoggedIn"
                   :to="{
                     name: 'profileEdit',
-                    params: { username: profile.username, userInfo: profile },
+                    params: { username: currentUser.username, userInfo: profile },
                   }"
                   ><v-btn depressed rounded text dark>Edit Profile</v-btn></router-link
                 >
