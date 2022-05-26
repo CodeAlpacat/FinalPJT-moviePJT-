@@ -25,7 +25,17 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: HomeView
+    component: HomeView,
+    // beforeEnter: function(){
+    //   console.log('beforeEnter')
+    //   // setTimeout(() => {
+    //     // },1500)
+    //   // eslint-disable-next-line
+    //   // jQuery( function() {
+    //   // // eslint-disable-next-line
+    //   //   jQuery( '#Live' ).YTPlayer();
+    //   // });
+    // }
   },
   {
     path: '/movie',
