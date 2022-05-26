@@ -44,6 +44,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 import { VueperSlides, VueperSlide } from "vueperslides";
 import "vueperslides/dist/vueperslides.css";
 import { mapGetters } from "vuex";
@@ -59,7 +60,8 @@ export default {
     CardMovieViewItemVueper,
   },
   props: {
-    keyword: String,
+    keyword: String, // 주소 전체
+    is_api: Boolean, // true 일 경우, api요청, false 일 경우, django요청
   },
   data() {
     return {
@@ -98,8 +100,30 @@ export default {
   },
   methods: {},
   async created() {
-    const response = await fetch(`http://127.0.0.1:8000/movies/${this.keyword}`);
-    this.movieDatas = await response.json();
+    if (this.is_api) { // api 요청일 경우
+      axios({
+        url: this.keyword
+      })
+        .then(res => {
+          this.movieDatas = res.data.results;
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    } else { // django 요청일 경우
+      // const response = await fetch(this.keyword);
+      // this.movieDatas = await response.json();
+      axios({
+        url: this.keyword
+      })
+        .then(res => {
+          console.log(res.data)
+          this.movieDatas = res.data;
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    }
   },
   computed: {
     ...mapGetters(["profile"]),
